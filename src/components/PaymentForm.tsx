@@ -24,7 +24,7 @@ export default class PaymentForm extends Component<any, any> {
 
   componentDidMount() {
     const config = {
-      applicationId: "sq0idp-qodOWtPCuZGjYqfM7QmH2w",
+      applicationId: "sandbox-sq0idb-a_jR0z9d3-AEKGWl7NTZ9Q",
       locationId: "GMT96A77XABR1",
       inputClass: "sq-input",
       autoBuild: false,
@@ -120,7 +120,7 @@ export default class PaymentForm extends Component<any, any> {
           })
           
           axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/process-payment',{
-            paymentAmmount:this.props.ammount*100, 
+            paymentAmmount: this.props.ammount*100, 
             currency:"USD",
             cardNounce:nonce
           }).then( result => {

@@ -24,7 +24,7 @@ const IndexPage = () => {
       <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
 
       {typeof window !== 'undefined' && (
-        <PaymentForm paymentForm={window.SqPaymentForm} amount={1} />
+        <PaymentForm paymentForm={window.SqPaymentForm} ammount={1} />
       )}
     </Layout>
   )
