@@ -119,7 +119,7 @@ export default class PaymentForm extends Component<any, any> {
             nonce: nonce,
           })
           
-          axios.post('https://memoriaanalogica.netlify.com/.netlify/functions/process-payment',{
+          axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/process-payment',{
             paymentAmmount:this.props.ammount*100, 
             currency:"USD",
             cardNounce:nonce
