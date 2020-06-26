@@ -4,7 +4,7 @@ import { Link } from "gatsby"
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
-import PaymentForm from '../components/PaymentForm'
+import PaymentForm, { loadSquareSdk } from '../components/PaymentForm'
 import { Helmet } from "react-helmet"
 
 const IndexPage = () => {
