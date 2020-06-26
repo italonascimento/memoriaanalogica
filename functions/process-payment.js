@@ -3,11 +3,11 @@ const squareConnect = require("square-connect")
 require("dotenv").config({})
 
 exports.handler = async (event, context, callback) => {
-  console.log(`function method:${event.httpMethod}`)
+  console.log(`function method: ${event.httpMethod}`)
   try {
     // check the method due to pre-flight options request done before the actual post by some browsers
     if (event.httpMethod === "OPTIONS") {
-      callback({
+      callback(null, {
         statusCode: 205,
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -21,14 +21,14 @@ exports.handler = async (event, context, callback) => {
 
     // checks the method and body to see if they are allowed
     if (event.httpMethod !== "POST" || !event.body) {
-      callback({ statusCode: 405, body: "Method Not Allowed" })
+      callback(null, { statusCode: 405, body: "Method Not Allowed" })
       return
     }
 
     // fetches the token (don't forget that this might be using the sandbox one, adjust accordingly when deploying)
     const token = process.env.GATSBY_SQUARE_APLLICATION_TOKEN
     if (!token) {
-      callback({
+      callback(null, {
         statusCode: 405,
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -74,7 +74,7 @@ exports.handler = async (event, context, callback) => {
     //
     // calls the square payments api to process the payment issued
     const response = await payments_api.createPayment(request_body)
-    callback({
+    callback(null, {
       statusCode: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -88,7 +88,7 @@ exports.handler = async (event, context, callback) => {
     })
   } catch (error) {
     console.log(error)
-    callback({
+    callback("Something went wrong with your request. Try again later", {
       statusCode: 500,
       headers: {
         "Access-Control-Allow-Origin": "*",
