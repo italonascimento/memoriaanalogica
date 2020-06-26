@@ -8,19 +8,10 @@ import PaymentForm, { loadSquareSdk } from '../components/PaymentForm'
 import { Helmet } from "react-helmet"
 
 const IndexPage = () => {
-  const [isSquareLoaded, setIsSquareLoaded] = useState(false)
-
-  useEffect(() => {
-    loadSquareSdk()
-      .then(() => {
-        setIsSquareLoaded(true)
-      })
-  }, [])
-
   return (
     <Layout>
       <Helmet>
-        <meta httpEquiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' *.squarecdn.com *.google.com" />
+        <script type="text/javascript" src="https://js.squareupsandbox.com/v2/paymentform"></script>
       </Helmet>
       <SEO title="Home" />
       <h1>Hi people</h1>
@@ -32,7 +23,7 @@ const IndexPage = () => {
       <Link to="/page-2/">Go to page 2</Link> <br />
       <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
 
-      {(isSquareLoaded && typeof window !== 'undefined') && (
+      {typeof window !== 'undefined' && (
         <PaymentForm paymentForm={window.SqPaymentForm} amount={1} />
       )}
     </Layout>
