@@ -274,18 +274,3 @@ const styles: {[key in string]: CSSProperties} = {
     textAlign: "center",
   },
 }
-
-export const loadSquareSdk = () => {
-  return new Promise((resolve, reject) => {
-    const sqPaymentScript = document.createElement("script") as any
-    sqPaymentScript.src = "https://js.squareup.com/v2/paymentform"
-    sqPaymentScript.crossorigin = "anonymous"
-    sqPaymentScript.onload = () => {
-      resolve()
-    }
-    sqPaymentScript.onerror = () => {
-      reject(`Failed to load ${sqPaymentScript.src}`)
-    }
-    document.getElementsByTagName("head")[0].appendChild(sqPaymentScript)
-  })
-}

@@ -2,12 +2,12 @@ const crypto = require("crypto")
 const squareConnect = require("square-connect")
 require("dotenv").config({})
 
-exports.handler = async (event, context) => {
+exports.handler = async (event, context, callback) => {
   console.log(`function method:${event.httpMethod}`)
   try {
     // check the method due to pre-flight options request done before the actual post by some browsers
     if (event.httpMethod === "OPTIONS") {
-      return {
+      callback({
         statusCode: 205,
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -15,18 +15,20 @@ exports.handler = async (event, context) => {
             "Origin, X-Requested-With, Content-Type, Accept",
         },
         body: "BOOP",
-      }
+      })
+      return
     }
 
     // checks the method and body to see if they are allowed
     if (event.httpMethod !== "POST" || !event.body) {
-      return { statusCode: 405, body: "Method Not Allowed" }
+      callback({ statusCode: 405, body: "Method Not Allowed" })
+      return
     }
 
     // fetches the token (don't forget that this might be using the sandbox one, adjust accordingly when deploying)
     const token = process.env.GATSBY_SQUARE_APLLICATION_TOKEN
     if (!token) {
-      return {
+      callback({
         statusCode: 405,
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -35,7 +37,8 @@ exports.handler = async (event, context) => {
         },
         body:
           "Something is wrong with the configuration. Check your configuration",
-      }
+      })
+      return
     }
 
     // retrieves the payment data sent from the website
@@ -71,7 +74,7 @@ exports.handler = async (event, context) => {
     //
     // calls the square payments api to process the payment issued
     const response = await payments_api.createPayment(request_body)
-    return {
+    callback({
       statusCode: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -82,10 +85,10 @@ exports.handler = async (event, context) => {
         message: `Payment Successful`,
         paymentInfo:response
       }),
-    }
+    })
   } catch (error) {
     console.log(error)
-    return {
+    callback({
       statusCode: 500,
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -93,6 +96,6 @@ exports.handler = async (event, context) => {
           "Origin, X-Requested-With, Content-Type, Accept",
       },
       body: "Something went wrong with your request. Try again later",
-    }
+    })
   }
 }
