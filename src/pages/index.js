@@ -7,7 +7,16 @@ import SEO from "../components/seo"
 import PaymentForm from '../components/PaymentForm'
 import { Helmet } from "react-helmet"
 
-const IndexPage = () => {  
+const IndexPage = () => {
+  const [isSquareLoaded, setIsSquareLoaded] = useState(false)
+
+  useEffect(() => {
+    loadSquareSdk()
+      .then(() => {
+        setIsSquareLoaded(true)
+      })
+  }, [])
+
   return (
     <Layout>
       <Helmet>
@@ -23,7 +32,7 @@ const IndexPage = () => {
       <Link to="/page-2/">Go to page 2</Link> <br />
       <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
 
-      {typeof window !== 'undefined' && (
+      {(isSquareLoaded && typeof window !== 'undefined') && (
         <PaymentForm paymentForm={window.SqPaymentForm} amount={1} />
       )}
     </Layout>
