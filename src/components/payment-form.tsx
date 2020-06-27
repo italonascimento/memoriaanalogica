@@ -1,6 +1,5 @@
 import React, { Component, CSSProperties } from 'react'
 import axios from 'axios'
-// import { navigate } from 'gatsby'
 
 export default class PaymentForm extends Component<any, any> {
 
@@ -258,9 +257,6 @@ const styles: {[key in string]: CSSProperties} = {
     color: "#373F4A",
     backgroundColor: "transparent",
     lineHeight: "1.15em",
-    // placeholderColor: "#000",
-    // _webkitFontSmoothing: "antialiased",
-    // _mozOsxFontSmoothing: "grayscale",
   },
   leftCenter: {
     float: "left",
