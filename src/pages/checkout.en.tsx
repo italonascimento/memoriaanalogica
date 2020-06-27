@@ -11,7 +11,7 @@ const SecondPage = () => (
     <Helmet>
       <script type="text/javascript" src="https://js.squareupsandbox.com/v2/paymentform"></script>
     </Helmet>
-    <SEO title="Home" />
+    <SEO title="Checkout" />
 
     {typeof window !== 'undefined' && (
       <PaymentForm paymentForm={(window as any).SqPaymentForm} ammount={1} />

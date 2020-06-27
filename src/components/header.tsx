@@ -1,6 +1,7 @@
 import React from "react"
 import styled, { ThemeProps } from "styled-components"
 import { Theme } from "../themes/default-theme"
+import LangSelector from "./molecules/lang-selector"
 
 interface IProps {
   siteTitle: string
@@ -13,6 +14,9 @@ const Header = ({
     <Title>
       {siteTitle}
     </Title>
+    {typeof window !== 'undefined' && (
+      <LangSelector location={window.location} />
+    )}
   </Container>
 )
 
