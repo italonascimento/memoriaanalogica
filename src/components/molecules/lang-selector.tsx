@@ -1,32 +1,35 @@
 import React, { useContext } from 'react'
-import LangContext from '../lang-context'
 import { Link } from 'gatsby'
+import { IntlContextConsumer, changeLocale } from 'gatsby-plugin-intl'
 
-const langs = [
-  {
-    code: 'en',
-    label: 'English',
-  },
-  {
-    code: 'pt',
-    label: 'Português',
-  },
-]
+const languageNames: {[keyb in string]: string} = {
+  en: 'English',
+  pt: 'Português',
+}
 
 interface IProps {
   location?: Location
 }
 
-const LangSelector = ({ location }: IProps) => {
-  const lang = useContext(LangContext)
-
-  return <div>
-    {langs.filter(({ code }) => code != lang).map(({ code, label }) =>
-      <Link to={`/${code}/${location?.pathname.replace(/\/\w{2}\//, '')}`}>
-        {label}
-      </Link>
-    )}
-  </div>
+interface IConsumer {
+  languages: string[]
+  language: string
 }
+
+const LangSelector = ({ location }: IProps) =>
+  <div>
+    <IntlContextConsumer>
+      {({ languages, language }: IConsumer) =>
+        languages.map(language => (
+          <a
+            key={language}
+            onClick={() => changeLocale(language)}
+          >
+            {languageNames[language]}
+          </a>
+        ))
+      }
+    </IntlContextConsumer>
+  </div>
 
 export default LangSelector

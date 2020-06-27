@@ -12,14 +12,14 @@ import styled, { ThemeProvider } from "styled-components"
 import Header from "../components/header"
 import "./layout.css"
 import { defaultTheme } from "../themes/default-theme"
-import LangContext, { Lang } from "../components/lang-context"
+import GlobalStyle from "../styles/global-style"
+import ResetStyle from "../styles/reset-style"
 
 interface IProps {
   children: React.ReactNode
-  lang?: Lang
 }
 
-const Layout = ({ children, lang }: IProps) => {
+const Layout = ({ children }: IProps) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -31,15 +31,15 @@ const Layout = ({ children, lang }: IProps) => {
   `)
 
   return (
-    <LangContext.Provider value={lang || 'en'}>
-      <ThemeProvider theme={defaultTheme}>
-        <Header siteTitle={data.site.siteMetadata.title} />
-        <Main>{children}</Main>
-        <footer>
-          
-        </footer>
-      </ThemeProvider>
-    </LangContext.Provider>
+    <ThemeProvider theme={defaultTheme}>
+      <ResetStyle />
+      <GlobalStyle />
+      <Header siteTitle={data.site.siteMetadata.title} />
+      <Main>{children}</Main>
+      <footer>
+        
+      </footer>
+    </ThemeProvider>
   )
 }
 

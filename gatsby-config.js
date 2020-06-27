@@ -33,13 +33,13 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
     {
-      resolve: `gatsby-plugin-i18n`,
+      resolve: `gatsby-plugin-intl`,
       options: {
-        langKeyDefault: 'en',
-        langKeyForNull: 'en',
-        prefixDefault: true,
-        useLangKeyLayout: false,
+        path: `${__dirname}/intl`,
+        languages: [`en`, `pt`],
+        defaultLanguage: `en`,
+        redirect: true,
       },
-    }
+    },
   ],
 }
