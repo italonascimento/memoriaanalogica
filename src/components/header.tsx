@@ -26,7 +26,7 @@ const Container = styled.div`
   align-items: center;
   background: ${(props: ThemeProps<Theme>) => props.theme.colors.mainBackground};
   padding: 16px 32px;
-  box-shadow: ${(props: ThemeProps<Theme>) => props.theme.softShadow};
+  box-shadow: ${(props: ThemeProps<Theme>) => props.theme.softShadowLow};
 `
 
 const Title = styled.h1`

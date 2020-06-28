@@ -17,7 +17,9 @@ export interface Theme {
   titleFontFamily: string
 
 
-  softShadow: string
+  softShadowLow: string
+  softShadowMedium: string
+  softShadowHigh: string
 }
 
 export const defaultTheme: Partial<Theme> = {
@@ -30,13 +32,14 @@ export const defaultTheme: Partial<Theme> = {
     dimNeutral: '#ccc',
   
     primary: '#68d388',
-    dimPrimary: '#f43a09',
+    dimPrimary: '#c2edda',
     secondary: '#f43a09',
     dimSecondary: '#ffb766',
   },
 
   textFontFamily: 'sans-serif',
 
-
-  softShadow: '0 2px 3px 0px rgba(0,0,0,0.2)',
+  softShadowLow: '0 2px 6px 0px rgba(0,0,0,0.2)',
+  softShadowMedium: '0 2px 12px 0px rgba(0,0,0,0.2)',
+  softShadowHigh: '0 2px 18px 0px rgba(0,0,0,0.2)',
 }

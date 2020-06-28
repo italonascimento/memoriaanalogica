@@ -41,6 +41,7 @@ const LangSelector = ({ location }: IProps) => {
           <Select
             onSelect={(lang) => changeLocale(`${lang}`)}
             initialValue={language}
+            align='right'
           >
               {languages.map(language => (
                 <Option key={language} value={language}>
@@ -60,6 +61,7 @@ const LangSelector = ({ location }: IProps) => {
 const LanguageButton = styled.span`
   display: inline-flex;
   align-items: center;
+  font-size: 12px;
 
   svg {
     margin-right: 8px;

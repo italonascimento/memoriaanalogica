@@ -1,23 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styled, { ThemeProps } from "styled-components"
 import { AiFillCaretDown } from 'react-icons/ai'
+import { IoIosCheckmark } from 'react-icons/io'
 
 import { Theme } from '../../themes/default-theme'
 import useClickOutsideHandler from '../hooks/useClickOutsideHandler'
 import Button from '../atoms/button'
 import Spacing from '../atoms/spacing'
+import elevation from '../../styles/elevation'
 
-interface IProps {
+interface ISelectProps {
   initialValue?: string | number
+  align?: 'left' | 'right'
   children: React.ReactNode | React.ReactNode[]
   onSelect: (t: string | number) => void
 }
 
 export const Select = ({
   initialValue,
+  align = 'left',
   children,
   onSelect,
-}: IProps) => {
+}: ISelectProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState(initialValue)
   const ref = useRef<HTMLDivElement>(null)
@@ -32,19 +36,21 @@ export const Select = ({
 
   return (
     <Container ref={ref} onClick={() => setIsOpen(!isOpen)}>
-      <StyledButton>
+      <StyledButton elevation={isOpen ? 1 : 0}>
         {React.Children.toArray(children).find((child: React.ReactElement) => child.props.value === selected)}
         <Spacing x={8} />
         <AiFillCaretDown />
       </StyledButton>
 
       {isOpen && (
-        <OptionsContainer>
+        <OptionsContainer align={align}>
           {React.Children.map(children, (child: React.ReactElement) => (
             <OptionWrapper 
               selected={child.props.value === selected}
               onClick={() => setSelected(child.props.value)}  
             >
+              {child.props.value === selected && <IoIosCheckmark />}
+              <Spacing x={8} />
               {child}
             </OptionWrapper>
           ))}
@@ -73,13 +79,21 @@ const StyledButton = styled(Button)`
   padding-right: 8px;
 `
 
-const OptionsContainer = styled.ul`
+interface IOptionsContainerProps extends ThemeProps<Theme> {
+  align: 'left' | 'right'
+}
+
+const OptionsContainer = styled.ul<IOptionsContainerProps>`
   list-style: none;
-  margin: 0;
-  padding: 8px;
+  margin: 4px 0 0 0 ;
+  padding: 0;
   position: absolute;
   top: 100%;
-  left: 0;
+  ${(props: IOptionsContainerProps) => `${props.align}: 0;`}
+  background: ${(props: IOptionsContainerProps) => props.theme.colors.mainBackground};
+  ${elevation(1)}
+  border-radius: 4px;
+  overflow: hidden;
 `
 
 interface IOptionWrapperProps extends ThemeProps<Theme> {
@@ -87,10 +101,12 @@ interface IOptionWrapperProps extends ThemeProps<Theme> {
 }
 
 const OptionWrapper = styled.li<IOptionWrapperProps>`
+  display: flex;
   cursor: pointer;
-  background: ${(props: IOptionWrapperProps) => 
-    props.selected
-      ? props.theme.colors.selectionBackground
-      : 'inherit'
-    };
+  padding: 8px 16px 8px 24px;
+  ${(props: IOptionWrapperProps) => props.selected && `padding-left: 8px;`}
+
+  &:hover {
+    background: ${(props: IOptionWrapperProps) => props.theme.colors.dimPrimary};
+  }
 `
