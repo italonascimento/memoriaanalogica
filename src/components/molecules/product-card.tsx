@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { ThemeProps } from 'styled-components'
-import { FormattedNumber } from 'gatsby-plugin-intl'
+import { FormattedNumber, Link } from 'gatsby-plugin-intl'
 import { useStaticQuery, graphql } from 'gatsby'
 import Img from "gatsby-image"
 
@@ -46,7 +46,9 @@ const ProductCard = ({
       </Photo>
       <Content>
         <Title>
-          {details.name}
+          <Link to={`/p/${details.slug}-${sku}/`}>
+            {details.name}
+          </Link>
         </Title>
         <Price>
           <FormattedNumber value={price} style='currency' currency={t('currency')} />

@@ -14,6 +14,7 @@ import { defaultTheme } from "../themes/default-theme"
 import GlobalStyle from "../styles/global-style"
 import ResetStyle from "../styles/reset-style"
 import mediaQueries from "../styles/media-queries"
+import { Helmet } from "react-helmet"
 
 interface IProps {
   children: React.ReactNode

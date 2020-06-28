@@ -7,7 +7,8 @@
 
   "products": {
     "CPTR1912": {
-      "name": "Postcard \"Crossing Bridge\""
+      "name": "Postcard \"Crossing Bridge\"",
+      "slug": "postcard-crossing-bridge"
     }
   }
 }
