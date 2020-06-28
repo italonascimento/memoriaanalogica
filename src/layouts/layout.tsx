@@ -10,7 +10,6 @@ import { useStaticQuery, graphql } from "gatsby"
 import styled, { ThemeProvider } from "styled-components"
 
 import Header from "../components/header"
-import "./layout.css"
 import { defaultTheme } from "../themes/default-theme"
 import GlobalStyle from "../styles/global-style"
 import ResetStyle from "../styles/reset-style"

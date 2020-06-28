@@ -3,7 +3,8 @@ import { Theme } from '../themes/default-theme'
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background: ${(props: ThemeProps<Theme>) => props.theme.dimBackground};
+    font-family: ${(props: ThemeProps<Theme>) => props.theme.textFontFamily};
+    background: ${(props: ThemeProps<Theme>) => props.theme.colors.dimBackground};
   }
 
   a {

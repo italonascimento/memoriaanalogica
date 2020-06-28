@@ -21,14 +21,17 @@ const Header = ({
 )
 
 const Container = styled.div`
-  background: ${(props: ThemeProps<Theme>) => props.theme.mainBackground};
-  padding: 24px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: ${(props: ThemeProps<Theme>) => props.theme.colors.mainBackground};
+  padding: 16px 32px;
   box-shadow: ${(props: ThemeProps<Theme>) => props.theme.softShadow};
 `
 
 const Title = styled.h1`
-  margin: 0 0 0 16px;
   font-size: 18px;
+  margin: 0;
   text-transform: lowercase;
 `
 
