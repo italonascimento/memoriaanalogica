@@ -9,7 +9,7 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import styled, { ThemeProvider } from "styled-components"
 
-import Header from "../components/header"
+import Header from "../components/organisms/header"
 import { defaultTheme } from "../themes/default-theme"
 import GlobalStyle from "../styles/global-style"
 import ResetStyle from "../styles/reset-style"

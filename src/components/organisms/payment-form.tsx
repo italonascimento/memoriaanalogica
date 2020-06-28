@@ -5,7 +5,7 @@ export default class PaymentForm extends Component<any, any> {
 
   paymentForm: any
 
-  constructor(props) {
+  constructor(props: any) {
     super(props)
     this.state = {
       cardBrand: "",

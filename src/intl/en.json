@@ -1,0 +1,12 @@
+{
+  "language": "Language",
+  "home": {
+    "title": "Home"
+  },
+
+  "products": {
+    "postalcrossingbridge": {
+      "name": "Postcard \"Crossing Bridge\""
+    }
+  }
+}

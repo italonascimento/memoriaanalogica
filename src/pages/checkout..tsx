@@ -4,7 +4,7 @@ import { Link } from "gatsby"
 import Layout from "../layouts/layout"
 import SEO from "../components/seo"
 import { Helmet } from "react-helmet"
-import PaymentForm from "../components/payment-form"
+import PaymentForm from "../components/organisms/payment-form"
 
 const SecondPage = () => (
   <Layout>

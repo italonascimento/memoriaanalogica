@@ -35,10 +35,17 @@ module.exports = {
     {
       resolve: `gatsby-plugin-intl`,
       options: {
-        path: `${__dirname}/intl`,
+        path: `${__dirname}/src/intl`,
         languages: [`en`, `pt`],
         defaultLanguage: `en`,
         redirect: true,
+      },
+    },
+    `gatsby-transformer-yaml`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./src/data/`,
       },
     },
   ],
