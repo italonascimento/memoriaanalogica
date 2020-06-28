@@ -1,11 +1,12 @@
 {
+  "currency": "USD",
   "language": "Language",
   "home": {
     "title": "Home"
   },
 
   "products": {
-    "postalcrossingbridge": {
+    "CPTR1912": {
       "name": "Postcard \"Crossing Bridge\""
     }
   }

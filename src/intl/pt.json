@@ -1,11 +1,12 @@
 {
+  "currency": "BRL",
   "language": "Idioma",
   "home": {
     "title": "Iníco"
   },
 
   "products": {
-    "postalcrossingbridge": {
+    "CPTR1912": {
       "name": "Cartão postal \"Travessia\""
     }
   }

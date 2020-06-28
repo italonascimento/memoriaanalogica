@@ -11,6 +11,11 @@ const GlobalStyle = createGlobalStyle`
     background: ${(props: ThemeProps<Theme>) => props.theme.colors.dimBackground};
   }
 
+  h1, h2, h3, h4, h5,
+  p, figure, section {
+    margin: 0;
+  }
+
   a {
     cursor: pointer;
   }

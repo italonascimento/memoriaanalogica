@@ -43,9 +43,7 @@ const Layout = ({ children }: IProps) => {
 }
 
 const Main = styled.main`
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 0 1.0875rem 1.45rem;
+  padding: 8px;
 `
 
 export default Layout

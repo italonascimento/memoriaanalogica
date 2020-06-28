@@ -1,8 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { ThemeProps, css } from 'styled-components'
 import { Product } from '../../types/product'
-import { useIntl } from 'gatsby-plugin-intl'
-import useTranslation from '../hooks/useTanslation'
+import ProductCard from '../molecules/product-card'
+import { Theme } from '../../themes/default-theme'
 
 export interface IVMProps {
   products: Product[]
@@ -11,21 +11,37 @@ export interface IVMProps {
 const VM = ({
   products = [],
 }: IVMProps) => {
-  const t = useTranslation()
-
   return (
     <Container>
       {products.map(({ sku, price }) => (
-        <>
-          {t(`products.${sku}.name`)}
-        </>
+        <CardContainer>
+          <ProductCard
+            price={price}
+            sku={sku}
+          />
+        </CardContainer>
       ))}
     </Container>
   )
 }
 
 const Container = styled.section`
+  display: flex;
+`
 
+const CardContainer = styled.div`
+  flex-basis: 50%;
+  padding: 8px;
+
+  ${(props: ThemeProps<Theme>) => css`
+    ${props.theme.mediaQueries.md} {
+      flex-basis: 33%;
+    }
+
+    ${props.theme.mediaQueries.l} {
+      flex-basis: 25%;
+    }
+  `}
 `
 
 export default VM

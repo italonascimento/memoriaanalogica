@@ -34,7 +34,7 @@ const StyledButton = styled.a<StyledButtonProps>`
   align-items: center;
   justify-content: center;
   color: ${(props: StyledButtonProps) => props.theme.colors.neutralForeground};
-  border-radius: 4px;
+  border-radius: ${(props: StyledButtonProps) => props.theme.defaultRadius};
   
   ${(props: StyledButtonProps) => props.secondary && `color: ${props.theme.colors.secondary}`}
   ${(props: StyledButtonProps) => props.primary && `color: ${props.theme.colors.primary};`}
