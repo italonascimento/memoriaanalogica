@@ -2,7 +2,7 @@ export interface Theme {
   colors: {
     mainBackground: string
     dimBackground: string
-    selectionBackground: string
+    lightBackground: string
   
     neutralForeground: string
     dimNeutral: string
@@ -34,10 +34,10 @@ export const defaultTheme: Partial<Theme> = {
   colors: {
     mainBackground: 'white',
     dimBackground: '#f1f1f1',
-    selectionBackground: '#e1e1e1',
+    lightBackground: '#f9f9f9',
   
     neutralForeground: '#333',
-    dimNeutral: '#ccc',
+    dimNeutral: '#eee',
   
     primary: '#68d388',
     dimPrimary: '#c2edda',

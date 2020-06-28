@@ -1,7 +1,8 @@
 import React from "react"
-import styled, { ThemeProps } from "styled-components"
+import styled, { ThemeProps, css } from "styled-components"
 import { Theme } from "../../themes/default-theme"
 import LangSelector from "../molecules/lang-selector"
+import mediaQueries from "../../styles/media-queries"
 
 interface IProps {
   siteTitle: string
@@ -25,8 +26,12 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   background: ${(props: ThemeProps<Theme>) => props.theme.colors.mainBackground};
-  padding: 16px 32px;
   box-shadow: ${(props: ThemeProps<Theme>) => props.theme.softShadowLow};
+  padding: 16px;
+  
+  ${mediaQueries.md} {
+    padding: 16px 32px;
+  }
 `
 
 const Title = styled.h1`

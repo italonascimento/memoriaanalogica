@@ -13,6 +13,7 @@ import Header from "../components/organisms/header"
 import { defaultTheme } from "../themes/default-theme"
 import GlobalStyle from "../styles/global-style"
 import ResetStyle from "../styles/reset-style"
+import mediaQueries from "../styles/media-queries"
 
 interface IProps {
   children: React.ReactNode
@@ -44,6 +45,10 @@ const Layout = ({ children }: IProps) => {
 
 const Main = styled.main`
   padding: 8px;
+
+  ${mediaQueries.l} {
+    padding: 16px;
+  }
 `
 
 export default Layout
