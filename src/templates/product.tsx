@@ -1,5 +1,4 @@
 import React from "react"
-
 import Layout from "../layouts/layout"
 import { Product } from "../types/product"
 import useProductDetails from "../components/hooks/useProduct"

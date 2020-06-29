@@ -5,16 +5,9 @@ module.exports = {
     author: `@memoriaanalogica`,
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
-    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-transformer-yaml`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -25,6 +18,20 @@ module.exports = {
         theme_color: `#663399`,
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./src/data/`,
+      },
+    },
+    `gatsby-plugin-react-helmet`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
@@ -39,13 +46,6 @@ module.exports = {
         languages: [`en`, `pt`],
         defaultLanguage: `en`,
         redirect: true,
-      },
-    },
-    `gatsby-transformer-yaml`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `./src/data/`,
       },
     },
   ],

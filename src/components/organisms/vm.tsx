@@ -1,9 +1,9 @@
 import React from 'react'
-import styled, { ThemeProps, css } from 'styled-components'
+import styled from 'styled-components'
 import { Product } from '../../types/product'
 import ProductCard from '../molecules/product-card'
-import { Theme } from '../../themes/default-theme'
 import mediaQueries from '../../styles/media-queries'
+import { FluidObject } from 'gatsby-image'
 
 export interface IVMProps {
   products: Product[]
@@ -12,11 +12,13 @@ export interface IVMProps {
 const VM = ({
   products = [],
 }: IVMProps) => {
+  // console.log(products)
   return (
     <Container>
-      {products.map(({ sku, price }) => (
-        <CardContainer>
+      {products.map(({ sku, price, photos }) => (
+        <CardContainer key={sku}>
           <ProductCard
+            photos={photos}
             price={price}
             sku={sku}
           />

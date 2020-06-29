@@ -1,2 +1,4 @@
 - sku: 'CPTR1912'
   price: 5
+  photos: 
+    - src: 'gatsby-astronaut.png'

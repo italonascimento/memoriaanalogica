@@ -2,7 +2,7 @@ import React from 'react'
 import styled, { ThemeProps } from 'styled-components'
 import { FormattedNumber, Link } from 'gatsby-plugin-intl'
 import { useStaticQuery, graphql } from 'gatsby'
-import Img from "gatsby-image"
+import Img, { FluidObject } from "gatsby-image"
 
 import Card from '../atoms/card'
 import useProductDetails from '../hooks/useProduct'
@@ -14,27 +14,16 @@ import mediaQueries from '../../styles/media-queries'
 interface ProductCardProps {
   price: number
   sku: string
-  photos?: string[]
+  photos: FluidObject[]
   className?: string
 }
 
 const ProductCard = ({
   price,
   sku,
-  className
+  className,
+  photos,
 }: ProductCardProps) => {
-
-  const data = useStaticQuery(graphql`
-    query {
-      photo: file(relativePath: { eq: "gatsby-astronaut.png" }) {
-        childImageSharp {
-          fluid(maxWidth: 300, maxHeight: 200) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-    }
-  `)
 
   const details = useProductDetails(sku)
   const t = useTranslation()
@@ -42,7 +31,7 @@ const ProductCard = ({
   return (
     <StyledCard className={className}>
       <Photo>
-        <Img fluid={data.photo.childImageSharp.fluid} />
+        <Img fluid={photos[0]} />
       </Photo>
       <Content>
         <Title>
