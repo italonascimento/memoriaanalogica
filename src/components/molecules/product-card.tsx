@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import styled, { ThemeProps } from 'styled-components'
 import { FormattedNumber, Link } from 'gatsby-plugin-intl'
-import { useStaticQuery, graphql } from 'gatsby'
 import Img, { FluidObject } from "gatsby-image"
 
 import Card from '../atoms/card'
@@ -24,30 +23,60 @@ const ProductCard = ({
   className,
   photos,
 }: ProductCardProps) => {
-
+  const [currentPhoto, setCurrentPhoto] = useState(0)
+  const [timeoutId, setTimeoutId] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
   const details = useProductDetails(sku)
   const t = useTranslation()
+
+  const changePhoto = () => {
+    setCurrentPhoto(
+      currentPhoto >= photos.length -1
+        ? 0
+        : currentPhoto + 1
+    )
+    
+  }
   
+  useEffect(() => {
+    if (isHovered) {
+      const id = setTimeout(() => {
+        changePhoto()
+      }, 2000)
+  
+      setTimeoutId(id)
+    } else {
+      setTimeout(() => {
+        setCurrentPhoto(0)
+      }, 1000)
+      clearTimeout(timeoutId)
+    }
+
+    return () => { clearTimeout(timeoutId) }
+  }, [currentPhoto, isHovered])
+
   return (
-    <StyledCard className={className}>
-      <Photo>
-        <Img fluid={photos[0]} />
-      </Photo>
-      <Content>
-        <Title>
-          <Link to={`/p/${details.slug}-${sku}/`}>
-            {details.name}
-          </Link>
-        </Title>
-        <Price>
-          <FormattedNumber value={price} style='currency' currency={t('currency')} />
-        </Price>
-      </Content>
-    </StyledCard>
+    <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      <StyledCard className={className}>
+        <Photo>
+          <Img fluid={photos[currentPhoto]} />
+        </Photo>
+        <Content>
+          <Title>
+            <Link to={`/p/${details.slug}-${sku}/`}>
+              {details.name}
+            </Link>
+          </Title>
+          <Price>
+            <FormattedNumber value={price} style='currency' currency={t('currency')} />
+          </Price>
+        </Content>
+      </StyledCard>
+    </div>
   )
 }
 
-const StyledCard = styled(Card)`
+const StyledCard = styled(Card)<React.HTMLAttributes<HTMLElement>>`
   display: flex;
   flex-direction: column;
   cursor: pointer;

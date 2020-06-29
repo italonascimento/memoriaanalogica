@@ -22,7 +22,7 @@ const Card = ({
 
 type StyledCardProps = CardProps & ThemeProps<Theme>
 
-const StyledCard = styled.div<StyledCardProps>`
+const StyledCard = styled.div`
   overflow: hidden;
   border-radius: ${(props: StyledCardProps) => props.theme.defaultRadius};
   ${(props: StyledCardProps) => elevation(props.elevation)}

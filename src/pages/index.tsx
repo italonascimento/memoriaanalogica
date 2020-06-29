@@ -34,7 +34,7 @@ interface IndexPageProps {
 
 const IndexPage = ({ data }: IndexPageProps) => {
   const t = useTranslation()
-  console.log(data)
+  
   return (
     <Layout>
       <SEO title={t("home.title")} />
