@@ -9,6 +9,7 @@ import useTranslation from '../hooks/useTanslation'
 import { Theme } from '../../themes/default-theme'
 import elevation from '../../styles/elevation'
 import mediaQueries from '../../styles/media-queries'
+import PhotoSwing from './photo-swing'
 
 interface ProductCardProps {
   price: number
@@ -23,44 +24,14 @@ const ProductCard = ({
   className,
   photos,
 }: ProductCardProps) => {
-  const [currentPhoto, setCurrentPhoto] = useState(0)
-  const [timeoutId, setTimeoutId] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
   const details = useProductDetails(sku)
   const t = useTranslation()
 
-  const changePhoto = () => {
-    setCurrentPhoto(
-      currentPhoto >= photos.length -1
-        ? 0
-        : currentPhoto + 1
-    )
-    
-  }
-  
-  useEffect(() => {
-    if (isHovered) {
-      const id = setTimeout(() => {
-        changePhoto()
-      }, 2000)
-  
-      setTimeoutId(id)
-    } else {
-      setTimeout(() => {
-        setCurrentPhoto(0)
-      }, 1000)
-      clearTimeout(timeoutId)
-    }
-
-    return () => { clearTimeout(timeoutId) }
-  }, [currentPhoto, isHovered])
-
   return (
     <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <StyledCard className={className}>
-        <Photo>
-          <Img fluid={photos[currentPhoto]} />
-        </Photo>
+        <StyledPhotoSwing isActive={isHovered} photos={photos} />
         <Content>
           <Title>
             <Link to={`/p/${details.slug}-${sku}/`}>
@@ -88,8 +59,10 @@ const StyledCard = styled(Card)<React.HTMLAttributes<HTMLElement>>`
   }
 `
 
-const Photo = styled.figure`
+const StyledPhotoSwing = styled(PhotoSwing)`
+  width: 100%;
   border-bottom: 1px solid ${(props: ThemeProps<Theme>) => props.theme.colors.dimNeutral};
+  padding-top: 66%;
 `
 
 const Content = styled.div`
