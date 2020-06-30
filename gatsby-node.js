@@ -7,18 +7,28 @@
 // You can delete this file if you're not using it
 
 const fs = require("fs")
-const yaml = require("js-yaml")
 
-exports.createPages = ({ actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-  const products = yaml.safeLoad(fs.readFileSync("./src/data/products.yml", "utf-8"))
-  products.forEach(product => {
+
+  const result = await graphql(`
+    {
+      allProductsYaml {
+        edges {
+          node {
+            sku
+          }
+        }
+      }
+    }
+  `)
+
+  result.data.allProductsYaml.edges.forEach(({ node }) => {
     createPage({
-      path: `p/*-${product.sku}/`,
+      path: `p/${node.sku}/*`,
       component: require.resolve("./src/templates/product.tsx"),
       context: {
-        sku: product.sku,
-        price: product.price,
+        sku: node.sku,
       },
     })
   })

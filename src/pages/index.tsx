@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { graphql } from "gatsby"
 import { FluidObject } from "gatsby-image"
 
@@ -7,29 +7,10 @@ import SEO from "../components/seo"
 import useTranslation from "../components/hooks/useTanslation"
 import VM from "../components/organisms/vm"
 import Spacing from "../components/atoms/spacing"
-
-interface Data {
-  allProductsYaml: {
-    edges: {
-      node: DataProduct
-    }[]
-  }
-}
-
-interface DataProduct {
-  sku: string
-  price: number
-  photos: {
-    src: {
-      childImageSharp: {
-        fluid: FluidObject
-      }
-    }
-  }[]
-}
+import { ProductsQueryResult } from "../types/product-query-result"
 
 interface IndexPageProps {
-  data: Data
+  data: ProductsQueryResult
 }
 
 const IndexPage = ({ data }: IndexPageProps) => {
@@ -58,7 +39,7 @@ export const query = graphql`
           photos {
             src {
               childImageSharp {
-                fluid {
+                fluid(maxWidth: 300) {
                   ...GatsbyImageSharpFluid
                 }
               }

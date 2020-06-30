@@ -3,6 +3,7 @@ import styled, { ThemeProps, css } from "styled-components"
 import { Theme } from "../../themes/default-theme"
 import LangSelector from "../molecules/lang-selector"
 import mediaQueries from "../../styles/media-queries"
+import { Link } from "gatsby-plugin-intl"
 
 interface IProps {
   siteTitle: string
@@ -13,7 +14,9 @@ const Header = ({
 }: IProps) => (
   <Container>
     <Title>
-      {siteTitle}
+      <Link to='/'>
+        {siteTitle}
+      </Link>
     </Title>
     {typeof window !== 'undefined' && (
       <LangSelector location={window.location} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import styled, { ThemeProps } from 'styled-components'
-import { FormattedNumber, Link } from 'gatsby-plugin-intl'
+import { FormattedNumber, Link, navigate } from 'gatsby-plugin-intl'
 import Img, { FluidObject } from "gatsby-image"
 
 import Card from '../atoms/card'
@@ -28,13 +28,19 @@ const ProductCard = ({
   const details = useProductDetails(sku)
   const t = useTranslation()
 
+  const url = `/p/${sku}/${details.slug}`
+
   return (
-    <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+    <div
+      onClick={() => navigate(url)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <StyledCard className={className}>
         <StyledPhotoSwing isActive={isHovered} photos={photos} />
         <Content>
           <Title>
-            <Link to={`/p/${details.slug}-${sku}/`}>
+            <Link to={url}>
               {details.name}
             </Link>
           </Title>
@@ -62,7 +68,7 @@ const StyledCard = styled(Card)<React.HTMLAttributes<HTMLElement>>`
 const StyledPhotoSwing = styled(PhotoSwing)`
   width: 100%;
   border-bottom: 1px solid ${(props: ThemeProps<Theme>) => props.theme.colors.dimNeutral};
-  padding-top: 66%;
+  padding-top: 70%;
 `
 
 const Content = styled.div`
@@ -71,8 +77,7 @@ const Content = styled.div`
 
 const Title = styled.h3`
   font-size: 12px;
-  margin-bottom: 24px;
-  color: ${(props: ThemeProps<Theme>) => props.theme.colors.neutralForeground};
+  margin-bottom: 16px;
 
   ${mediaQueries.md} {
     font-size: 14px;
