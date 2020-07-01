@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import styled, { ThemeProps } from "styled-components"
+import styled, { ThemeProps, css } from "styled-components"
 import { AiFillCaretDown } from 'react-icons/ai'
 import { IoIosCheckmark } from 'react-icons/io'
 
@@ -14,11 +14,13 @@ interface ISelectProps {
   align?: 'left' | 'right'
   children: React.ReactNode | React.ReactNode[]
   onSelect: (t: string | number) => void
+  float?: boolean
 }
 
 export const Select = ({
   initialValue,
   align = 'left',
+  float = false,
   children,
   onSelect,
 }: ISelectProps) => {
@@ -35,7 +37,12 @@ export const Select = ({
   }, [selected, onSelect])
 
   return (
-    <Container ref={ref} onClick={() => setIsOpen(!isOpen)}>
+    <Container
+      ref={ref} 
+      onClick={() => setIsOpen(!isOpen)} 
+      align={align} 
+      float={float}
+    >
       <StyledButton elevation={isOpen ? 1 : 0}>
         {React.Children.toArray(children).find((child: React.ReactElement) => child.props.value === selected)}
         <Spacing x={8} />
@@ -43,9 +50,10 @@ export const Select = ({
       </StyledButton>
 
       {isOpen && (
-        <OptionsContainer align={align}>
+        <OptionsContainer align={align} float={float}>
           {React.Children.map(children, (child: React.ReactElement) => (
             <OptionWrapper 
+              key={child.props.value}
               selected={child.props.value === selected}
               onClick={() => setSelected(child.props.value)}  
             >
@@ -71,8 +79,21 @@ export const Option = (props: IOptionProps) => (
   </>
 )
 
-const Container = styled.div`
-  position: relative;
+interface ContainerProps {
+  float?: boolean
+  align: 'left' | 'right'
+}
+
+const Container = styled.div<ContainerProps>`
+  ${(props: ContainerProps) => props.float
+  ? css`
+    position: relative;
+  `
+  : css`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-${props.align === 'right' ? 'end' : 'start'};
+  `}
 `
 
 const StyledButton = styled(Button)`
@@ -80,6 +101,7 @@ const StyledButton = styled(Button)`
 `
 
 interface IOptionsContainerProps extends ThemeProps<Theme> {
+  float?: boolean
   align: 'left' | 'right'
 }
 
@@ -87,13 +109,18 @@ const OptionsContainer = styled.ul<IOptionsContainerProps>`
   list-style: none;
   margin: 4px 0 0 0 ;
   padding: 0;
-  position: absolute;
-  top: 100%;
-  ${(props: IOptionsContainerProps) => `${props.align}: 0;`}
   background: ${(props: IOptionsContainerProps) => props.theme.colors.mainBackground};
   ${elevation(1)}
   border-radius: 4px;
   overflow: hidden;
+
+  ${(props: IOptionsContainerProps) => props.float && css`
+      z-index: 100;
+      position: absolute;
+      ${props.align}: 0;
+      top: 100%;
+  `}
+
 `
 
 interface IOptionWrapperProps extends ThemeProps<Theme> {

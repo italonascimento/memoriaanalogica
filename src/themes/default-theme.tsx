@@ -37,7 +37,7 @@ export const defaultTheme: Partial<Theme> = {
     lightBackground: '#f9f9f9',
   
     neutralForeground: '#333',
-    dimNeutral: '#eee',
+    dimNeutral: '#dfdfdf',
   
     primary: '#68d388',
     dimPrimary: '#c2edda',

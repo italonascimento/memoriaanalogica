@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import styled, { ThemeProps } from 'styled-components'
 import { FormattedNumber, Link, navigate } from 'gatsby-plugin-intl'
-import Img, { FluidObject } from "gatsby-image"
+import { FluidObject } from "gatsby-image"
 
 import Card from '../atoms/card'
 import useProductDetails from '../hooks/useProduct'

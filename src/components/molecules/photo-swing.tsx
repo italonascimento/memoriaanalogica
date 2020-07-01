@@ -51,7 +51,7 @@ const PhotoSwing = ({
   return (
     <Container className={className}>
       {photos.map((photo, i) => (
-        <Photo selected={currentPhoto === i}>
+        <Photo key={i} selected={currentPhoto === i}>
           <Img fluid={photo} />
         </Photo>
       ))}

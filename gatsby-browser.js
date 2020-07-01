@@ -9,3 +9,5 @@
 import initReactFastclick from 'react-fastclick'
 
 initReactFastclick()
+
+export const shouldUpdateScroll = () => { return false; }

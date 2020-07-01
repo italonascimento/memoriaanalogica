@@ -39,6 +39,7 @@ const LangSelector = ({ location }: IProps) => {
       <IntlContextConsumer>
         {({ languages, language }: IConsumer) =>
           <Select
+            float
             onSelect={(lang) => changeLocale(`${lang}`)}
             initialValue={language}
             align='right'

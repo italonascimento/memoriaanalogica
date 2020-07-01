@@ -12,8 +12,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1, h2, h3, h4, h5,
-  p, figure, section {
+  p, figure, section, ul {
     margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    list-style: none;
   }
 
   a {
