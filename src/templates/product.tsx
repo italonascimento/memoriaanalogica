@@ -12,6 +12,8 @@ import { ProductsQueryResult } from "../types/product-query-result"
 import PhotoGallery from "../components/organisms/photo-gallery"
 import { Theme } from "../themes/default-theme"
 import mediaQueries, { mediaQueryValues } from "../styles/media-queries"
+import BuyBox from "../components/organisms/buy-box"
+import Spacing from "../components/atoms/spacing"
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
@@ -53,9 +55,9 @@ const ProductTemplate = ({
             </div>
           )}
 
-          <div style={{flex: '1 1 50%'}}>
-            {details.name}
-          </div>
+          <Spacing x={32} y={32} />
+
+          <StyledBuyBox sku={sku} />
         </MainSection>
       </Container>
 
@@ -93,19 +95,23 @@ const MainSection = styled.div`
   ${mediaQueries.md} {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    justify-content: space-between;
     padding: 0 16px;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
   }
 `
 
 const StyledPhotoGallery = styled(PhotoGallery)`
-  flex: 1 1 65%;
+  flex: 1 1 60%;
 `
 
 const SlideItem = styled.div`
   padding: 8px;
+`
+
+const StyledBuyBox = styled(BuyBox)`
+  flex: 1 1 40%;
 `
 
 export default ProductTemplate

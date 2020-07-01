@@ -23,10 +23,9 @@ const PhotoGallery = ({
       <Selected>
         <Img fluid={photos[current]} />
       </Selected>
-      <Thumbs verticalThumbs={verticalThumbs}>
+      <Thumbs>
         {photos.map((thumb, i) => (
           <Thumb 
-            verticalThumbs={verticalThumbs} 
             key={i} 
             selected={i === current} 
             onClick={() => setCurrent(i)}
@@ -39,56 +38,70 @@ const PhotoGallery = ({
   )
 }
 
-interface VerticalThumbsProps {
+interface ContainerProps {
   verticalThumbs?: boolean
 }
 
-const Container = styled.div<VerticalThumbsProps>`
+const Container = styled.div<ContainerProps>`
   display: flex;
   
-  ${(props: VerticalThumbsProps) => props.verticalThumbs
-  ? `
+  ${(props: ContainerProps) => props.verticalThumbs
+  ? css`
     flex-direction: row;
+
+    & ${Selected} {
+      order: 1;
+      margin-left: 8px;
+    }
+
+    & ${Thumbs} {
+      flex-direction: column;
+      order: 0;
+    }
+
+    & ${Thumb} {
+      margin-bottom: 8px;
+    }
   `
-  : `
+  : css`
     flex-direction: column;
+
+    & ${Selected} {
+      order: 0;
+      margin-bottom: 8px;
+    }
+
+    & ${Thumbs} {
+      order: 1;
+    }
+
+    & ${Thumb} {
+      margin-right: 8px;
+    }
   `}
 `
 
 const Selected = styled.div`
-  margin: 0 8px 8px 0;
   flex: 1;
   border: 1px solid ${(props: ThumbProps) => props.theme.colors.dimNeutral};
 `
 
-const Thumbs = styled.ul<VerticalThumbsProps>`
+const Thumbs = styled.ul`
   display: flex;
-
-  ${(props: VerticalThumbsProps) => props.verticalThumbs && css`
-    flex-direction: column;
-  `}
 `
 
-interface ThumbProps extends ThemeProps<Theme>, VerticalThumbsProps {
+interface ThumbProps extends ThemeProps<Theme> {
   selected: boolean
 }
 
 const Thumb = styled.li<ThumbProps>`
   cursor: pointer;
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border: 1px solid ${(props: ThumbProps) => props.theme.colors.dimNeutral};
 
   ${(props: ThumbProps) => props.selected && css`
     border: 4px solid ${props.theme.colors.dimPrimary};
-  `}
-
-  ${(props: ThumbProps) => props.verticalThumbs
-  ? css`
-    margin-bottom: 8px;
-  `
-  : css`
-    margin-right: 8px;
   `}
 `
 
