@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import styled, { withTheme } from "styled-components"
+import styled from "styled-components"
 import useMedia from 'react-use-media-query-hook'
 import Img from 'gatsby-image'
 import Slider from "react-slick"
@@ -9,7 +9,7 @@ import Layout from "../layouts/layout"
 import useProductDetails from "../components/hooks/useProduct"
 import SEO from "../components/seo"
 import { ProductsQueryResult } from "../types/product-query-result"
-import PhotoGallery from "../components/molecules/photo-gallery"
+import PhotoGallery from "../components/organisms/photo-gallery"
 import { Theme } from "../themes/default-theme"
 import mediaQueries, { mediaQueryValues } from "../styles/media-queries"
 
@@ -23,7 +23,6 @@ interface ProductTemplateProps {
 
 const ProductTemplate = ({
   data,
-  theme,
 }: ProductTemplateProps) => {
   const { sku, price } = data.allProductsYaml.edges[0].node
   const photos = data.allProductsYaml.edges[0].node.photos.map(item =>
@@ -91,10 +90,6 @@ const Container = styled.div`
 `
 
 const MainSection = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
-
   ${mediaQueries.md} {
     display: flex;
     flex-direction: row;
@@ -113,4 +108,4 @@ const SlideItem = styled.div`
   padding: 8px;
 `
 
-export default withTheme(ProductTemplate)
+export default ProductTemplate
