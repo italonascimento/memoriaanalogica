@@ -36,20 +36,12 @@ const Layout = ({ children }: IProps) => {
       <ResetStyle />
       <GlobalStyle />
       <Header siteTitle={data.site.siteMetadata.title} />
-      <Main>{children}</Main>
+      <div>{children}</div>
       <footer>
         
       </footer>
     </ThemeProvider>
   )
 }
-
-const Main = styled.main`
-  padding: 8px;
-
-  ${mediaQueries.l} {
-    padding: 16px;
-  }
-`
 
 export default Layout

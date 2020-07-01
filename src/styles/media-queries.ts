@@ -1,13 +1,16 @@
-import { css, ThemeProps } from "styled-components";
+import { ThemeProps } from "styled-components";
 import { Theme } from "../themes/default-theme";
 
 type Size = 'md' | 'l' | 'xl'
 
-function mediaQuery(size: Size) {
-  return css`
-    ${(props: ThemeProps<Theme>) => props.theme.mediaQueries[size]}
-  `
+export const mediaQueryValues = {
+  md: '(min-width: 720px)',
+  l: '(min-width: 1024px)',
+  xl: '(min-width: 1536px)',
 }
+
+const mediaQuery = (size: Size) =>
+  `@media ${mediaQueryValues[size]}`
 
 const mediaQueries = {
   md: mediaQuery('md'),

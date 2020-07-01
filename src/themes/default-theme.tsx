@@ -13,12 +13,6 @@ export interface Theme {
     dimSecondary: string
   }
 
-  mediaQueries: {
-    md: string
-    l: string
-    xl: string
-  },
-
   textFontFamily: string
   titleFontFamily: string
 
@@ -43,12 +37,6 @@ export const defaultTheme: Partial<Theme> = {
     dimPrimary: '#c2edda',
     secondary: '#f43a09',
     dimSecondary: '#ffb766',
-  },
-
-  mediaQueries: {
-    md: '@media screen and (min-width: 720px)',
-    l: '@media screen and (min-width: 1024px)',
-    xl: '@media screen and (min-width: 1536px)',
   },
 
   textFontFamily: 'sans-serif',

@@ -7,6 +7,7 @@
   "dependencies": {
     "@types/axios": "^0.14.0",
     "@types/react-helmet": "^6.0.0",
+    "@types/react-slick": "^0.23.4",
     "@types/styled-components": "^5.1.0",
     "axios": "^0.19.2",
     "babel-plugin-styled-components": "^1.10.7",
@@ -30,6 +31,9 @@
     "react-fastclick": "^3.0.2",
     "react-helmet": "^6.1.0",
     "react-icons": "^3.10.0",
+    "react-slick": "^0.26.1",
+    "react-use-media-query-hook": "0.0.1",
+    "slick-carousel": "^1.8.1",
     "square-connect": "^4.20200625.0",
     "styled-components": "^5.1.1"
   },
