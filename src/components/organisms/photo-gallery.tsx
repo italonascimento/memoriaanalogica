@@ -50,13 +50,11 @@ const Container = styled.div<ContainerProps>`
     flex-direction: row;
 
     & ${Selected} {
-      order: 1;
-      margin-left: 8px;
+      margin-right: 8px;
     }
 
     & ${Thumbs} {
       flex-direction: column;
-      order: 0;
     }
 
     & ${Thumb} {
@@ -67,12 +65,7 @@ const Container = styled.div<ContainerProps>`
     flex-direction: column;
 
     & ${Selected} {
-      order: 0;
       margin-bottom: 8px;
-    }
-
-    & ${Thumbs} {
-      order: 1;
     }
 
     & ${Thumb} {
@@ -101,6 +94,7 @@ const Thumb = styled.li<ThumbProps>`
   border: 1px solid ${(props: ThumbProps) => props.theme.colors.dimNeutral};
 
   ${(props: ThumbProps) => props.selected && css`
+    padding: 2px;
     border: 4px solid ${props.theme.colors.dimPrimary};
   `}
 `
