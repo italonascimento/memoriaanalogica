@@ -20,7 +20,7 @@ const IndexPage = ({ data }: IndexPageProps) => {
     <Layout>
       <SEO title={t("home.title")} />
 
-      <Spacing y={16}/>
+      <Spacing y={64}/>
       <VM products={data.allProductsYaml.edges.map(item => ({
         ...item.node,
         photos: item.node.photos.map(photo => photo.src.childImageSharp.fluid)

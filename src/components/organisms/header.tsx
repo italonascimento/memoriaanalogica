@@ -1,5 +1,5 @@
 import React from "react"
-import styled, { ThemeProps, css } from "styled-components"
+import styled, { ThemeProps } from "styled-components"
 import { Theme } from "../../themes/default-theme"
 import LangSelector from "../molecules/lang-selector"
 import mediaQueries from "../../styles/media-queries"
