@@ -6,7 +6,7 @@ interface ISpacerProps {
 }
 
 const Spacing = styled.span<ISpacerProps>`
-  display: inline-block;
+  display: block;
   ${props => props.y && `height: ${props.y}px;`}
   ${props => props.x && `width: ${props.x}px;`}
 `
