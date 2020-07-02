@@ -13,17 +13,17 @@ interface CardProps {
 
 const Card = ({
   children,
-  elevation = 1,
+  elevation = 0,
   className,
 }: CardProps) => (
-  <StyledCard className={className}>
+  <StyledCard elevation={elevation} className={className}>
     {children}
   </StyledCard>
 )
 
 type StyledCardProps = CardProps & ThemeProps<Theme>
 
-const StyledCard = styled.div`
+const StyledCard = styled.div<StyledCardProps>`
   overflow: hidden;
   border-radius: ${(props: StyledCardProps) => props.theme.defaultRadius};
   ${(props: StyledCardProps) => elevation(props.elevation)}
