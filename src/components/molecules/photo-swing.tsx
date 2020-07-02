@@ -32,7 +32,7 @@ const PhotoSwing = ({
       if (count < photos.length) {
         const id = setTimeout(() => {
           changePhoto()
-        }, count === 0 ? 1000 : 2500)
+        }, count === 0 ? 3000 : 2500)
     
         setTimeoutId(id)
         setCount(count + 1)
@@ -40,7 +40,7 @@ const PhotoSwing = ({
     } else {
       setTimeout(() => {
         setCurrentPhoto(0)
-      }, 1000)
+      }, 500)
       clearTimeout(timeoutId)
       setCount(0)
     }
@@ -77,12 +77,12 @@ const Photo = styled.div<PhotoProps>`
 
   ${(props: PhotoProps) => props.selected
     ? css`
-      transition: opacity 200ms ease-in-out, visibility 0ms;
+      transition: opacity 400ms ease-in-out, visibility 0ms;
       visibility: visible;
       opacity: 1;
     `
     : css`
-      transition: opacity 200ms ease-in-out, visibility 0ms 100ms;
+      transition: opacity 400ms ease-in-out, visibility 0ms 400ms;
       visibility: hidden;
       opacity: 0;
     `
