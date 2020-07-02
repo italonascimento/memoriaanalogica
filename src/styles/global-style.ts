@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: ${(props: ThemeProps<Theme>) => props.theme.textFontFamily};
-    background: ${(props: ThemeProps<Theme>) => props.theme.colors.dimBackground};
+    background: ${(props: ThemeProps<Theme>) => props.theme.colors.mainBackground};
   }
 
   h1, h2, h3, h4, h5,
