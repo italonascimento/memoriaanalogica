@@ -43,10 +43,17 @@ const BuyBox = ({
 
 const Container = styled.div`
   padding: 32px 16px;
+
+  text-align: center;
+
+  ${mediaQueries.md} {
+    text-align: right;
+  }
 `
 
 const Title = styled.h2`
   font-size: 24px;
+  font-weight: lighter;
   color: ${(props: ThemeProps<Theme>) => props.theme.colors.neutralForeground};
   
   ${mediaQueries.md} {

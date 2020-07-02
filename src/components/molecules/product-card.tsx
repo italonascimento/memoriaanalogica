@@ -57,10 +57,11 @@ const StyledCard = styled(Card)<React.HTMLAttributes<HTMLElement>>`
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  background: inherit;
 
   &:hover {
     ${elevation(2)}
-    background: ${(props: ThemeProps<Theme>) => props.theme.colors.lightBackground};
+    background: ${(props: ThemeProps<Theme>) => props.theme.colors.mainBackground};
   }
 `
 
