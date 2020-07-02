@@ -3,6 +3,7 @@ import styled, { ThemeProps } from "styled-components"
 
 import { Theme } from '../../themes/default-theme'
 import elevation, { ElevationLevel } from '../../styles/elevation'
+import { mouseInteractionTransition } from '../../styles/transitions'
 
 interface CardProps {
   children?: React.ReactNode | React.ReactNode[]
@@ -27,6 +28,8 @@ const StyledCard = styled.div`
   border-radius: ${(props: StyledCardProps) => props.theme.defaultRadius};
   ${(props: StyledCardProps) => elevation(props.elevation)}
   background: ${(props: StyledCardProps) => props.theme.colors.mainBackground};
+
+  ${mouseInteractionTransition('box-shadow', 'background')}
 `
 
 export default Card
