@@ -1,6 +1,9 @@
 {
   "currency": "BRL",
   "language": "Idioma",
+
+  "add-to-cart": "Adicionar ao carrinho",
+
   "home": {
     "title": "Iníco"
   },

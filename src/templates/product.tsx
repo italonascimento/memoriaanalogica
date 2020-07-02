@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import styled from "styled-components"
+import styled, { ThemeProps } from "styled-components"
 import useMedia from 'react-use-media-query-hook'
 import Img from 'gatsby-image'
 import Slider from "react-slick"
@@ -55,9 +55,9 @@ const ProductTemplate = ({
             </div>
           )}
 
-          <Spacing x={32} y={32} />
+          <Spacing x={isMediaLargeOrUp ? 64 : 32} y={32} />
 
-          <StyledBuyBox sku={sku} />
+          <StyledBuyBox sku={sku} price={price} />
         </MainSection>
       </Container>
 
@@ -75,7 +75,7 @@ export const query = graphql`
           photos {
             src {
               childImageSharp {
-                fluid(maxWidth: 620) {
+                fluid(maxWidth: 750) {
                   ...GatsbyImageSharpFluid
                 }
               }
@@ -107,7 +107,7 @@ const MainSection = styled.div`
 `
 
 const StyledPhotoGallery = styled(PhotoGallery)`
-  flex: 1 1 60%;
+  flex: 1 1 65%;
 `
 
 const SlideItem = styled.div`
@@ -115,7 +115,7 @@ const SlideItem = styled.div`
 `
 
 const StyledBuyBox = styled(BuyBox)`
-  flex: 1 1 40%;
+  flex: 1 1 35%;
 `
 
 export default ProductTemplate

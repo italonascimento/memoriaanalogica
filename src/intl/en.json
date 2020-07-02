@@ -1,6 +1,9 @@
 {
   "currency": "USD",
   "language": "Language",
+
+  "add-to-cart": "Add to cart",
+
   "home": {
     "title": "Home"
   },
