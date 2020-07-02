@@ -36,7 +36,7 @@ const Container = styled.section`
 
 const CardContainer = styled.div`
   flex-basis: 50%;
-  padding: 8px;
+  padding: 0 8px;
 
   ${mediaQueries.md} {
     flex-basis: 33%;
