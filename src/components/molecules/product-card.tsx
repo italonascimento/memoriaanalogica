@@ -60,24 +60,24 @@ const StyledCard = styled(Card)<React.HTMLAttributes<HTMLElement>>`
 
   &:hover {
     ${elevation(2)}
-
     background: ${(props: ThemeProps<Theme>) => props.theme.colors.lightBackground};
   }
 `
 
 const StyledPhotoSwing = styled(PhotoSwing)`
   width: 100%;
-  border-bottom: 1px solid ${(props: ThemeProps<Theme>) => props.theme.colors.dimNeutral};
-  padding-top: 70%;
+  padding-top: 100%;
 `
 
 const Content = styled.div`
   padding: 24px 16px;
+  text-align: center;
 `
 
 const Title = styled.h3`
   font-size: 12px;
   margin-bottom: 16px;
+  color: ${(props: ThemeProps<Theme>) => props.theme.colors.neutralForeground};
 
   ${mediaQueries.md} {
     font-size: 14px;
@@ -85,9 +85,9 @@ const Title = styled.h3`
 `
 
 const Price = styled.p`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: lighter;
-  color: ${(props: ThemeProps<Theme>) => props.theme.colors.primary};
+  color: ${(props: ThemeProps<Theme>) => props.theme.colors.secondary};
 `
 
 export default ProductCard
