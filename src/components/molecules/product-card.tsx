@@ -28,7 +28,7 @@ const ProductCard = ({
   const details = useProductDetails(sku)
   const t = useTranslation()
 
-  const url = `/p/${sku}/${details.slug}`
+  const url = `/p/${sku}/${details.slug}/`
 
   return (
     <div

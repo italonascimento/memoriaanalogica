@@ -25,7 +25,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   result.data.allProductsYaml.edges.forEach(({ node }) => {
     createPage({
-      path: `p/${node.sku}/*`,
+      path: `p/${node.sku}/*/`,
       component: require.resolve("./src/templates/product.tsx"),
       context: {
         sku: node.sku,
