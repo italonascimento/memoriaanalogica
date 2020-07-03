@@ -52,7 +52,7 @@ export const defaultTheme: Partial<Theme> = {
     accent: '#a26c6c',
     accentLight1: '#B08686',
     accentLigth2: '#E8BCBC',
-    accentLighter: '#FFD4D4',
+    accentLighter: '#FFEDED',
 
     greyDarkest: '#333333',
     greyDark2: '#575757',
