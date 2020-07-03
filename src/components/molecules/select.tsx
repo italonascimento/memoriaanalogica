@@ -109,7 +109,7 @@ const OptionsContainer = styled.ul<IOptionsContainerProps>`
   list-style: none;
   margin: 4px 0 0 0 ;
   padding: 0;
-  background: ${(props: IOptionsContainerProps) => props.theme.colors.mainBackground};
+  background: white;
   ${elevation(1)}
   border-radius: 4px;
   overflow: hidden;
@@ -132,8 +132,10 @@ const OptionWrapper = styled.li<IOptionWrapperProps>`
   cursor: pointer;
   padding: 8px 16px 8px 24px;
   ${(props: IOptionWrapperProps) => props.selected && `padding-left: 8px;`}
+  color: ${(props: IOptionWrapperProps) => props.theme.colors.greyDarkest};
 
   &:hover {
-    background: ${(props: IOptionWrapperProps) => props.theme.colors.dimPrimary};
+    background: ${(props: IOptionWrapperProps) => props.theme.colors.primaryLighter};
+    color: ${(props: IOptionWrapperProps) => props.theme.colors.primaryDarkest};
   }
 `

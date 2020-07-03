@@ -11,7 +11,8 @@
   "products": {
     "CPTR1912": {
       "name": "Cartão postal \"Travessia\"",
-      "slug": "cartao-postal-travessia"
+      "slug": "cartao-postal-travessia",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula vestibulum nibh. Mauris in metus nisi. Duis accumsan blandit metus quis imperdiet. Nulla eu ipsum eu quam interdum interdum non eget augue. Donec nec libero sollicitudin, aliquet nisl in, vulputate mi. Nulla facilisi. Cras ut ipsum et justo auctor gravida ut in dui."
     }
   }
 }

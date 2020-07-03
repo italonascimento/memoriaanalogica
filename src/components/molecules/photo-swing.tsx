@@ -32,15 +32,15 @@ const PhotoSwing = ({
       if (count < photos.length) {
         const id = setTimeout(() => {
           changePhoto()
-        }, count === 0 ? 3000 : 2500)
+        }, count === 0 ? 500 : 2500)
     
         setTimeoutId(id)
         setCount(count + 1)
       }
     } else {
-      setTimeout(() => {
-        setCurrentPhoto(0)
-      }, 500)
+      setCurrentPhoto(0)
+      // setTimeout(() => {
+      // }, 500)
       clearTimeout(timeoutId)
       setCount(0)
     }

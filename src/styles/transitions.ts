@@ -4,13 +4,13 @@ const buildMouseInteractionTransition = (duration : number, properties: string[]
   `transition: ${properties.map(property => `${property} ${duration}ms ease-in`).join(', ')};`
 
 export const mouseInteractionTransition = (...properties: string[]) => css`
-  ${buildMouseInteractionTransition(80, properties)}
+  ${buildMouseInteractionTransition(60, properties)}
 
   &:hover {
-    ${buildMouseInteractionTransition(80, properties)}
+    ${buildMouseInteractionTransition(60, properties)}
   }
 
   &:active {
-    ${buildMouseInteractionTransition(40, properties)}
+    ${buildMouseInteractionTransition(30, properties)}
   }
 `

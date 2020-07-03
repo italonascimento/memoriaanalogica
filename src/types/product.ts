@@ -9,4 +9,5 @@ export interface Product {
 export interface ProductDetails {
   name: string
   slug: string
+  description: string
 }

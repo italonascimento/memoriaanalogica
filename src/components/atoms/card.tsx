@@ -27,7 +27,7 @@ const StyledCard = styled.div<StyledCardProps>`
   overflow: hidden;
   border-radius: ${(props: StyledCardProps) => props.theme.defaultRadius};
   ${(props: StyledCardProps) => elevation(props.elevation)}
-  background: ${(props: StyledCardProps) => props.theme.colors.mainBackground};
+  background: white;
 
   ${mouseInteractionTransition('box-shadow', 'background')}
 `

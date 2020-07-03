@@ -8,10 +8,15 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: ${(props: ThemeProps<Theme>) => props.theme.textFontFamily};
-    background: ${(props: ThemeProps<Theme>) => props.theme.colors.lightBackground};
+    background: white;
   }
 
-  h1, h2, h3, h4, h5,
+  h1, h2, h3, h4, h5, h6 {
+    font-family: ${(props: ThemeProps<Theme>) => props.theme.titleFontFamily};
+    font-weight: lighter;
+  }
+
+  h1, h2, h3, h4, h5, h6,
   p, figure, section, ul {
     margin: 0;
     padding: 0;

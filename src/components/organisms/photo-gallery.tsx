@@ -3,6 +3,7 @@ import Img, { FluidObject } from "gatsby-image"
 import styled, { css, ThemeProps } from 'styled-components'
 
 import { Theme } from '../../themes/default-theme'
+import { mouseInteractionTransition } from '../../styles/transitions'
 
 
 interface PhotoGalleryProps {
@@ -76,7 +77,7 @@ const Container = styled.div<ContainerProps>`
 
 const Selected = styled.div`
   flex: 1;
-  border: 1px solid ${(props: ThumbProps) => props.theme.colors.dimNeutral};
+  border: 1px solid ${(props: ThumbProps) => props.theme.colors.greyLigth2};
 `
 
 const Thumbs = styled.ul`
@@ -91,12 +92,20 @@ const Thumb = styled.li<ThumbProps>`
   cursor: pointer;
   width: 100px;
   height: 100px;
-  border: 1px solid ${(props: ThumbProps) => props.theme.colors.dimNeutral};
+  border: 1px solid ${(props: ThumbProps) => props.theme.colors.greyLigth2};
 
   ${(props: ThumbProps) => props.selected && css`
     padding: 2px;
-    border: 4px solid ${props.theme.colors.dimPrimary};
+    border: 4px solid ${props.theme.colors.primaryLight1};
   `}
+
+  ${(props: ThumbProps) => !props.selected && css`
+    &:hover {
+      border-color: ${props.theme.colors.primaryLight2};
+    }
+  `}
+
+  ${mouseInteractionTransition('border')}
 `
 
 export default PhotoGallery

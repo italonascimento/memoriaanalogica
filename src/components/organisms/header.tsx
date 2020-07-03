@@ -28,7 +28,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: ${(props: ThemeProps<Theme>) => props.theme.colors.mainBackground};
+  background: white;
   box-shadow: ${(props: ThemeProps<Theme>) => props.theme.softShadowLow};
   padding: 16px;
   
