@@ -76,12 +76,12 @@ const Content = styled.div`
 `
 
 const Title = styled.h3`
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 16px;
   color: ${(props: ThemeProps<Theme>) => props.theme.colors.greyDarkest};
 
   ${mediaQueries.md} {
-    font-size: 16px;
+    font-size: 18px;
   }
 `
 

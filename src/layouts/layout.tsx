@@ -35,13 +35,28 @@ const Layout = ({ children }: IProps) => {
     <ThemeProvider theme={defaultTheme}>
       <ResetStyle />
       <GlobalStyle />
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div>{children}</div>
+      <StyledHeader siteTitle={data.site.siteMetadata.title} />
+      <Main>{children}</Main>
       <footer>
         
       </footer>
     </ThemeProvider>
   )
 }
+
+const StyledHeader = styled(Header)`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+`
+
+const Main = styled.div`
+  margin-top: 96px;
+  
+  ${mediaQueries.md} {
+    margin-top: 128px;
+  }
+`
 
 export default Layout

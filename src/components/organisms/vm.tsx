@@ -12,7 +12,6 @@ export interface IVMProps {
 const VM = ({
   products = [],
 }: IVMProps) => {
-  // console.log(products)
   return (
     <Container>
       {products.map(({ sku, price, photos }) => (
@@ -40,6 +39,7 @@ const CardContainer = styled.div`
 
   ${mediaQueries.md} {
     flex-basis: 33%;
+    padding: 0 32px;
   }
 
   ${mediaQueries.l} {

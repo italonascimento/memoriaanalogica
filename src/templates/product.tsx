@@ -57,7 +57,7 @@ const ProductTemplate = ({
 
           <Spacing x={isMediaLargeOrUp ? 64 : 32} y={32} />
 
-          <StyledBuyBox sku={sku} price={price} />
+          <StyledBuyBox product={{ sku, price, photos }} />
         </MainSection>
       </Container>
 

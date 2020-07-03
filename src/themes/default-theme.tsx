@@ -42,7 +42,7 @@ export const defaultTheme: Partial<Theme> = {
     primaryDark2: '#516169',
     primaryDark1: '#6A808A',
     primary: '#8FA3AC',
-    primaryLight1:'#BAC8CF',
+    primaryLight1:'#A0B3BD',
     primaryLight2: '#BCC8CF',
     primaryLighter: '#E9EDF0',
 
@@ -50,7 +50,7 @@ export const defaultTheme: Partial<Theme> = {
     accentDark2: '#664444',
     accentDark1: '#7A5252',
     accent: '#a26c6c',
-    accentLight1: '#CC9F9F',
+    accentLight1: '#B08686',
     accentLigth2: '#E8BCBC',
     accentLighter: '#FFD4D4',
 

@@ -39,8 +39,6 @@ const PhotoSwing = ({
       }
     } else {
       setCurrentPhoto(0)
-      // setTimeout(() => {
-      // }, 500)
       clearTimeout(timeoutId)
       setCount(0)
     }

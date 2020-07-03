@@ -4,15 +4,21 @@ import { Theme } from "../../themes/default-theme"
 import LangSelector from "../molecules/lang-selector"
 import mediaQueries from "../../styles/media-queries"
 import { Link } from "gatsby-plugin-intl"
+import Button from "../atoms/button"
+import { GiShoppingCart } from "react-icons/gi"
+import Spacing from "../atoms/spacing"
+import CartPopover from "./cart-popover"
 
 interface IProps {
   siteTitle: string
+  className?: string
 }
 
 const Header = ({ 
-  siteTitle = ''
+  siteTitle = '',
+  className,
 }: IProps) => (
-  <Container>
+  <Container className={className}>
     <Title>
       <Link to='/'>
         {siteTitle}
@@ -21,10 +27,15 @@ const Header = ({
     {typeof window !== 'undefined' && (
       <LangSelector location={window.location} />
     )}
+
+    <Spacing x={8} />
+
+    <CartPopover />
   </Container>
 )
 
 const Container = styled.div`
+  height: 64px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,6 +49,7 @@ const Container = styled.div`
 `
 
 const Title = styled.h1`
+  flex: 1;
   font-size: 18px;
   margin: 0;
   text-transform: lowercase;

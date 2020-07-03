@@ -8,21 +8,28 @@ import useTranslation from '../hooks/useTanslation'
 import Spacing from '../atoms/spacing'
 import Button from '../atoms/button'
 import mediaQueries from '../../styles/media-queries'
+import useGlobalState from '../../state/useGlobalState'
+import { actions } from '../../state/cart-state'
+import { Product } from '../../types/product'
 
 
 interface BuyBoxProps {
-  sku: string
-  price: number
+  product: Product
   className?: string
 }
 
 const BuyBox = ({
-  sku,
-  price,
+  product,
   className,
 }: BuyBoxProps) => {
+  const { sku, price } = product
+
   const details = useProductDetails(sku)
   const t = useTranslation()
+  const [_, dispatch] = useGlobalState()
+
+  const addToCartHandler = () =>
+    dispatch(actions.addToCart(product))
 
   return (
     <Container className={className}>
@@ -34,7 +41,7 @@ const BuyBox = ({
 
       <Spacing y={32} />
 
-      <Button large primary>
+      <Button large primary onClick={addToCartHandler}>
         {t('add-to-cart')}
       </Button>
 
@@ -59,12 +66,8 @@ const Container = styled.div`
 `
 
 const Title = styled.h2`
-  font-size: 24px;
+  font-size: 32px;
   color: ${(props: ThemeProps<Theme>) => props.theme.colors.greyDarkest};
-  
-  ${mediaQueries.md} {
-    font-size: 32px;
-  }
 
   ${mediaQueries.l} {
     font-size: 40px;

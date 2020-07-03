@@ -5,3 +5,11 @@
  */
 
 // You can delete this file if you're not using it
+
+const React = require("react")
+const GlobalContextProvider = require("./src/state/global-state")
+  .default
+
+exports.wrapRootElement = ({ element }) => {
+  return <GlobalContextProvider>{element}</GlobalContextProvider>
+}
