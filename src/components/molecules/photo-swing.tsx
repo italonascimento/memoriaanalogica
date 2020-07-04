@@ -28,9 +28,10 @@ const PhotoSwing = ({
   }
   
   useEffect(() => {
+    let id: number
     if (isActive) {
       if (count < photos.length) {
-        const id = setTimeout(() => {
+        id = setTimeout(() => {
           changePhoto()
         }, count === 0 ? 500 : 2500)
     
@@ -43,7 +44,7 @@ const PhotoSwing = ({
       setCount(0)
     }
 
-    return () => { clearTimeout(timeoutId) }
+    return () => clearTimeout(id)
   }, [currentPhoto, isActive])
 
   return (
