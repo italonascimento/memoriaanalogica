@@ -1,8 +1,9 @@
-import React, { useReducer, Dispatch } from "react"
+import React, { useReducer, Dispatch, useEffect } from "react"
 import { 
   initialState as cartInitialState, 
   State as CartState ,
   reducer as cartReducer,
+  init as initCart,
 } from "./cart-state"
 
 export interface Action {
@@ -32,7 +33,10 @@ interface Props {
   children: React.ReactNode
 }
 const GlobalContextProvider = ({ children }: Props) => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState, (state) => ({
+    ...state,
+    cart: initCart(state.cart)
+  }))
 
   return (
     <GlobalStateContext.Provider value={state}>

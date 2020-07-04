@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled, { ThemeProps } from "styled-components"
 
 import useProductDetails from "../hooks/useProduct"
@@ -26,10 +26,15 @@ const BuyBox = ({
 
   const details = useProductDetails(sku)
   const t = useTranslation()
-  const [_, dispatch] = useGlobalState()
+  const [state, dispatch] = useGlobalState()
 
-  const addToCartHandler = () =>
+  const addToCartHandler = () => {
     dispatch(actions.addToCart(product))
+  }
+
+  useEffect(() => {
+    window.localStorage.setItem('cart', JSON.stringify(state.cart.items))
+  }, [state.cart.items])
 
   return (
     <Container className={className}>

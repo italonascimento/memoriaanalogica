@@ -4,17 +4,30 @@ import { Action } from "./global-state";
 enum ActionType {
   addToCart,
   removeFromCart,
+  replaceCart,
+}
+
+export interface CartItem {
+  amount: number
+  product: Product
 }
 
 export interface State {
-  items: {
-    amount: number
-    product: Product
-  }[]
+  items: CartItem[]
 }
 
 export const initialState: State = {
   items: []
+}
+
+export const init = (state: State) => {
+  const savedItem = window.localStorage.getItem('cart')
+  return {
+    ...state,
+    items: savedItem
+      ? JSON.parse(savedItem)
+      : []
+  }
 }
 
 export const actions = {
@@ -32,6 +45,11 @@ export const actions = {
       index,
       amount,
     },
+  }),
+
+  replaceCart: (cart: CartItem[]) => ({
+    type: ActionType.replaceCart,
+    payload: cart,
   })
 }
 
@@ -57,6 +75,12 @@ export const reducer: (state: State, action: Action) => State =
           items: items.filter(item => item.amount !== 0),
         }
       }
+
+      case ActionType.replaceCart:
+        return {
+          ...state,
+          items: payload,
+        }
 
       default:
         return state
