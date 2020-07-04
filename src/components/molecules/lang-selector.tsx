@@ -2,9 +2,10 @@ import React from 'react'
 import { IntlContextConsumer, changeLocale } from 'gatsby-plugin-intl'
 import styled from 'styled-components'
 import { GiUsaFlag, GiBrazilFlag } from 'react-icons/gi'
+import useMediaQuery from 'react-use-media-query-hook'
 
-import useTranslation from '../hooks/useTanslation'
 import { Select, Option } from './select'
+import mediaQueries, { mediaQueryValues } from '../../styles/media-queries'
 
 interface LanguageDetails {
   name: string
@@ -22,17 +23,13 @@ const languageDetails: {[keyb in string]: LanguageDetails} = {
   },
 }
 
-interface IProps {
-  location?: Location
-}
-
 interface IConsumer {
   languages: string[]
   language: string
 }
 
-const LangSelector = ({ location }: IProps) => {
-  const t = useTranslation()
+const LangSelector = () => {
+  const md = useMediaQuery(mediaQueryValues.md)
 
   return (
     <div>
@@ -47,7 +44,7 @@ const LangSelector = ({ location }: IProps) => {
                 <Option key={language} value={language}>
                   <LanguageButton>
                     {languageDetails[language].flag}
-                    {languageDetails[language].name}
+                    {md && languageDetails[language].name}
                   </LanguageButton>
                 </Option>
               ))}
@@ -63,8 +60,10 @@ const LanguageButton = styled.span`
   align-items: center;
   font-size: 12px;
 
-  svg {
-    margin-right: 8px;
+  ${mediaQueries.md} {
+    svg {
+      margin-right: 8px;
+    }
   }
 `
 

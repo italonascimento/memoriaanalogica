@@ -100,6 +100,7 @@ const MainSection = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: flex-start;
     padding: 0 16px;
     max-width: 1400px;
     margin: 0 auto;

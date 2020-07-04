@@ -51,7 +51,7 @@ const Container = styled.div<ContainerProps>`
     flex-direction: row;
 
     & ${Selected} {
-      margin-right: 8px;
+      margin-right: 16px;
     }
 
     & ${Thumbs} {
@@ -96,7 +96,7 @@ const Thumb = styled.li<ThumbProps>`
 
   ${(props: ThumbProps) => props.selected && css`
     padding: 2px;
-    border: 4px solid ${props.theme.colors.primaryLight1};
+    border: 4px solid ${props.theme.colors.primaryLight2};
   `}
 
   ${(props: ThumbProps) => !props.selected && css`

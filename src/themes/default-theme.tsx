@@ -13,7 +13,7 @@ export interface Theme {
     accentDark1: string
     accent: string
     accentLight1:string
-    accentLigth2: string
+    accentLight2: string
     accentLighter: string
 
     greyDarkest: string
@@ -51,7 +51,7 @@ export const defaultTheme: Partial<Theme> = {
     accentDark1: '#7A5252',
     accent: '#a26c6c',
     accentLight1: '#B08686',
-    accentLigth2: '#E8BCBC',
+    accentLight2: '#E8BCBC',
     accentLighter: '#FFEDED',
 
     greyDarkest: '#333333',
