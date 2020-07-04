@@ -42,7 +42,6 @@ const LangSelector = ({ location }: IProps) => {
             float
             onSelect={(lang) => changeLocale(`${lang}`)}
             initialValue={language}
-            align='right'
           >
               {languages.map(language => (
                 <Option key={language} value={language}>
