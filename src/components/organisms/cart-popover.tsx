@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useCallback } from 'react'
 
 import CartButton from "../molecules/cart-button";
 import useGlobalState from '../../state/useGlobalState';
@@ -19,11 +19,15 @@ const CartPopover = () => {
   useClickOutsideHandler(popoverRef, () => {
     setIsOpen(false)
   })
+
+  const getTotalAmount = useCallback(() => {
+    return cart.items.reduce((acc, curr) => acc + curr.amount, 0)
+  }, [cart.items])
   
   return (
     <div ref={popoverRef}>
       <div onClick={() => setIsOpen(!isOpen)}>
-        <CartButton elevation={isOpen ? 1 : 0} quantity={cart.items.length} />
+        <CartButton elevation={isOpen ? 1 : 0} quantity={getTotalAmount()} />
       </div>
       {isOpen && (
         <Popover anchor={{h: 'right', v: 'top'}}>

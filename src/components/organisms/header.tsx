@@ -25,7 +25,7 @@ const Header = ({
       </Link>
     </Title>
     {typeof window !== 'undefined' && (
-      <LangSelector location={window.location} />
+      <LangSelector />
     )}
 
     <Spacing x={8} />
