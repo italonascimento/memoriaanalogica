@@ -7,6 +7,9 @@ import styled from 'styled-components'
 import { FormattedNumber } from 'gatsby-plugin-intl'
 import useTranslation from '../hooks/useTanslation'
 import Spacing from '../atoms/spacing'
+import AmountSelector from '../molecules/amount-selector'
+import useGlobalState from '../../state/useGlobalState'
+import { actions } from '../../state/cart-state'
 
 interface CartItemProps {
   product: Product
@@ -17,9 +20,14 @@ const CartItem = ({
   product,
   amount,
 }: CartItemProps) => {
+  const [_, dispatch] = useGlobalState(s => s)
   const t = useTranslation()
   const { sku, photos, price } = product
-  const details = useProductDetails(product.sku)
+  const details = useProductDetails(sku)
+
+  const amountChangeHandler = (newAmount: number) => {
+    dispatch(actions.setAmount(product.sku, newAmount))
+  }
 
   return (
     <Container>
@@ -33,6 +41,7 @@ const CartItem = ({
           <FormattedNumber value={price} style='currency' currency={t('currency')} />
         </p>
       </Content>
+      <AmountSelector value={amount} onChange={amountChangeHandler} />
     </Container>
   )
 }

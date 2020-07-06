@@ -5,6 +5,7 @@ enum ActionType {
   addToCart,
   removeFromCart,
   replaceCart,
+  setAmount,
 }
 
 export interface CartItem {
@@ -47,6 +48,14 @@ export const actions = {
     },
   }),
 
+  setAmount: (sku: string, newAmount: number) => ({
+    type: ActionType.setAmount,
+    payload: {
+      sku,
+      newAmount,
+    }
+  }),
+
   replaceCart: (cart: CartItem[]) => ({
     type: ActionType.replaceCart,
     payload: cart,
@@ -83,6 +92,28 @@ export const reducer: (state: State, action: Action) => State =
         return {
           ...state,
           items: items.filter(item => item.amount !== 0),
+        }
+      }
+
+      case ActionType.setAmount: {
+        const items = [...state.items]
+        const index = items.findIndex(item => item.product.sku === payload.sku)
+
+        if (index >= 0) {
+          items[index] = {
+            ...items[index],
+            amount: payload.newAmount,
+          }
+        }
+
+        return {
+          ...state,
+          items: payload.newAmount === 0
+            ? [
+              ...items.slice(0, index),
+              ...items.slice(index + 1),
+            ]
+            : items,
         }
       }
 

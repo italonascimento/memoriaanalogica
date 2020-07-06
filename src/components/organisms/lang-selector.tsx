@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { GiUsaFlag, GiBrazilFlag } from 'react-icons/gi'
 import useMediaQuery from 'react-use-media-query-hook'
 
-import { Select, Option } from './select'
+import { Select, Option } from '../molecules/select'
 import mediaQueries, { mediaQueryValues } from '../../styles/media-queries'
 
 interface LanguageDetails {

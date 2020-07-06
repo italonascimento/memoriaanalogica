@@ -1,7 +1,7 @@
 import React from "react"
 import styled, { ThemeProps } from "styled-components"
 import { Theme } from "../../themes/default-theme"
-import LangSelector from "../molecules/lang-selector"
+import LangSelector from "./lang-selector"
 import mediaQueries from "../../styles/media-queries"
 import { Link } from "gatsby-plugin-intl"
 import Button from "../atoms/button"

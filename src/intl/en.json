@@ -9,6 +9,10 @@
     "title": "Home"
   },
 
+  "cart": {
+    "cart-is-empty": "The cart is empty."
+  },
+
   "products": {
     "CPTR1912": {
       "name": "Postcard \"Crossing Bridge\"",

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Product } from '../../types/product'
-import ProductCard from '../molecules/product-card'
+import ProductCard from './product-card'
 import mediaQueries from '../../styles/media-queries'
 import { FluidObject } from 'gatsby-image'
 

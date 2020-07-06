@@ -9,6 +9,10 @@
     "title": "Iníco"
   },
 
+  "cart": {
+    "cart-is-empty": "O carrinho está vazio."
+  },
+
   "products": {
     "CPTR1912": {
       "name": "Cartão postal \"Travessia\"",

@@ -9,7 +9,7 @@ import useTranslation from '../hooks/useTanslation'
 import { Theme } from '../../themes/default-theme'
 import elevation from '../../styles/elevation'
 import mediaQueries from '../../styles/media-queries'
-import PhotoSwing from './photo-swing'
+import PhotoSwing from '../molecules/photo-swing'
 
 interface ProductCardProps {
   price: number
