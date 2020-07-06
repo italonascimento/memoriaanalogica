@@ -1,20 +1,19 @@
-import React from 'react'
+import React, { DOMAttributes } from 'react'
 
-import Button from "../atoms/button";
+import Button, { ButtonProps } from "../atoms/button";
 import { GiShoppingCart } from "react-icons/gi";
 import Badge from '../atoms/badge';
 import styled from 'styled-components';
-import Spacing from '../atoms/spacing';
-import { AiFillCaretDown } from 'react-icons/ai';
 
-interface CartButtonProps {
+interface CartButtonProps extends ButtonProps {
   quantity?: number
 }
 
 const CartButton = ({
-  quantity = 0
+  quantity = 0,
+  elevation,
 }: CartButtonProps) => (
-  <StyledButton outline accent={quantity > 0} elevation={0}>
+  <StyledButton elevation={elevation} outline accent={quantity > 0}>
     <GiShoppingCart size={24} />
     {quantity > 0 && (
       <StyledBadge accent>

@@ -4,13 +4,13 @@ import { Theme } from '../../themes/default-theme'
 import elevation, { ElevationLevel } from '../../styles/elevation'
 import { mouseInteractionTransition } from '../../styles/transitions'
 
-export interface IButtonProps extends AnchorHTMLAttributes<any> {
+export interface ButtonProps extends DOMAttributes<Element> {
   primary?: boolean
   accent?: boolean
   outline?: boolean
   large?: boolean
   full?: boolean
-  children: React.ReactNode | React.ReactNode[]
+  children?: React.ReactNode | React.ReactNode[]
   className?: string
   elevation?: ElevationLevel
 }
@@ -19,13 +19,13 @@ const Button = ({
   children,
   elevation = 1,
   ...props
-}: IButtonProps) => (
+}: ButtonProps) => (
   <StyledButton {...props} elevation={elevation}>
     {children}
   </StyledButton>
 )
 
-type StyledButtonProps = IButtonProps & ThemeProps<Theme>
+type StyledButtonProps = ButtonProps & ThemeProps<Theme>
 
 const StyledButton = styled.a<StyledButtonProps>`
   ${(props: StyledButtonProps) => props.large

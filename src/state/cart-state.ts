@@ -57,14 +57,24 @@ export const reducer: (state: State, action: Action) => State =
   (state, action) => {
     const { payload, type } = action
     switch (action.type) {
-      case ActionType.addToCart:
+      case ActionType.addToCart: {
+        const items = [...state.items]
+        const index = items.findIndex(item => item.product.sku === payload.product.sku)
+
+        if (index >= 0) {
+          items[index] = {
+            ...items[index],
+            amount: items[index].amount + payload.amount,
+          }
+        } else {
+          items.push(payload)
+        }
+        
         return {
           ...state,
-          items: [
-            ...state.items,
-            action.payload,
-          ]
+          items,
         }
+      }
 
       case ActionType.removeFromCart: {
         const items = [...state.items]

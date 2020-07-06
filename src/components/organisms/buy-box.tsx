@@ -26,15 +26,15 @@ const BuyBox = ({
 
   const details = useProductDetails(sku)
   const t = useTranslation()
-  const [state, dispatch] = useGlobalState()
+  const [cart, dispatch] = useGlobalState(s => s.cart)
 
   const addToCartHandler = () => {
     dispatch(actions.addToCart(product))
   }
 
   useEffect(() => {
-    window.localStorage.setItem('cart', JSON.stringify(state.cart.items))
-  }, [state.cart.items])
+    window.localStorage.setItem('cart', JSON.stringify(cart.items))
+  }, [cart.items])
 
   return (
     <Container className={className}>
