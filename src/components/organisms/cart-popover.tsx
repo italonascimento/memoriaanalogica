@@ -6,6 +6,8 @@ import Popover from '../atoms/popover';
 import List, { ListItem } from '../atoms/list';
 import useTranslation from '../hooks/useTanslation';
 import useClickOutsideHandler from '../hooks/useClickOutsideHandler';
+import CartItem from '../molecules/cart-item';
+import styled from 'styled-components';
 
 const CartPopover = () => {
   const [cart] = useGlobalState(s => s.cart)
@@ -17,24 +19,26 @@ const CartPopover = () => {
     setIsOpen(false)
   })
   
-  const getDetails = (sku: string, key: string) => t(`products.${sku}.${key}`)
-  
   return (
-    <div ref={popoverRef} onClick={() => setIsOpen(!isOpen)}>
-      <CartButton elevation={isOpen ? 1 : 0} quantity={cart.items.length} />
+    <div ref={popoverRef}>
+      <div onClick={() => setIsOpen(!isOpen)}>
+        <CartButton elevation={isOpen ? 1 : 0} quantity={cart.items.length} />
+      </div>
       {isOpen && (
         <Popover anchor={{h: 'right', v: 'top'}}>
-          <List>
+          <StyledList>
             {cart.items.map(item => (
-              <ListItem key={item.product.sku}>
-                {getDetails(item.product.sku, 'name')}
-              </ListItem>
+              <CartItem {...item} />
             ))}
-          </List>
+          </StyledList>
         </Popover>
       )}
     </div>
   )
 }
+
+const StyledList = styled(List)`
+  width: 300px;
+`
 
 export default CartPopover

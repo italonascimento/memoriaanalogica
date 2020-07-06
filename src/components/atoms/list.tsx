@@ -3,12 +3,14 @@ import styled from 'styled-components'
 
 interface ListProps {
   children: React.ReactNode | React.ReactNode[]
+  className?: string
 }
 
 const List = ({
   children,
+  className,
 }: ListProps) => (
-  <StyledList>
+  <StyledList className={className}>
     {children}
   </StyledList>
 )

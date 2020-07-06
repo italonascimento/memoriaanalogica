@@ -1,4 +1,4 @@
-import React, { AnchorHTMLAttributes } from 'react'
+import React, { DOMAttributes } from 'react'
 import styled, { ThemeProps, css } from "styled-components"
 import { Theme } from '../../themes/default-theme'
 import elevation, { ElevationLevel } from '../../styles/elevation'
