@@ -13,6 +13,7 @@ export interface ButtonProps extends DOMAttributes<Element> {
   children?: React.ReactNode | React.ReactNode[]
   className?: string
   elevation?: ElevationLevel
+  round?: boolean
 }
 
 const Button = ({
@@ -43,7 +44,7 @@ const StyledButton = styled.a<StyledButtonProps>`
   display: ${(props: StyledButtonProps) => props.full ? 'flex' : 'inline-flex'};
   align-items: center;
   justify-content: center;
-  border-radius: ${(props: StyledButtonProps) => props.theme.defaultRadius};
+  border-radius: ${(props: StyledButtonProps) => props.round ? '100%' : props.theme.defaultRadius};
   
   color: ${(props: StyledButtonProps) => props.theme.colors.greyDarkest};
 
