@@ -3,6 +3,7 @@ import styled, { ThemeProps, css } from "styled-components"
 import { Theme } from '../../themes/default-theme'
 import elevation, { ElevationLevel } from '../../styles/elevation'
 import { mouseInteractionTransition } from '../../styles/transitions'
+import mediaQueries from '../../styles/media-queries'
 
 export interface ButtonProps extends DOMAttributes<Element> {
   primary?: boolean
@@ -40,6 +41,12 @@ const StyledButton = styled.a<StyledButtonProps>`
     height: 32px;
     padding: 0 16px;
   `}
+
+  ${(props: StyledButtonProps) => props.round &&
+    css`
+      padding: 0;
+    `
+  }
 
   display: ${(props: StyledButtonProps) => props.full ? 'flex' : 'inline-flex'};
   align-items: center;
@@ -88,12 +95,14 @@ const StyledButton = styled.a<StyledButtonProps>`
 
   ${mouseInteractionTransition('box-shadow', 'color', 'background')}
 
-  &:hover {
-    ${(props: StyledButtonProps) => elevation(props.elevation!! + 1 as ElevationLevel)}
-  }
-  
-  &:active {
-    ${(props: StyledButtonProps) => elevation(props.elevation!! + 2 as ElevationLevel)}
+  ${mediaQueries.md} {
+    &:hover {
+      ${(props: StyledButtonProps) => elevation(props.elevation!! + 1 as ElevationLevel)}
+    }
+    
+    &:active {
+      ${(props: StyledButtonProps) => elevation(props.elevation!! + 2 as ElevationLevel)}
+    }
   }
 `
 

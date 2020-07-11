@@ -64,6 +64,7 @@ const StyledModal = styled.div`
 const Header = styled.div`
   font-size: 24px;
   padding: 16px;
+  padding-right: 8px;
   height: 64px;
   display: flex;
   justify-content: space-between;

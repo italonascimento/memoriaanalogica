@@ -41,7 +41,7 @@ const CartItem = ({
           <FormattedNumber value={price} style='currency' currency={t('currency')} />
         </p>
       </Content>
-      <AmountSelector value={amount} onChange={amountChangeHandler} />
+      <StyledAmountSelector value={amount} onChange={amountChangeHandler} />
     </Container>
   )
 }
@@ -61,6 +61,10 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 0 16px;
+`
+
+const StyledAmountSelector = styled(AmountSelector)`
+  flex-basis: 80px;
 `
 
 export default CartItem

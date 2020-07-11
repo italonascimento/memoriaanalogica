@@ -68,7 +68,7 @@ const CartPopover = () => {
 
 const StyledList = styled(List)`
   ${mediaQueries.md} {
-    width: 300px;
+    width: 340px;
   }
 `
 

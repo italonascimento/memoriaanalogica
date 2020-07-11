@@ -6,14 +6,13 @@ import Button, { ButtonProps } from "./button"
 
 const CloseButton = (props: ButtonProps) => (
   <StyledButton elevation={0} round {...props}>
-    <GrClose />
+    <GrClose size={24} />
   </StyledButton>
 )
 
 const StyledButton = styled(Button)`
   width: 40px;
   height: 40px;
-  padding: 0;
 `
 
 export default CloseButton
