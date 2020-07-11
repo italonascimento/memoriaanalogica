@@ -33,7 +33,9 @@ const BuyBox = ({
   }
 
   useEffect(() => {
-    window.localStorage.setItem('cart', JSON.stringify(cart.items))
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('cart', JSON.stringify(cart.items))
+    }
   }, [cart.items])
 
   return (

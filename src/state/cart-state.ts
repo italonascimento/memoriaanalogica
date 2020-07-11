@@ -22,13 +22,17 @@ export const initialState: State = {
 }
 
 export const init = (state: State) => {
-  const savedItem = window.localStorage.getItem('cart')
-  return {
-    ...state,
-    items: savedItem
-      ? JSON.parse(savedItem)
-      : []
+  if (typeof window !== 'undefined') {
+    const savedItem = window.localStorage.getItem('cart')
+    return {
+      ...state,
+      items: savedItem
+        ? JSON.parse(savedItem)
+        : []
+    }
   }
+
+  return state
 }
 
 export const actions = {
