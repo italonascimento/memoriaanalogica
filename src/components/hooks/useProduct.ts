@@ -1,7 +1,7 @@
 import useTranslation from "./useTanslation";
 import { ProductDetails } from "../../types/product";
-const productsObject = require("../../intl/en.json").products
-const detailsObject = productsObject[Object.keys(productsObject)[0]]
+const productsObject = typeof window !== `undefined` ? require("../../intl/en.json").products : []
+const detailsObject = productsObject[Object.keys(productsObject)[0]] || {}
 
 export default function useProductDetails(sku: string): ProductDetails {
   const t = useTranslation()
