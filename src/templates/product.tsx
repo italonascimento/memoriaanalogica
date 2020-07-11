@@ -1,10 +1,10 @@
 import React from "react"
 import { graphql } from "gatsby"
 import styled, { ThemeProps } from "styled-components"
-import useMedia from 'react-use-media-query-hook'
 import Img from 'gatsby-image'
 import Slider from "react-slick"
 
+import useMedia from '../components/hooks/use-media'
 import Layout from "../layouts/layout"
 import useProductDetails from "../components/hooks/useProduct"
 import SEO from "../components/seo"

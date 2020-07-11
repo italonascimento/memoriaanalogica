@@ -2,8 +2,8 @@ import React from 'react'
 import { IntlContextConsumer, changeLocale } from 'gatsby-plugin-intl'
 import styled from 'styled-components'
 import { GiUsaFlag, GiBrazilFlag } from 'react-icons/gi'
-import useMediaQuery from 'react-use-media-query-hook'
 
+import useMedia from '../hooks/use-media'
 import { Select, Option } from '../molecules/select'
 import mediaQueries, { mediaQueryValues } from '../../styles/media-queries'
 
@@ -29,7 +29,7 @@ interface IConsumer {
 }
 
 const LangSelector = () => {
-  const md = useMediaQuery(mediaQueryValues.md)
+  const md = useMedia(mediaQueryValues.md)
 
   return (
     <div>

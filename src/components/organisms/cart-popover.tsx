@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback } from 'react'
-import useMediaQuery from 'react-use-media-query-hook'
 
+import useMedia from '../hooks/use-media'
 import CartButton from "../molecules/cart-button";
 import useGlobalState from '../../state/useGlobalState';
 import Popover from '../atoms/popover';
@@ -18,7 +18,7 @@ const CartPopover = () => {
   const [isOpen, setIsOpen] = useState(false) 
   const t = useTranslation()
   const popoverRef = useRef<HTMLDivElement>(null)
-  const md = useMediaQuery(mediaQueryValues.md)
+  const md = useMedia(mediaQueryValues.md)
   
   useClickOutsideHandler(popoverRef, () => {
     setIsOpen(false)

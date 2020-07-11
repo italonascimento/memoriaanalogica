@@ -33,3 +33,18 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 }
+
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+  if (stage === "build-html") {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /react-use-media-query-hook/,
+            use: loaders.null(),
+          },
+        ],
+      },
+    })
+  }
+}
