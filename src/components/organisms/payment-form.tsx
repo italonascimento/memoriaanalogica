@@ -66,7 +66,7 @@ export default class PaymentForm extends Component<any, any> {
         placeholder: "Zip",
       },
       callbacks: {
-        methodsSupported: methods => {
+        methodsSupported: (methods: any) => {
           console.log(methods)
           if (methods.googlePay) {
             this.setState({
@@ -105,11 +105,11 @@ export default class PaymentForm extends Component<any, any> {
             ],
           }
         },
-        cardNonceResponseReceived: (errors, nonce, cardData) => {
+        cardNonceResponseReceived: (errors: any, nonce: string, cardData: any) => {
           if (errors) {
             // Log errors from nonce generation to the JavaScript console
             console.log("Encountered errors:")
-            errors.forEach(function (error) {
+            errors.forEach(function (error: any) {
               console.log("  " + error.message)
             })
             return
@@ -118,7 +118,7 @@ export default class PaymentForm extends Component<any, any> {
             nonce: nonce,
           })
           
-          axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/process-payment',{
+          axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/process-payment', {
             paymentAmmount: this.props.ammount*100, 
             currency:"USD",
             cardNounce:nonce
@@ -134,18 +134,18 @@ export default class PaymentForm extends Component<any, any> {
           })
         },
         unsupportedBrowserDetected: () => {},
-        inputEventReceived: inputEvent => {
+        inputEventReceived: (inputEvent: any) => {
           switch (inputEvent.eventType) {
             case "focusClassAdded":
               break
             case "focusClassRemoved":
               break
             case "errorClassAdded":
-              document.getElementById("error").innerHTML =
+              document.getElementById("error")!!.innerHTML =
                 "Please fix card information errors before continuing."
               break
             case "errorClassRemoved":
-              document.getElementById("error").style.display = "none"
+              document.getElementById("error")!!.style.display = "none"
               break
             case "cardBrandChanged":
               if (inputEvent.cardBrand !== "unknown") {
@@ -165,7 +165,7 @@ export default class PaymentForm extends Component<any, any> {
           }
         },
         paymentFormLoaded: function () {
-          document.getElementById("name").style.display = "inline-flex"
+          document.getElementById("name")!!.style.display = "inline-flex"
         },
       },
     }

@@ -48,7 +48,7 @@ const CartItem = ({
 
 const Container = styled.div`
   display: flex;
-  padding: 8px;
+  padding: 16px;
 `
 
 const Photo = styled.div`

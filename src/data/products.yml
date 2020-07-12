@@ -3,3 +3,9 @@
   photos: 
     - src: 'gatsby-astronaut.png'
     - src: 'gatsby-icon.png'
+
+- sku: 'CPTS1912'
+  price: 5
+  photos: 
+    - src: 'gatsby-astronaut.png'
+    - src: 'gatsby-icon.png'
