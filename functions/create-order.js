@@ -37,6 +37,7 @@ exports.handler = async (event, context, callback) => {
         'Content-Type': 'application/json'
       }
     }).then( result => {
+      console.log('result:', result)
       callback(null, {
         statusCode: 200,
         headers: {
