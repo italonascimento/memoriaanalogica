@@ -1,6 +1,25 @@
 const axios = require('axios')
 
 exports.handler = async (event, context, callback) => {
+  console.log(`function method: ${event.httpMethod}`)
+  if (event.httpMethod === "OPTIONS") {
+    callback(null, {
+      statusCode: 205,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+      },
+      body: "BOOP",
+    })
+    return
+  }
+
+  if (event.httpMethod !== "POST" || !event.body) {
+    callback(null, { statusCode: 405, body: "Method Not Allowed" })
+    return
+  }
+
   const data = JSON.parse(event.body)
   console.log(data)
 
