@@ -2,6 +2,7 @@ const axios = require('axios')
 
 exports.handler = async (event, context, callback) => {
   const data = JSON.parse(event.body)
+  console.log(data)
 
   axios.post('https://connect.squareup.com/v2/locations/E7W8DM4QEPBJK/orders', {
     "idempotency_key": uuid(),
