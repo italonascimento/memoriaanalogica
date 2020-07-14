@@ -81,7 +81,7 @@ exports.handler = async (event, context, callback) => {
         "Access-Control-Allow-Headers":
           "Origin, X-Requested-With, Content-Type, Accept",
       },
-      body:JSON.stringify({
+      body: JSON.stringify({
         message: `Payment Successful`,
         paymentInfo:response
       }),

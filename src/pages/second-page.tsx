@@ -22,7 +22,7 @@ const SecondPage = () => {
           "quantity": item.amount
       }))
     }).then(result => {
-      console.log(result.data)
+      console.log(result)
     })
   }, [])
 
