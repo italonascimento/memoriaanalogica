@@ -28,16 +28,16 @@ exports.handler = async (event, context, callback) => {
     const result = await axios.post('https://connect.squareup.com/v2/locations/E7W8DM4QEPBJK/orders', {
         "idempotency_key": uuid(),
         "order": {
-          "line_items": data.items
-        },
-        "fulfillments": [{
-          "type": "SHIPMENT",
-          "state": "PROPOSED",
-          "recipient": {
-            address: 'Teste',
-            display_name: 'Teste'
-          }
-      }]
+          "line_items": data.items,
+          "fulfillments": [{
+            "type": "SHIPMENT",
+            "state": "PROPOSED",
+            "recipient": {
+              address: 'Teste',
+              display_name: 'Teste'
+            }
+          }]
+        }
       }, {
         headers: {
           'Accept': 'application/json',
