@@ -66,7 +66,7 @@ exports.handler = async (event, context, callback) => {
         body: JSON.stringify(result),
       })
   } catch(err) {
-    console.log(err)
+    console.log(err.response.data)
     callback("Something went wrong with your request. Try again later", {
       statusCode: 500,
       headers: {
