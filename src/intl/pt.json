@@ -9,6 +9,10 @@
     "title": "Iníco"
   },
 
+  "checkout": {
+    "title": "Finalizar compra"
+  },
+
   "cart": {
     "cart-is-empty": "O carrinho está vazio."
   },

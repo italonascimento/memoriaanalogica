@@ -9,6 +9,10 @@
     "title": "Home"
   },
 
+  "checkout": {
+    "title": "Checkout"
+  },
+
   "cart": {
     "cart-is-empty": "The cart is empty."
   },

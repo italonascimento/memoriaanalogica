@@ -67,8 +67,9 @@ exports.handler = async (event, context, callback) => {
       source_id: data.cardNounce,
       amount_money: {
         amount: data.paymentAmmount,
-        currency: data.currency,
+        currency: 'BRL',
       },
+      order_id: data.orderId,
       idempotency_key: idempotency_key,
     }
     //
