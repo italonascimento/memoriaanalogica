@@ -18,7 +18,7 @@ const SecondPage = () => {
   useEffect(() => {
     axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/create-order', {
       items: cart.items.map(item => ({
-          "catalog_object_id": item.product.sku,
+          "catalog_object_id": 'BAKXPUAZBN5YT33LWG5Z6LMN',
           "quantity": item.amount.toString()
       }))
     }).then(result => {
