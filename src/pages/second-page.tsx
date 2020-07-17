@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 
 import Layout from "../layouts/layout"
 import SEO from "../components/seo"
@@ -11,18 +11,22 @@ import { CartItem } from "../state/cart-state"
 
 const SecondPage = () => {
   const [cart, _] = useGlobalState(s => s.cart)
+  const [isLoading, setIsLoading] = useState(false)
+  const [orderId, setOrderId] = useState()
   const total = cart.items.reduce((acc: number, curr: CartItem) => 
     acc + curr.amount * curr.product.price, 0
   )
   
   useEffect(() => {
+    setIsLoading(true)
     axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/create-order', {
       items: cart.items.map(item => ({
           "catalog_object_id": 'CP44CUQR5PKBHJB4WGZFMS37',
           "quantity": item.amount.toString()
       }))
-    }).then(result => {
-      console.log(result)
+    }).then(({ order }: any) => {
+      setIsLoading(false)
+      setOrderId(order.id)
     })
   }, [])
 
