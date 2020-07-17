@@ -17,7 +17,9 @@ const PaymentForm = (props: PaymentFormProps) => {
   const [error, setError] = useState(false)
 
   const requestCardNonce = () => {
-    paymentForm && paymentForm.requestCardNonce()
+    if (paymentForm) {
+      paymentForm.requestCardNonce()
+    }
   }
 
   useEffect(() => {
@@ -158,7 +160,8 @@ const PaymentForm = (props: PaymentFormProps) => {
     }
 
     const form = new props.paymentForm(config)
-    setPaymentForm(form.build())
+    form.build()
+    setPaymentForm(form)
   }, [])
 
   return (

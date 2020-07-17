@@ -89,6 +89,7 @@ exports.handler = async (event, context, callback) => {
     })
   } catch (error) {
     console.log(error)
+    console.log(error.body.errors)
     callback("Something went wrong with your request. Try again later", {
       statusCode: 500,
       headers: {
