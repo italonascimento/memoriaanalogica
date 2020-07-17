@@ -24,9 +24,10 @@ const SecondPage = () => {
           "catalog_object_id": 'CP44CUQR5PKBHJB4WGZFMS37',
           "quantity": item.amount.toString()
       }))
-    }).then(({ order }: any) => {
+    }).then((response: any) => {
+      console.log(response)
       setIsLoading(false)
-      setOrderId(order.id)
+      setOrderId(response.data.order.id)
     })
   }, [])
 

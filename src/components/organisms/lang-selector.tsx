@@ -37,7 +37,7 @@ const LangSelector = () => {
         {({ languages, language }: IConsumer) =>
           <Select
             float
-            onSelect={(lang) => changeLocale(`${lang}`)}
+            onSelect={(lang) => {changeLocale(`${lang}`)}}
             initialValue={language}
           >
               {languages.map(language => (

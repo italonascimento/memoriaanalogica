@@ -32,9 +32,10 @@ export const Select = ({
     setIsOpen(false)
   })
 
-  useEffect(() => {
-    onSelect(selected!!)
-  }, [selected, onSelect])
+  const onSelectHandler = (value: string | number) => {
+    setSelected(value)
+    onSelect(value)
+  }
 
   return (
     <Container
@@ -55,7 +56,7 @@ export const Select = ({
             <OptionWrapper 
               key={child.props.value}
               selected={child.props.value === selected}
-              onClick={() => setSelected(child.props.value)}  
+              onClick={() => onSelectHandler(child.props.value)}  
             >
               {child.props.value === selected && <IoIosCheckmark />}
               <Spacing x={8} />

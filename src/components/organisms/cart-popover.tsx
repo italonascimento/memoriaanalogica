@@ -33,7 +33,7 @@ const CartPopover = () => {
       {cart.items.length > 0
         ? (
           cart.items.map(item => (
-            <CartItem {...item} />
+            <CartItem key={item.product.sku} {...item} />
           ))
         )
         : (
