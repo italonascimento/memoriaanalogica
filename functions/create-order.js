@@ -65,9 +65,8 @@ exports.handler = async (event, context, callback) => {
           "Access-Control-Allow-Headers":
             "Origin, X-Requested-With, Content-Type, Accept",
         },
-        body: JSON.stringify(result),
+        body: JSON.stringify(result.data),
       })
-      return
   } catch(err) {
     console.log(err)
     if (err.response && err.response.data) console.log(err.response.data)
