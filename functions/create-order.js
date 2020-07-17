@@ -67,6 +67,7 @@ exports.handler = async (event, context, callback) => {
         },
         body: JSON.stringify(result),
       })
+      return
   } catch(err) {
     console.log(err)
     if (err.response && err.response.data) console.log(err.response.data)
