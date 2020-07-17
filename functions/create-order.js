@@ -33,8 +33,16 @@ exports.handler = async (event, context, callback) => {
             "type": "SHIPMENT",
             "state": "PROPOSED",
             "recipient": {
-              address: 'Teste',
-              display_name: 'Teste'
+              address: {
+                address_line_1: 'Teste',
+                administrative_district_level_1: 'test',
+                country: 'test',
+                locality: 'test',
+                first_name: 'test',
+                postal_code: '090832982'
+              },
+              display_name: 'Teste',
+              email_address: 'any@any.com'
             }
           }]
         }
