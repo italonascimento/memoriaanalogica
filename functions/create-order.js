@@ -25,7 +25,7 @@ exports.handler = async (event, context, callback) => {
   console.log(data)
 
   try {
-    const result = await axios.post('https://connect.squareup.com/v2/locations/E7W8DM4QEPBJK/orders', {
+    const result = await axios.post('https://connect.squareupsandbox.com/v2/locations/E7W8DM4QEPBJK/orders', {
         "idempotency_key": uuid(),
         "order": {
           "line_items": data.items,
@@ -66,6 +66,7 @@ exports.handler = async (event, context, callback) => {
         body: JSON.stringify(result),
       })
   } catch(err) {
+    console.log(err.response)
     console.log(err.response.data)
     callback("Something went wrong with your request. Try again later", {
       statusCode: 500,
