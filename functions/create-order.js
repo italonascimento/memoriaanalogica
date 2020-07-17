@@ -37,7 +37,7 @@ exports.handler = async (event, context, callback) => {
                 address: {
                   address_line_1: 'Teste',
                   administrative_district_level_1: 'test',
-                  country: 'test',
+                  country: 'BR',
                   locality: 'test',
                   first_name: 'test',
                   postal_code: '090832982'
