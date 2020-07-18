@@ -4,7 +4,7 @@ import axios from 'axios'
 interface PaymentFormProps {
   orderId: string
   paymentForm: any
-  ammount: number
+  amount: number
 }
 
 const PaymentForm = (props: PaymentFormProps) => {
@@ -112,7 +112,7 @@ const PaymentForm = (props: PaymentFormProps) => {
           setNonce(nonce)
           
           axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/process-payment', {
-            paymentAmmount: props.ammount*100, 
+            paymentAmount: props.amount*100, 
             cardNounce: nonce,
             orderId: props.orderId,
           }).then( result => {

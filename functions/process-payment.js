@@ -66,8 +66,8 @@ exports.handler = async (event, context, callback) => {
     const request_body = {
       source_id: data.cardNounce,
       amount_money: {
-        amount: data.paymentAmmount,
-        currency: 'BRL',
+        amount: data.paymentAmount,
+        currency: 'USD',
       },
       order_id: data.orderId,
       reference_id: "123456",
