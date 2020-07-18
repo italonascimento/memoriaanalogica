@@ -35,6 +35,7 @@ export const query = graphql`
       edges {
         node {
           sku
+          variationId
           price
           photos {
             src {

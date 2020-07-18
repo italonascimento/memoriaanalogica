@@ -26,7 +26,7 @@ interface ProductTemplateProps {
 const ProductTemplate = ({
   data,
 }: ProductTemplateProps) => {
-  const { sku, price } = data.allProductsYaml.edges[0].node
+  const { sku, price, variationId } = data.allProductsYaml.edges[0].node
   const photos = data.allProductsYaml.edges[0].node.photos.map(item =>
     item.src.childImageSharp.fluid
   )
@@ -57,7 +57,7 @@ const ProductTemplate = ({
 
           <Spacing x={isMediaLargeOrUp ? 64 : 32} y={32} />
 
-          <StyledBuyBox product={{ sku, price, photos }} />
+          <StyledBuyBox product={{ sku, price, photos, variationId }} />
         </MainSection>
       </Container>
 
@@ -71,6 +71,7 @@ export const query = graphql`
       edges {
         node {
           sku
+          variationId
           price
           photos {
             src {

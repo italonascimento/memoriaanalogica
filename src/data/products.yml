@@ -1,10 +1,12 @@
 - sku: 'CPTR1912'
+  variationId: 'CP44CUQR5PKBHJB4WGZFMS37'
   price: 5
   photos: 
     - src: 'gatsby-astronaut.png'
     - src: 'gatsby-icon.png'
 
 - sku: 'CPTS1912'
+  variationId: 'CP44CUQR5PKBHJB4WGZFMS37'
   price: 5
   photos: 
     - src: 'gatsby-astronaut.png'

@@ -10,7 +10,20 @@
   },
 
   "checkout": {
-    "title": "Checkout"
+    "shipment": {
+      "title": "Shipment details",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "address": "Address",
+      "city": "City",
+      "state_province": "State/Province",
+      "country": "Country",
+      "postal_code": "Postal code",
+      "next_button": "Next"
+    },
+    "payment": {
+      "title": "Payment"
+    }
   },
 
   "cart": {

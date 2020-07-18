@@ -35,15 +35,16 @@ exports.handler = async (event, context, callback) => {
             "shipment_details": {
               "recipient": {
                 address: {
-                  address_line_1: 'Teste',
-                  administrative_district_level_1: 'test',
-                  country: 'BR',
-                  locality: 'test',
-                  first_name: 'test',
-                  postal_code: '090832982'
+                  address_line_1: data.recipient.address,
+                  locality: data.recipient.city,
+                  administrative_district_level_1: data.recipient.state,
+                  country: data.recipient.country,
+                  first_name: data.recipient.firstName,
+                  last_name: data.recipient.lastName,
+                  postal_code: data.recipient.postalCode,
                 },
-                display_name: 'Teste',
-                email_address: 'any@any.com'
+                display_name: [data.recipient.firstName, data.recipient.lastName].join(' '),
+                email_address: data.recipient.email,
               }
             }
           }]

@@ -10,7 +10,20 @@
   },
 
   "checkout": {
-    "title": "Finalizar compra"
+    "shipment": {
+      "title": "Dados do envio",
+      "first_name": "Nome",
+      "last_name": "Sobrenome",
+      "address": "Endereço",
+      "city": "Cidade",
+      "state_province": "Estado",
+      "country": "País",
+      "postal_code": "CEP",
+      "next_button": "Avançar"
+    },
+    "payment": {
+      "title": "Pagamento"
+    }
   },
 
   "cart": {

@@ -12,6 +12,7 @@ export interface ProductsQueryResult {
 interface ProductNode {
   sku: string
   price: number
+  variationId: string
   photos: {
     src: {
       childImageSharp: {
