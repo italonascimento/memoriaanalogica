@@ -70,6 +70,7 @@ exports.handler = async (event, context, callback) => {
         currency: 'BRL',
       },
       order_id: data.orderId,
+      reference_id: "123456",
       idempotency_key: idempotency_key,
     }
     //
@@ -80,7 +81,7 @@ exports.handler = async (event, context, callback) => {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers":
-          "Origin, X-Requested-With, Content-Type, Accept",
+        "Origin, X-Requested-With, Content-Type, Accept",
       },
       body: JSON.stringify({
         message: `Payment Successful`,
