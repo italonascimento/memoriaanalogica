@@ -12,6 +12,8 @@
   "checkout": {
     "shipment": {
       "title": "Shipment details",
+      "personal_info": "Personal information",
+      "shipment_address": "Shipment address",
       "first_name": "First name",
       "last_name": "Last name",
       "address": "Address",
@@ -19,6 +21,7 @@
       "state_province": "State/Province",
       "country": "Country",
       "postal_code": "Postal code",
+      "email": "E-mail",
       "next_button": "Next"
     },
     "payment": {

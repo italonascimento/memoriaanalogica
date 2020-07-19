@@ -12,6 +12,8 @@
   "checkout": {
     "shipment": {
       "title": "Dados do envio",
+      "personal_info": "Dados pessoais",
+      "shipment_address": "Endereço de entrega",
       "first_name": "Nome",
       "last_name": "Sobrenome",
       "address": "Endereço",
@@ -19,6 +21,7 @@
       "state_province": "Estado",
       "country": "País",
       "postal_code": "CEP",
+      "email": "E-mail",
       "next_button": "Avançar"
     },
     "payment": {

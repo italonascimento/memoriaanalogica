@@ -53,9 +53,11 @@ const StyledHeader = styled(Header)`
 
 const Main = styled.div`
   margin-top: 96px;
+  padding-bottom: 64px;
   
   ${mediaQueries.md} {
     margin-top: 128px;
+    padding-bottom: 96px;
   }
 `
 

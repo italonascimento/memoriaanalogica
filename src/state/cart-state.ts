@@ -6,6 +6,7 @@ enum ActionType {
   removeFromCart,
   replaceCart,
   setAmount,
+  resetCart,
 }
 
 export interface CartItem {
@@ -63,6 +64,10 @@ export const actions = {
   replaceCart: (cart: CartItem[]) => ({
     type: ActionType.replaceCart,
     payload: cart,
+  }),
+
+  resetCart: () => ({
+    type: ActionType.resetCart,
   })
 }
 
@@ -126,6 +131,9 @@ export const reducer: (state: State, action: Action) => State =
           ...state,
           items: payload,
         }
+
+      case ActionType.resetCart:
+        return initialState
 
       default:
         return state

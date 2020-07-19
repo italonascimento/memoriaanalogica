@@ -43,7 +43,7 @@ exports.handler = async (event, context, callback) => {
                   last_name: data.recipient.lastName,
                   postal_code: data.recipient.postalCode,
                 },
-                display_name: [data.recipient.firstName, data.recipient.lastName].join(' '),
+                display_name: data.recipient.displayName,
                 email_address: data.recipient.email,
               }
             }
