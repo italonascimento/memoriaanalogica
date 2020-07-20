@@ -6,6 +6,7 @@ import mediaQueries from '../../styles/media-queries'
 import { Theme } from '../../themes/default-theme'
 import Button from './button'
 import CloseButton from './close-button'
+import Backdrop from './backdrop'
 
 interface ModalProps {
   onClose?: () => void
@@ -31,16 +32,6 @@ const Modal = ({
     </StyledModal>
   </>
 )
-
-const Backdrop = styled.div`
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: black;
-  opacity: 0.5;
-`
 
 const StyledModal = styled.div`
   background: white;

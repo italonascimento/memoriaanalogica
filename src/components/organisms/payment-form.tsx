@@ -7,6 +7,7 @@ interface PaymentFormProps {
   paymentForm: any
   amount: number
   onPaymentSuccess: (payment: PaymentResponse) => void
+  onPaymentStart: () => void
 }
 
 const PaymentForm = (props: PaymentFormProps) => {
@@ -20,6 +21,7 @@ const PaymentForm = (props: PaymentFormProps) => {
 
   const requestCardNonce = () => {
     if (paymentForm) {
+      props.onPaymentStart()
       paymentForm.requestCardNonce()
     }
   }

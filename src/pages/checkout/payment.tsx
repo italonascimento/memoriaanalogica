@@ -7,9 +7,10 @@ import Layout from '../../layouts/layout'
 import SEO from '../../components/seo'
 import PaymentForm from '../../components/organisms/payment-form'
 import useGlobalState from '../../state/useGlobalState'
-import { CartItem, actions } from '../../state/cart-state'
+import { CartItem, actions as cartActions } from '../../state/cart-state'
 import useTranslation from '../../components/hooks/useTanslation'
 import { PaymentResponse } from '../../types/payment-response'
+import { actions as globalActions } from '../../state/global-state'
 
 interface PaymentProps {
   location: WindowLocation<{ orderId: string }>
@@ -18,7 +19,6 @@ interface PaymentProps {
 const Payment = ({ location }: PaymentProps) => {
   const t = useTranslation()
   const [cart, dispatch] = useGlobalState(s => s.cart)
-  const [isLoading, setIsLoading] = useState(false)
   const total = cart.items.reduce((acc: number, curr: CartItem) => 
     acc + curr.amount * curr.product.price, 0
   )
@@ -30,7 +30,8 @@ const Payment = ({ location }: PaymentProps) => {
   }, [])
 
   const paymentSuccessHandler = (payment: PaymentResponse) => {
-    dispatch(actions.resetCart())
+    dispatch(globalActions.setIsLoading(false))
+    dispatch(cartActions.resetCart())
     navigate('/checkout/confirmation/', { state: { payment }})
   }
 
@@ -43,10 +44,10 @@ const Payment = ({ location }: PaymentProps) => {
 
       {typeof window !== 'undefined' 
         && (window as any).SqPaymentForm
-        && !isLoading
         && (
           <PaymentForm
             onPaymentSuccess={paymentSuccessHandler}
+            onPaymentStart={() => dispatch(globalActions.setIsLoading(true))}
             paymentForm={(window as any).SqPaymentForm}
             amount={total} 
             orderId={location.state?.orderId}

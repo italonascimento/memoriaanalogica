@@ -12,11 +12,11 @@ import Spacing from '../../components/atoms/spacing'
 import { MdNavigateNext } from 'react-icons/md'
 import { GiShoppingCart } from 'react-icons/gi'
 import { Theme } from '../../themes/default-theme'
+import { actions } from '../../state/global-state'
 
 const Shipment = () => {
   const t = useTranslation('checkout.shipment')
-  const [cart, _] = useGlobalState(s => s.cart)
-  const [isLoading, setIsLoading] = useState(false)
+  const [cart, dispatch] = useGlobalState(({ cart }) => cart)
   const [fullName, setFullName] = useState('')
   const [recipientFullName, setRecipientFullName] = useState('')
   const [address, setAddress] = useState('')
@@ -32,7 +32,7 @@ const Shipment = () => {
     }
 
   const createOrder = () => {
-    setIsLoading(true)
+    dispatch(actions.setIsLoading(true))
 
     Axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/create-order', {
       items: cart.items.map(item => ({
@@ -51,6 +51,7 @@ const Shipment = () => {
         displayName: fullName,
       }
     }).then((response: any) => {
+      dispatch(actions.setIsLoading(false))
       navigate('/checkout/payment/', {
         state: {
           orderId: response.data.order.id,

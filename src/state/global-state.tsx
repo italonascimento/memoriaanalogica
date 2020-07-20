@@ -12,19 +12,45 @@ export interface Action {
 }
 
 export interface State {
+  isLoading: boolean
   cart: CartState
 }
 
 export const initialState: State = {
+  isLoading: false,
   cart: cartInitialState,
 }
 
+enum ActionTypes {
+  setIsLoading
+}
+
+export const actions = {
+  setIsLoading: (value: boolean) => ({
+    type: ActionTypes.setIsLoading,
+    payload: value,
+  })
+}
+
 const reducer: (s: State, a: Action) => State =
+(state, action) => {
+  switch (action.type) {
+    case ActionTypes.setIsLoading:
+      return {
+        ...state,
+        isLoading: action.payload,
+      }
+
+    default:
+      return state
+  }
+}
+
+const combinedReducer: (s: State, a: Action) => State =
   (state, action) => ({
-    ...state,
+    ...reducer(state, action),
     cart: cartReducer(state.cart, action),
   })
-
 
 export const GlobalStateContext = React.createContext<State>(initialState)
 export const GlobalDispatchContext = React.createContext<Dispatch<Action>>((v: Action) => {})
@@ -33,7 +59,7 @@ interface Props {
   children: React.ReactNode
 }
 const GlobalContextProvider = ({ children }: Props) => {
-  const [state, dispatch] = useReducer(reducer, initialState, (state) => ({
+  const [state, dispatch] = useReducer(combinedReducer, initialState, (state) => ({
     ...state,
     cart: initCart(state.cart)
   }))
