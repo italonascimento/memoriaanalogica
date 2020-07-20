@@ -66,61 +66,66 @@ const Shipment = () => {
     <Layout>
       <SEO title={t('title')} />
 
-      <Container>
         {(
           cart.items.length > 0
         ) ? (
-          <StyledForm>
-            <Title>
-              {t('personal_info')}
-            </Title>
+          <Container>
+            <StyledForm>
+              <Title>
+                {t('personal_info')}
+              </Title>
 
-            <Row>
-              <Input placeholder={t('full_name')} onChange={useSetter(setFullName)} />
-              <Spacing x={16} />
-              <Input placeholder={t('email')} onChange={useSetter(setEmail)} />
-            </Row>
+              <Row>
+                <Field start={1} end={3}>
+                  <Input placeholder={t('full_name')} onChange={useSetter(setFullName)} />
+                </Field>
+                <Field start={3} end={5}>
+                  <Input placeholder={t('email')} onChange={useSetter(setEmail)} />
+                </Field>
+              </Row>
 
-            <Spacing y={32} />
+              <Spacing y={32} />
 
-            <Title>
-              {t('shipment_address')}
-            </Title>
+              <Title>
+                {t('shipment_address')}
+              </Title>
 
-            <Row>
-              <Input placeholder={t('full_name')} onChange={useSetter(setRecipientFullName)} />
-            </Row>
-            <Row>
-              <Input placeholder={t('address')} onChange={useSetter(setAddress)} />
-            </Row>
-            <Row>
-              <Field size={0.75}>
-                <Input placeholder={t('complement')} onChange={useSetter(setComplement)} />
-              </Field>
-              <Spacing x={16} />
-              <Field size={0.25}>
-                <Input placeholder={t('postal_code')} onChange={useSetter(setPostalCode)} />
-              </Field>
-            </Row>
-            <Row>
-              <Field size={0.5}>
-                <Input placeholder={t('city')} onChange={useSetter(setCity)} />
-              </Field>
-              <Spacing x={16} />
-              <Field size={0.25}>
-                <Input placeholder={t('state_province')} onChange={useSetter(setState)} />
-              </Field>
-              <Spacing x={16} />
-              <Field size={0.25}>
-                <Input placeholder={t('country')} onChange={useSetter(setCountry)} />
-              </Field>
-            </Row>
+              <Row>
+                <Field start={1} end={5}>
+                  <Input placeholder={t('full_name')} onChange={useSetter(setRecipientFullName)} />
+                </Field>
+              </Row>
+              <Row>
+                <Field start={1} end={5}>
+                  <Input placeholder={t('address')} onChange={useSetter(setAddress)} />
+                </Field>
+              </Row>
+              <Row>
+                <Field start={1} end={4}>
+                  <Input placeholder={t('complement')} onChange={useSetter(setComplement)} />
+                </Field>
+                <Field start={4} end={5}>
+                  <Input placeholder={t('postal_code')} onChange={useSetter(setPostalCode)} />
+                </Field>
+              </Row>
+              <Row>
+                <Field start={1} end={3}>
+                  <Input placeholder={t('city')} onChange={useSetter(setCity)} />
+                </Field>
+                <Field start={3} end={4}>
+                  <Input placeholder={t('state_province')} onChange={useSetter(setState)} />
+                </Field>
+                <Field start={4} end={5}>
+                  <Input placeholder={t('country')} onChange={useSetter(setCountry)} />
+                </Field>
+              </Row>
 
-            <StyledButton primary large onClick={createOrder}>
-              {t('next_button')}
-              <StyledArrowRight size={18} />
-            </StyledButton>
-          </StyledForm>
+              <StyledButton primary large onClick={createOrder}>
+                {t('next_button')}
+                <StyledArrowRight size={18} />
+              </StyledButton>
+            </StyledForm>
+          </Container>
         ) : (
           <WarningContainer>
             <GiShoppingCart size={128} />
@@ -134,7 +139,6 @@ const Shipment = () => {
             </Button>
           </WarningContainer>
         )}
-      </Container>
     </Layout>
   )
 }
@@ -142,11 +146,6 @@ const Shipment = () => {
 const Container = styled.div`
   max-width: 620px;
   margin: 0 auto;
-  display: flex;
-  min-height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `
 
 const Title = styled.h2`
@@ -161,13 +160,16 @@ const StyledForm = styled.form`
 `
 
 const Row = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 24%);
   flex: 1;
   margin-bottom: 16px;
+  grid-column-gap: 1.5%;
 `
 
-const Field = styled.div<{size?: number}>`
-  flex: ${props => props.size || 1};
+const Field = styled.div<{start: number, end: number}>`
+  grid-column-start: ${props => props.start};
+  grid-column-end: ${props => props.end};
 `
 
 const StyledButton = styled(Button)`
@@ -181,11 +183,18 @@ const StyledArrowRight = styled(MdNavigateNext)`
 `
 
 const WarningContainer = styled.div`
+  max-width: 620px;
+  height: 100%;
+  margin: 0 auto;
   color: ${(props: ThemeProps<Theme>) => props.theme.colors.greyDark2};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  & > * {
+    flex-shrink: 0;
+  }
 `
 
 const Warning = styled.p`

@@ -19,6 +19,7 @@ import useGlobalState from "../state/useGlobalState"
 import Backdrop from "../components/atoms/backdrop"
 import elevation from "../styles/elevation"
 import { rotate } from "../styles/animations"
+import Spacing from "../components/atoms/spacing"
 
 interface IProps {
   children: React.ReactNode
@@ -42,7 +43,9 @@ const Layout = ({ children }: IProps) => {
       <ResetStyle />
       <GlobalStyle />
       <StyledHeader siteTitle={data.site.siteMetadata.title} />
-      <Main blur={isLoading}>{children}</Main>
+      <Main blur={isLoading}>
+        {children}
+      </Main>
       <footer>
         
       </footer>
@@ -69,8 +72,7 @@ const StyledHeader = styled(Header)`
 const Main = styled.div<{blur?: boolean}>`
   padding-top: 96px;
   padding-bottom: 64px;
-  height: 100%;
-  transition: filter 100ms ease-in-out;
+  /* transition: filter 10ms ease-in-out; */
   ${props => props.blur && 'filter: blur(2px);'}
   
   ${mediaQueries.md} {
