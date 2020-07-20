@@ -16,6 +16,7 @@
       "shipment_address": "Shipment address",
       "full_name": "Full name",
       "address": "Address",
+      "complement": "Complement",
       "city": "City",
       "state_province": "State/Province",
       "country": "Country",

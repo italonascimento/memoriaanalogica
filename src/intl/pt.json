@@ -16,6 +16,7 @@
       "shipment_address": "Endereço de entrega",
       "full_name": "Nome completo",
       "address": "Endereço",
+      "complement": "Complemento",
       "city": "Cidade",
       "state_province": "Estado",
       "country": "País",

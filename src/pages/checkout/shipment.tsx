@@ -20,6 +20,7 @@ const Shipment = () => {
   const [fullName, setFullName] = useState('')
   const [recipientFullName, setRecipientFullName] = useState('')
   const [address, setAddress] = useState('')
+  const [complement, setComplement] = useState('')
   const [city, setCity] = useState('')
   const [state, setState] = useState('')
   const [country, setCountry] = useState('')
@@ -43,6 +44,7 @@ const Shipment = () => {
         firstName: recipientFullName.split(' ')[0],
         lastName: recipientFullName.split(' ').slice(1).join(' '),
         address,
+        complement,
         city,
         state,
         country,
@@ -89,25 +91,28 @@ const Shipment = () => {
               <Input placeholder={t('full_name')} onChange={useSetter(setRecipientFullName)} />
             </Row>
             <Row>
+              <Input placeholder={t('address')} onChange={useSetter(setAddress)} />
+            </Row>
+            <Row>
+              <Field size={0.75}>
+                <Input placeholder={t('complement')} onChange={useSetter(setComplement)} />
+              </Field>
+              <Spacing x={16} />
               <Field size={0.25}>
-                <Input placeholder={t('country')} onChange={useSetter(setCountry)} />
+                <Input placeholder={t('postal_code')} onChange={useSetter(setPostalCode)} />
+              </Field>
+            </Row>
+            <Row>
+              <Field size={0.5}>
+                <Input placeholder={t('city')} onChange={useSetter(setCity)} />
               </Field>
               <Spacing x={16} />
               <Field size={0.25}>
                 <Input placeholder={t('state_province')} onChange={useSetter(setState)} />
               </Field>
               <Spacing x={16} />
-              <Field size={0.5}>
-                <Input placeholder={t('city')} onChange={useSetter(setCity)} />
-              </Field>
-            </Row>
-            <Row>
               <Field size={0.25}>
-                <Input placeholder={t('postal_code')} onChange={useSetter(setPostalCode)} />
-              </Field>
-              <Spacing x={16} />
-              <Field size={0.75}>
-                <Input placeholder={t('address')} onChange={useSetter(setAddress)} />
+                <Input placeholder={t('country')} onChange={useSetter(setCountry)} />
               </Field>
             </Row>
 

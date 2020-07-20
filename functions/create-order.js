@@ -36,6 +36,7 @@ exports.handler = async (event, context, callback) => {
               "recipient": {
                 address: {
                   address_line_1: data.recipient.address,
+                  address_line_2: data.recipient.complement,
                   locality: data.recipient.city,
                   administrative_district_level_1: data.recipient.state,
                   country: data.recipient.country,
