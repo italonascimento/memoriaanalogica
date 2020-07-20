@@ -2,11 +2,11 @@ import { Product } from "../types/product";
 import { Action } from "./global-state";
 
 enum ActionType {
-  addToCart,
-  removeFromCart,
-  replaceCart,
-  setAmount,
-  resetCart,
+  addToCart = "addToCart",
+  removeFromCart = "removeFromCart",
+  replaceCart = "replaceCart",
+  setAmount = "setAmount",
+  resetCart = "resetCart",
 }
 
 export interface CartItem {

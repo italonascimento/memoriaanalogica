@@ -22,7 +22,7 @@ export const initialState: State = {
 }
 
 enum ActionTypes {
-  setIsLoading
+  setIsLoading = "setIsLoading"
 }
 
 export const actions = {

@@ -57,6 +57,6 @@ module.exports = {
         ],
         display: 'swap'
       }
-    }
+    },
   ],
 }

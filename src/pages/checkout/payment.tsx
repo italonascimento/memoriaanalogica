@@ -17,11 +17,12 @@ interface PaymentProps {
 }
 
 const Payment = ({ location }: PaymentProps) => {
-  const t = useTranslation()
+  const t = useTranslation('checkout.payment')
   const [cart, dispatch] = useGlobalState(s => s.cart)
   const total = cart.items.reduce((acc: number, curr: CartItem) => 
-    acc + curr.amount * curr.product.price, 0
+  acc + curr.amount * curr.product.price, 0
   )
+  const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
     if (!location.state?.orderId) {
@@ -35,15 +36,24 @@ const Payment = ({ location }: PaymentProps) => {
     navigate('/checkout/confirmation/', { state: { payment }})
   }
 
+  const handleScriptInject = ({ scriptTags }: any) => {
+    if (scriptTags) {
+        const scriptTag = scriptTags[0];
+        scriptTag.onload = () => setIsReady(true)
+    }
+  }
+
   return (
     <Layout>
-      <Helmet>
-        <script type="text/javascript" src="https://js.squareupsandbox.com/v2/paymentform"></script>
-      </Helmet>
-      <SEO title={t('checkout.title')} />
+      <Helmet 
+        script={[{ src: 'https://js.squareupsandbox.com/v2/paymentform' }]}
+        onChangeClientState={(newState, addedTags) => handleScriptInject(addedTags)}
+      />
+      <SEO title={t('title')} />
 
-      {typeof window !== 'undefined' 
+      {typeof window !== 'undefined'
         && (window as any).SqPaymentForm
+        && isReady
         && (
           <PaymentForm
             onPaymentSuccess={paymentSuccessHandler}
