@@ -60,7 +60,7 @@ export const defaultTheme: Partial<Theme> = {
     grey: '#BFBFBF',
     greyLight1:'#D4D4D4',
     greyLigth2: '#E8E8E8',
-    greyLighter: '#F1F1F1',
+    greyLighter: '#F5F5F5',
   },
 
   textFontFamily: '\'Roboto\', sans-serif',

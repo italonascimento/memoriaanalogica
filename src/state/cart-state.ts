@@ -12,24 +12,34 @@ enum ActionType {
 export interface CartItem {
   amount: number
   product: Product
+  
 }
 
 export interface State {
   items: CartItem[]
+  total: number
 }
 
 export const initialState: State = {
-  items: []
+  items: [],
+  total: 0,
 }
+
+const getTotal = (items: CartItem[]) => 
+  items.reduce((acc: number, curr: CartItem) => 
+    acc + curr.amount * curr.product.price, 0
+  )
 
 export const init = (state: State) => {
   if (typeof window !== 'undefined') {
-    const savedItem = window.localStorage.getItem('cart')
+    const savedItems = window.localStorage.getItem('cart')
+    const items = savedItems
+      ? JSON.parse(savedItems)
+      : []
     return {
       ...state,
-      items: savedItem
-        ? JSON.parse(savedItem)
-        : []
+      items,
+      total: getTotal(items),
     }
   }
 
@@ -91,38 +101,43 @@ export const reducer: (state: State, action: Action) => State =
         return {
           ...state,
           items,
+          total: getTotal(items),
         }
       }
 
       case ActionType.removeFromCart: {
-        const items = [...state.items]
-        items[payload.index].amount -= payload.amount
+        const previousItems = [...state.items]
+        previousItems[payload.index].amount -= payload.amount
+        const items = previousItems.filter(item => item.amount !== 0)
         
         return {
           ...state,
-          items: items.filter(item => item.amount !== 0),
+          items,
+          total: getTotal(items),
         }
       }
 
       case ActionType.setAmount: {
-        const items = [...state.items]
-        const index = items.findIndex(item => item.product.sku === payload.sku)
+        const previousItems = [...state.items]
+        const index = previousItems.findIndex(item => item.product.sku === payload.sku)
+        const items = payload.newAmount === 0
+          ? [
+            ...previousItems.slice(0, index),
+            ...previousItems.slice(index + 1),
+          ]
+          : previousItems
 
         if (index >= 0) {
-          items[index] = {
-            ...items[index],
+          previousItems[index] = {
+            ...previousItems[index],
             amount: payload.newAmount,
           }
         }
 
         return {
           ...state,
-          items: payload.newAmount === 0
-            ? [
-              ...items.slice(0, index),
-              ...items.slice(index + 1),
-            ]
-            : items,
+          items,
+          total: getTotal(items),
         }
       }
 
@@ -130,6 +145,7 @@ export const reducer: (state: State, action: Action) => State =
         return {
           ...state,
           items: payload,
+          total: getTotal(payload),
         }
 
       case ActionType.resetCart:

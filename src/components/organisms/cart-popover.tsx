@@ -14,10 +14,13 @@ import { Theme } from '../../themes/default-theme';
 import Modal from '../atoms/modal';
 import mediaQueries, { mediaQueryValues } from '../../styles/media-queries';
 import Button from '../atoms/button';
+import Backdrop from '../atoms/backdrop';
+import Spacing from '../atoms/spacing';
 
 const CartPopover = () => {
   const [cart] = useGlobalState(s => s.cart)
-  const [isOpen, setIsOpen] = useState(false) 
+  const [isOpen, setIsOpen] = useState(false)
+  const [isFirstItem, setIsFirstItem] = useState(true)
   const t = useTranslation('cart')
   const popoverRef = useRef<HTMLDivElement>(null)
   const md = useMedia(mediaQueryValues.md)
@@ -30,7 +33,7 @@ const CartPopover = () => {
     if (typeof window !== 'undefined') {
       window.localStorage.setItem('cart', JSON.stringify(cart.items))
     }
-  }, [cart.items])
+  }, [cart.total])
 
   const getTotalAmount = useCallback(() => {
     return cart.items.reduce((acc, curr) => acc + curr.amount, 0)
@@ -47,7 +50,11 @@ const CartPopover = () => {
               ))}
             </StyledList>
             <StyledButton full primary large onClick={() => navigate('/checkout/shipment/')}>
-              {t('proceed_to_checkout')}
+              <p>
+                <Total>${cart.total}</Total>
+                <Spacing x={8} inline />
+                {t('proceed_to_checkout')}
+              </p>
             </StyledButton>
           </>
         )
@@ -66,9 +73,11 @@ const CartPopover = () => {
       </div>
       {md ? (
         isOpen && (
-          <Popover anchor={{h: 'right', v: 'top'}}>
-            {CartContent}
-          </Popover>
+          <>
+            <Popover anchor={{h: 'right', v: 'top'}}>
+              {CartContent}
+            </Popover>
+          </>
         )
       ) : (
         isOpen && (
@@ -91,6 +100,12 @@ const Container = styled.div`
     width: 340px;
     max-height: 400px;
   }
+`
+
+const Total = styled.span`
+  font-family: ${(props: ThemeProps<Theme>) => props.theme.titleFontFamily};
+  font-weight: bold;
+  font-size: 16px;
 `
 
 const EmptyWarning = styled.p`

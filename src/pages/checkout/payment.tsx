@@ -19,9 +19,7 @@ interface PaymentProps {
 const Payment = ({ location }: PaymentProps) => {
   const t = useTranslation('checkout.payment')
   const [cart, dispatch] = useGlobalState(s => s.cart)
-  const total = cart.items.reduce((acc: number, curr: CartItem) => 
-  acc + curr.amount * curr.product.price, 0
-  )
+  const total = cart.total
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {

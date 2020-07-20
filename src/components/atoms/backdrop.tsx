@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-const Backdrop = styled.div`
+const Backdrop = styled.div<{zIndex?: number}>`
   position: fixed;
   top: 0;
   bottom: 0;
@@ -8,7 +8,7 @@ const Backdrop = styled.div`
   right: 0;
   background: white;
   opacity: 0.3;
-  z-index: 200;
+  z-index: ${props => props.zIndex || 200};
 `
 
 export default Backdrop

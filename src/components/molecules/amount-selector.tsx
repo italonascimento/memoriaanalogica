@@ -37,6 +37,7 @@ const StyledButton = styled(Button)`
   height: 24px;
   flex-basis: 24px;
   flex-shrink: 0;
+  background: white;
 `
 
 const Value = styled.div`
