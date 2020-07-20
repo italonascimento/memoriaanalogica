@@ -32,12 +32,6 @@ const BuyBox = ({
     dispatch(actions.addToCart(product))
   }
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem('cart', JSON.stringify(cart.items))
-    }
-  }, [cart.items])
-
   return (
     <Container className={className}>
       <Title>{details.name}</Title>

@@ -10,14 +10,10 @@ const List = ({
   children,
   className,
 }: ListProps) => (
-  <StyledList className={className}>
+  <ul className={className}>
     {children}
-  </StyledList>
+  </ul>
 )
-
-const StyledList = styled.ul`
-
-`
 
 export const ListItem = styled.li`
   padding: 8px 16px;

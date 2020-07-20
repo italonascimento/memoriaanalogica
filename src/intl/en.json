@@ -22,7 +22,9 @@
       "country": "Country",
       "postal_code": "Postal code",
       "email": "E-mail",
-      "next_button": "Next"
+      "next_button": "Next",
+      "cart_is_empty": "Your shopping cart is empty.",
+      "back_to_home": "Go back to home"
     },
     "payment": {
       "title": "Payment"
@@ -30,7 +32,9 @@
   },
 
   "cart": {
-    "cart-is-empty": "The cart is empty."
+    "cart_is_empty": "The cart is empty.",
+    "shopping_cart": "Shopping cart",
+    "proceed_to_checkout": "Proceed to checkout"
   },
 
   "products": {

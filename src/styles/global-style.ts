@@ -6,8 +6,15 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html, body,
+  #gatsby-focus-wrapper,
+  #___gatsby {
+    height: 100%;
+  }
+
   body {
     font-family: ${(props: ThemeProps<Theme>) => props.theme.textFontFamily};
+    color: ${(props: ThemeProps<Theme>) => props.theme.colors.greyDarkest};
     background: white;
   }
 

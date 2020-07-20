@@ -52,11 +52,12 @@ const StyledHeader = styled(Header)`
 `
 
 const Main = styled.div`
-  margin-top: 96px;
+  padding-top: 96px;
   padding-bottom: 64px;
+  height: 100%;
   
   ${mediaQueries.md} {
-    margin-top: 128px;
+    padding-top: 128px;
     padding-bottom: 96px;
   }
 `

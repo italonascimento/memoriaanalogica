@@ -22,7 +22,9 @@
       "country": "País",
       "postal_code": "CEP",
       "email": "E-mail",
-      "next_button": "Avançar"
+      "next_button": "Avançar",
+      "cart_is_empty": "Seu carrinho de compras está vazio.",
+      "back_to_home": "Voltar para a página inicial"
     },
     "payment": {
       "title": "Pagamento"
@@ -30,7 +32,9 @@
   },
 
   "cart": {
-    "cart-is-empty": "O carrinho está vazio."
+    "cart_is_empty": "O carrinho está vazio.",
+    "shopping_cart": "Carrinho de compras",
+    "proceed_to_checkout": "Finalizar compra"
   },
 
   "products": {
