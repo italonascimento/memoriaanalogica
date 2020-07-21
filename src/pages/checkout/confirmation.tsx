@@ -15,7 +15,7 @@ interface ConfirmationProps {
 const Confirmation = ({ location }: ConfirmationProps) => {
   const t = useTranslation('confirmation')
   const [_, dispatch] = useGlobalState(s => s)
-  const payment = location.state.payment
+  const payment = location.state?.payment
 
   useEffect(() => {
     dispatch(actions.resetCart())
