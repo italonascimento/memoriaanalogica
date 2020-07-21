@@ -11,7 +11,9 @@ import { CartItem, actions as cartActions } from '../../state/cart-state'
 import useTranslation from '../../components/hooks/useTanslation'
 import { PaymentResponse } from '../../types/payment-response'
 import { actions as globalActions } from '../../state/global-state'
-import styled from 'styled-components'
+import styled, { ThemeProps } from 'styled-components'
+import { Theme } from '../../themes/default-theme'
+import EmptyCartWarning from '../../components/molecules/empty-cart-warning'
 
 interface PaymentProps {
   location: WindowLocation<{ orderId: string }>
@@ -31,7 +33,6 @@ const Payment = ({ location }: PaymentProps) => {
 
   const paymentSuccessHandler = (payment: PaymentResponse) => {
     dispatch(globalActions.setIsLoading(false))
-    dispatch(cartActions.resetCart())
     navigate('/checkout/confirmation/', { state: { payment }})
   }
 
@@ -53,28 +54,49 @@ const Payment = ({ location }: PaymentProps) => {
       />
       <SEO title={t('title')} />
 
-      <Container>
-        {typeof window !== 'undefined'
-          && (window as any).SqPaymentForm
-          && isReady
-          && (
-            <PaymentForm
-              onPaymentSuccess={paymentSuccessHandler}
-              onPaymentStart={() => dispatch(globalActions.setIsLoading(true))}
-              paymentForm={(window as any).SqPaymentForm}
-              amount={total} 
-              orderId={location.state?.orderId}
-            />
-          )
-        }
-      </Container>
+      {(
+        cart.items.length > 0
+      ) ? (
+        <Container>
+          <Title>
+            {t('title')}
+          </Title>
+          <Description>
+            {t('enter_card_data_below')}
+          </Description>
+          {typeof window !== 'undefined'
+            && (window as any).SqPaymentForm
+            && isReady
+            && (
+              <PaymentForm
+                onPaymentSuccess={paymentSuccessHandler}
+                onPaymentStart={() => dispatch(globalActions.setIsLoading(true))}
+                paymentForm={(window as any).SqPaymentForm}
+                amount={total} 
+                orderId={location.state?.orderId}
+              />
+            )
+          }
+        </Container>
+      ) : (
+        <EmptyCartWarning />
+      )}
     </Layout>
   )
 }
 
 const Container = styled.div`
-  max-width: 620px;
+  max-width: 420px;
   margin: 0 auto;
+`
+
+const Title = styled.h2`
+  margin-bottom: 8px;
+`
+const Description = styled.p`
+  margin-bottom: 32px;
+  font-size: 14px;
+  color: ${(props: ThemeProps<Theme>) => props.theme.colors.grey};
 `
 
 export default Payment

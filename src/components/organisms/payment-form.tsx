@@ -4,6 +4,8 @@ import { PaymentResponse } from '../../types/payment-response'
 import Input from '../atoms/input'
 import { Form, FormRow, FormField } from '../molecules/form'
 import Button from '../atoms/button'
+import useTranslation from '../hooks/useTanslation'
+import styled from 'styled-components'
 
 interface PaymentFormProps {
   orderId: string
@@ -21,6 +23,8 @@ const PaymentForm = (props: PaymentFormProps) => {
   const [applePay, setApplePay] = useState()
   const [masterpass, setMasterpass] = useState()
   const [error, setError] = useState(false)
+
+  const t = useTranslation('checkout.payment')
 
   const requestCardNonce = () => {
     if (paymentForm) {
@@ -52,19 +56,19 @@ const PaymentForm = (props: PaymentFormProps) => {
       },
       cardNumber: {
         elementId: "sq-card-number",
-        placeholder: "• • • •  • • • •  • • • •  • • • •",
+        placeholder: t('card_number'),
       },
       cvv: {
         elementId: "sq-cvv",
-        placeholder: "CVV",
+        placeholder: t('cvv'),
       },
       expirationDate: {
         elementId: "sq-expiration-date",
-        placeholder: "MM/YY",
+        placeholder: t('mm_yy'),
       },
       postalCode: {
         elementId: "sq-postal-code",
-        placeholder: "Zip",
+        placeholder: t('zip_code'),
       },
       callbacks: {
         methodsSupported: (methods: any) => {
@@ -115,8 +119,8 @@ const PaymentForm = (props: PaymentFormProps) => {
             paymentAmount: props.amount*100, 
             cardNounce: nonce,
             orderId: props.orderId,
-          }).then( result => {
-            props.onPaymentSuccess(result.data.payment)
+          }).then(result => {
+            props.onPaymentSuccess(result.data.paymentInfo.payment)
           }).catch(error=>{
             console.log(`error in processing payment:${error}`)
             setError(true)
@@ -184,55 +188,50 @@ const PaymentForm = (props: PaymentFormProps) => {
         <div id="sq-ccbox">
           <Form id="cc-field-wrapper">
             <FormRow>
-              <FormField start={1} end={3}>
+              <FormField start={1} end={5}>
                 <div id="sq-card-number" />
                 <input type="hidden" id="card-nonce" name="nonce" />
               </FormField>
-              <FormField start={3} end={4}>
-                <div id="sq-cvv" />
-              </FormField>
-              <FormField start={4} end={5}>
-                <div id="sq-expiration-date" />
-              </FormField>
             </FormRow>
             <FormRow>
-              <FormField start={1} end={4}>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="Name"
-                />
+              <FormField start={1} end={2}>
+                <div id="sq-cvv" />
               </FormField>
-              <FormField start={4} end={5}>
+              <FormField start={2} end={3}>
+                <div id="sq-expiration-date" />
+              </FormField>
+              <FormField start={3} end={5}>
                 <div id="sq-postal-code" />
               </FormField>
             </FormRow>
+            <FormRow>
+              <FormField start={1} end={5}>
+                <Input
+                    id="name"
+                    type="text"
+                    placeholder={t('name_in_card')}
+                  />
+              </FormField>
+            </FormRow>
+
+            <StyledButton primary large
+              className="button-credit-card"
+              onClick={requestCardNonce}
+            >
+              {t('pay')}
+            </StyledButton>
           </Form>
         </div>
-        <Button primary large
-          className="button-credit-card"
-          onClick={requestCardNonce}
-        >
-          Pay
-        </Button>
       </div>
-      <p style={styles.center} id="error" />
+      <p id="error" />
     </div>
   )
 }
 
-export default PaymentForm
+const StyledButton = styled(Button)`
+  align-self: flex-end;
+  margin-top: 12px;
+  padding-right: 24px;
+`
 
-const styles: {[key in string]: CSSProperties} = {
-  leftCenter: {
-    float: "left",
-    textAlign: "center",
-  },
-  blockRight: {
-    display: "block",
-    float: "right",
-  },
-  center: {
-    textAlign: "center",
-  },
-}
+export default PaymentForm

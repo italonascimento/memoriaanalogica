@@ -56,7 +56,7 @@ export const defaultTheme: Partial<Theme> = {
 
     greyDarkest: '#333333',
     greyDark2: '#575757',
-    greyDark1: '##757575',
+    greyDark1: '#959595',
     grey: '#BFBFBF',
     greyLight1:'#D4D4D4',
     greyLigth2: '#E8E8E8',

@@ -27,7 +27,14 @@
       "back_to_home": "Voltar para a página inicial"
     },
     "payment": {
-      "title": "Pagamento"
+      "title": "Pagamento",
+      "enter_card_data_below": "Informe abaixo os dados do cartão",
+      "pay": "Pagar",
+      "card_number": "Número do cartão",
+      "cvv": "CVV",
+      "mm_yy": "MM/AA",
+      "name_in_card": "Nome impresso no cartão",
+      "zip_code": "Código postal"
     }
   },
 

@@ -14,6 +14,7 @@ import { GiShoppingCart } from 'react-icons/gi'
 import { Theme } from '../../themes/default-theme'
 import { actions } from '../../state/global-state'
 import { Form, FormRow, FormField } from '../../components/molecules/form'
+import EmptyCartWarning from '../../components/molecules/empty-cart-warning'
 
 const Shipment = () => {
   const t = useTranslation('checkout.shipment')
@@ -127,17 +128,7 @@ const Shipment = () => {
             </Form>
           </Container>
         ) : (
-          <WarningContainer>
-            <GiShoppingCart size={128} />
-            <Spacing y={32} />
-            <Warning>
-              {t('cart_is_empty')}
-            </Warning>
-            <Spacing y={32} />
-            <Button large primary onClick={() => navigate('/')}>
-              {t('back_to_home')}
-            </Button>
-          </WarningContainer>
+          <EmptyCartWarning />
         )}
     </Layout>
   )
@@ -160,26 +151,6 @@ const StyledButton = styled(Button)`
 
 const StyledArrowRight = styled(MdNavigateNext)`
   margin-left: 8px;
-`
-
-const WarningContainer = styled.div`
-  max-width: 620px;
-  height: 100%;
-  margin: 0 auto;
-  color: ${(props: ThemeProps<Theme>) => props.theme.colors.greyDark2};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  & > * {
-    flex-shrink: 0;
-  }
-`
-
-const Warning = styled.p`
-  font-size: 24px;
-  text-align: center;
 `
 
 export default Shipment

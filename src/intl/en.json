@@ -4,6 +4,7 @@
 
   "add-to-cart": "Add to cart",
   "description": "Description",
+  "back_to_home": "Go back to home",
 
   "home": {
     "title": "Home"
@@ -23,11 +24,17 @@
       "postal_code": "Postal code",
       "email": "E-mail",
       "next_button": "Next",
-      "cart_is_empty": "Your shopping cart is empty.",
-      "back_to_home": "Go back to home"
+      "cart_is_empty": "Your shopping cart is empty."
     },
     "payment": {
-      "title": "Payment"
+      "title": "Payment",
+      "enter_card_data_below": "Enter card data below",
+      "pay": "Pay",
+      "card_number": "Card number",
+      "cvv": "CVV",
+      "mm_yy": "MM/YY",
+      "name_in_card": "Name in card",
+      "zip_code": "Zip code"
     }
   },
 
