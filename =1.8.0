@@ -1,0 +1,12 @@
++ ink@2.7.1
++ @babel/core@7.10.5
++ acorn@6.4.1
++ jquery@3.5.1
++ typescript@3.9.7
+added 46 packages from 14 contributors, updated 3 packages and audited 2418 packages in 19.05s
+
+142 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+

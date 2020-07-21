@@ -1,10 +1,8 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState, useEffect } from 'react'
 import styled, { ThemeProps } from 'styled-components'
-import { GrClose } from 'react-icons/gr'
 
 import mediaQueries from '../../styles/media-queries'
 import { Theme } from '../../themes/default-theme'
-import Button from './button'
 import CloseButton from './close-button'
 import Backdrop from './backdrop'
 
@@ -12,26 +10,68 @@ interface ModalProps {
   onClose?: () => void
   title?: string
   children: ReactNode | ReactNode[]
+  show?: boolean
 }
 
 const Modal = ({
   title = '',
   onClose = () => {},
   children,
-}: ModalProps) => (
-  <>
-    <Backdrop onClick={onClose} />
-    <StyledModal>
-      <Header>
-        <h5>{title}</h5>
-        <CloseButton onClick={onClose} />
-      </Header>
-      <Content>
-        {children}
-      </Content>
-    </StyledModal>
+  show = false,
+}: ModalProps) => {
+  const [inProp, setInProp] = useState(true)
+  
+  return (
+    <>
+      <CSSTransition
+        name="modal"
+        show={show}
+      >
+        <Backdrop key='backdrop' onClick={onClose} />
+        <StyledModal key='modal'>
+          <Header>
+            <h5>{title}</h5>
+            <CloseButton onClick={onClose} />
+          </Header>
+          <Content>
+            {children}
+          </Content>
+        </StyledModal>
+      </CSSTransition>  
+    </>
+  )
+}
+
+interface CSSTransitionProps {
+  name: string
+  children: React.ReactElement | React.ReactElement[]
+  show?: boolean
+}
+
+const CSSTransition = ({children, name, show = false}: CSSTransitionProps) => {
+  const [phase, setPhase] = useState(show ? 'enter' : 'leave-active')
+
+  useEffect(() => {
+    if (show) {
+      setPhase('enter')
+      setTimeout(() => {
+        setPhase('enter-active')
+      }, 10)
+    } else {
+      setPhase('leave')
+      setTimeout(() => {
+        setPhase('leave-active')
+      }, 10)
+    }
+  }, [show])
+
+  return <>
+    {React.Children.map(children, (child) => 
+      React.cloneElement(child, { 
+        className: `${name}-${phase}`,
+    }))}
   </>
-)
+}
 
 const StyledModal = styled.div`
   background: white;
@@ -42,6 +82,23 @@ const StyledModal = styled.div`
   right: 0;
   display: flex;
   flex-direction: column;
+
+  &.modal-enter, &.modal-leave, &.modal-leave-active {
+    transition: transform 100ms ease-in, opacity 100ms ease-in-out;
+    transform: translateY(128px) scale(1.1);
+    opacity: 0;
+  }
+
+  &.modal-enter-active {
+    transition: transform 100ms ease-in, opacity 100ms ease-in-out;
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  &.modal-leave {
+    transform: translateY(96px) scale(1.1);
+    opacity: 0;
+  }
 
   ${mediaQueries.md} {
     top: 50%;

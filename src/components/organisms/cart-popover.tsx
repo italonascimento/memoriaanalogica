@@ -16,6 +16,7 @@ import mediaQueries, { mediaQueryValues } from '../../styles/media-queries';
 import Button from '../atoms/button';
 import Backdrop from '../atoms/backdrop';
 import Spacing from '../atoms/spacing';
+import useDelayUnmount from '../hooks/use-delay-unmount';
 
 const CartPopover = () => {
   const [cart] = useGlobalState(s => s.cart)
@@ -24,6 +25,8 @@ const CartPopover = () => {
   const t = useTranslation('cart')
   const popoverRef = useRef<HTMLDivElement>(null)
   const md = useMedia(mediaQueryValues.md)
+
+  const shouldShow = useDelayUnmount(isOpen, 100)
   
   useClickOutsideHandler(popoverRef, () => {
     setIsOpen(false)
@@ -72,7 +75,7 @@ const CartPopover = () => {
         <CartButton elevation={isOpen ? 1 : 0} quantity={getTotalAmount()} />
       </div>
       {md ? (
-        isOpen && (
+        shouldShow && (
           <>
             <Popover anchor={{h: 'right', v: 'top'}}>
               {CartContent}
@@ -80,8 +83,8 @@ const CartPopover = () => {
           </>
         )
       ) : (
-        isOpen && (
-          <Modal title={t('shopping_cart')} onClose={() => setIsOpen(false)}>
+        shouldShow && (
+          <Modal show={isOpen} title={t('shopping_cart')} onClose={() => setIsOpen(false)}>
             {CartContent}
           </Modal>
         )

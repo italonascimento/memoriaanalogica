@@ -5,10 +5,8 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
-    "@types/axios": "^0.14.0",
-    "@types/react-helmet": "^6.0.0",
-    "@types/react-slick": "^0.23.4",
-    "@types/styled-components": "^5.1.0",
+    "@types/react-transition-group": "^4.4.0",
+    "acorn": "^6.4.1",
     "axios": "^0.19.2",
     "babel-plugin-styled-components": "^1.10.7",
     "gatsby": "^2.23.10",
@@ -24,6 +22,8 @@
     "gatsby-transformer-sharp": "^2.5.6",
     "gatsby-transformer-typescript-css-modules": "^1.0.14",
     "gatsby-transformer-yaml": "^2.4.6",
+    "ink": "^2.7.1",
+    "jquery": "^3.5.1",
     "js-yaml": "^3.14.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
@@ -31,15 +31,23 @@
     "react-fastclick": "^3.0.2",
     "react-helmet": "^6.1.0",
     "react-icons": "^3.10.0",
+    "react-refresh": "^0.8.3",
     "react-slick": "^0.26.1",
+    "react-transition-group": "^4.4.1",
     "react-use-media-query-hook": "0.0.1",
     "slick-carousel": "^1.8.1",
     "square-connect": "^4.20200625.0",
     "styled-components": "^5.1.1",
+    "typescript": "^3.9.7",
     "uuidv4": "^6.1.1"
   },
   "devDependencies": {
-    "prettier": "2.0.5"
+    "prettier": "2.0.5",
+    "@babel/core": "^7.10.5",
+    "@types/axios": "^0.14.0",
+    "@types/react-helmet": "^6.0.0",
+    "@types/react-slick": "^0.23.4",
+    "@types/styled-components": "^5.1.0"
   },
   "keywords": [
     "gatsby"
