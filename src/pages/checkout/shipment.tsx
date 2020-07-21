@@ -13,6 +13,7 @@ import { MdNavigateNext } from 'react-icons/md'
 import { GiShoppingCart } from 'react-icons/gi'
 import { Theme } from '../../themes/default-theme'
 import { actions } from '../../state/global-state'
+import { Form, FormRow, FormField } from '../../components/molecules/form'
 
 const Shipment = () => {
   const t = useTranslation('checkout.shipment')
@@ -53,7 +54,6 @@ const Shipment = () => {
         displayName: fullName,
       }
     }).then((response: any) => {
-      dispatch(actions.setIsLoading(false))
       navigate('/checkout/payment/', {
         state: {
           orderId: response.data.order.id,
@@ -70,19 +70,19 @@ const Shipment = () => {
           cart.items.length > 0
         ) ? (
           <Container>
-            <StyledForm>
+            <Form>
               <Title>
                 {t('personal_info')}
               </Title>
 
-              <Row>
-                <Field start={1} end={3}>
+              <FormRow>
+                <FormField start={1} end={3}>
                   <Input placeholder={t('full_name')} onChange={useSetter(setFullName)} />
-                </Field>
-                <Field start={3} end={5}>
+                </FormField>
+                <FormField start={3} end={5}>
                   <Input placeholder={t('email')} onChange={useSetter(setEmail)} />
-                </Field>
-              </Row>
+                </FormField>
+              </FormRow>
 
               <Spacing y={32} />
 
@@ -90,41 +90,41 @@ const Shipment = () => {
                 {t('shipment_address')}
               </Title>
 
-              <Row>
-                <Field start={1} end={5}>
+              <FormRow>
+                <FormField start={1} end={5}>
                   <Input placeholder={t('full_name')} onChange={useSetter(setRecipientFullName)} />
-                </Field>
-              </Row>
-              <Row>
-                <Field start={1} end={5}>
+                </FormField>
+              </FormRow>
+              <FormRow>
+                <FormField start={1} end={5}>
                   <Input placeholder={t('address')} onChange={useSetter(setAddress)} />
-                </Field>
-              </Row>
-              <Row>
-                <Field start={1} end={4}>
+                </FormField>
+              </FormRow>
+              <FormRow>
+                <FormField start={1} end={4}>
                   <Input placeholder={t('complement')} onChange={useSetter(setComplement)} />
-                </Field>
-                <Field start={4} end={5}>
+                </FormField>
+                <FormField start={4} end={5}>
                   <Input placeholder={t('postal_code')} onChange={useSetter(setPostalCode)} />
-                </Field>
-              </Row>
-              <Row>
-                <Field start={1} end={3}>
+                </FormField>
+              </FormRow>
+              <FormRow>
+                <FormField start={1} end={3}>
                   <Input placeholder={t('city')} onChange={useSetter(setCity)} />
-                </Field>
-                <Field start={3} end={4}>
+                </FormField>
+                <FormField start={3} end={4}>
                   <Input placeholder={t('state_province')} onChange={useSetter(setState)} />
-                </Field>
-                <Field start={4} end={5}>
+                </FormField>
+                <FormField start={4} end={5}>
                   <Input placeholder={t('country')} onChange={useSetter(setCountry)} />
-                </Field>
-              </Row>
+                </FormField>
+              </FormRow>
 
               <StyledButton primary large onClick={createOrder}>
                 {t('next_button')}
                 <StyledArrowRight size={18} />
               </StyledButton>
-            </StyledForm>
+            </Form>
           </Container>
         ) : (
           <WarningContainer>
@@ -150,26 +150,6 @@ const Container = styled.div`
 
 const Title = styled.h2`
   margin-bottom: 32px;
-`
-
-const StyledForm = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-`
-
-const Row = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 24%);
-  flex: 1;
-  margin-bottom: 16px;
-  grid-column-gap: 1.5%;
-`
-
-const Field = styled.div<{start: number, end: number}>`
-  grid-column-start: ${props => props.start};
-  grid-column-end: ${props => props.end};
 `
 
 const StyledButton = styled(Button)`

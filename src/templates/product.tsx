@@ -90,10 +90,6 @@ export const query = graphql`
 
 const Container = styled.div`
   margin: 32px 0;
-
-  ${mediaQueries.md} {
-    margin: 64px 0;
-  }
 `
 
 const MainSection = styled.div`

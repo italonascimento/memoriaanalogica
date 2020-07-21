@@ -11,6 +11,7 @@ import { CartItem, actions as cartActions } from '../../state/cart-state'
 import useTranslation from '../../components/hooks/useTanslation'
 import { PaymentResponse } from '../../types/payment-response'
 import { actions as globalActions } from '../../state/global-state'
+import styled from 'styled-components'
 
 interface PaymentProps {
   location: WindowLocation<{ orderId: string }>
@@ -37,7 +38,10 @@ const Payment = ({ location }: PaymentProps) => {
   const handleScriptInject = ({ scriptTags }: any) => {
     if (scriptTags) {
         const scriptTag = scriptTags[0];
-        scriptTag.onload = () => setIsReady(true)
+        scriptTag.onload = () => {
+          dispatch(globalActions.setIsLoading(false))
+          setIsReady(true)
+        }
     }
   }
 
@@ -49,21 +53,28 @@ const Payment = ({ location }: PaymentProps) => {
       />
       <SEO title={t('title')} />
 
-      {typeof window !== 'undefined'
-        && (window as any).SqPaymentForm
-        && isReady
-        && (
-          <PaymentForm
-            onPaymentSuccess={paymentSuccessHandler}
-            onPaymentStart={() => dispatch(globalActions.setIsLoading(true))}
-            paymentForm={(window as any).SqPaymentForm}
-            amount={total} 
-            orderId={location.state?.orderId}
-          />
-        )
-      }
+      <Container>
+        {typeof window !== 'undefined'
+          && (window as any).SqPaymentForm
+          && isReady
+          && (
+            <PaymentForm
+              onPaymentSuccess={paymentSuccessHandler}
+              onPaymentStart={() => dispatch(globalActions.setIsLoading(true))}
+              paymentForm={(window as any).SqPaymentForm}
+              amount={total} 
+              orderId={location.state?.orderId}
+            />
+          )
+        }
+      </Container>
     </Layout>
   )
 }
+
+const Container = styled.div`
+  max-width: 620px;
+  margin: 0 auto;
+`
 
 export default Payment

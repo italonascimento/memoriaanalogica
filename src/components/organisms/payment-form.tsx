@@ -1,6 +1,9 @@
 import React, { Component, CSSProperties, useState, useEffect } from 'react'
 import axios from 'axios'
 import { PaymentResponse } from '../../types/payment-response'
+import Input from '../atoms/input'
+import { Form, FormRow, FormField } from '../molecules/form'
+import Button from '../atoms/button'
 
 interface PaymentFormProps {
   orderId: string
@@ -32,19 +35,12 @@ const PaymentForm = (props: PaymentFormProps) => {
       locationId: "GMT96A77XABR1",
       inputClass: "sq-input",
       autoBuild: false,
-      inputStyles: [
-        {
-          fontSize: "16px",
-          fontFamily: "Helvetica Neue",
-          padding: "16px",
-          color: "#373F4A",
-          backgroundColor: "transparent",
-          lineHeight: "1.15em",
-          placeholderColor: "#000",
-          _webkitFontSmoothing: "antialiased",
-          _mozOsxFontSmoothing: "grayscale",
-        },
-      ],
+      inputStyles: [{
+        fontSize: '16px',
+        backgroundColor: '#f5f5f5',
+        padding: '12px',
+        color: '#333333'
+      }],
       applePay: {
         elementId: "sq-apple-pay",
       },
@@ -183,51 +179,42 @@ const PaymentForm = (props: PaymentFormProps) => {
             className="wallet-button"
             id="sq-google-pay"
           />
-          <hr />
         </div>
 
         <div id="sq-ccbox">
-          <p>
-            <span style={styles.leftCenter}>Enter Card Info Below </span>
-            <span style={styles.blockRight}>
-              {cardBrand.toUpperCase()}
-            </span>
-          </p>
-          <div id="cc-field-wrapper">
-            <label>
-              Card Number
-              <div id="sq-card-number" />
-            </label>
-            <input type="hidden" id="card-nonce" name="nonce" />
-            <label>
-              Expiration Date
-              <div id="sq-expiration-date" />
-            </label>
-            <label>
-              CVV
-              <div id="sq-cvv" />
-            </label>
-          </div>
-          <label>
-            Name
-            <input
-              id="name"
-              style={styles.name}
-              type="text"
-              placeholder="Name"
-            />
-          </label>
-          <label>
-            Postal Code
-            <div id="sq-postal-code" />
-          </label>
+          <Form id="cc-field-wrapper">
+            <FormRow>
+              <FormField start={1} end={3}>
+                <div id="sq-card-number" />
+                <input type="hidden" id="card-nonce" name="nonce" />
+              </FormField>
+              <FormField start={3} end={4}>
+                <div id="sq-cvv" />
+              </FormField>
+              <FormField start={4} end={5}>
+                <div id="sq-expiration-date" />
+              </FormField>
+            </FormRow>
+            <FormRow>
+              <FormField start={1} end={4}>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Name"
+                />
+              </FormField>
+              <FormField start={4} end={5}>
+                <div id="sq-postal-code" />
+              </FormField>
+            </FormRow>
+          </Form>
         </div>
-        <button
+        <Button primary large
           className="button-credit-card"
           onClick={requestCardNonce}
         >
           Pay
-        </button>
+        </Button>
       </div>
       <p style={styles.center} id="error" />
     </div>
@@ -237,18 +224,6 @@ const PaymentForm = (props: PaymentFormProps) => {
 export default PaymentForm
 
 const styles: {[key in string]: CSSProperties} = {
-  name: {
-    verticalAlign: "top",
-    display: "none",
-    margin: 0,
-    border: "none",
-    fontSize: "16px",
-    fontFamily: "Helvetica Neue",
-    padding: "16px",
-    color: "#373F4A",
-    backgroundColor: "transparent",
-    lineHeight: "1.15em",
-  },
   leftCenter: {
     float: "left",
     textAlign: "center",
