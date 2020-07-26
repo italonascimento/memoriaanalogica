@@ -5,6 +5,7 @@ import mediaQueries from '../../styles/media-queries'
 import { Theme } from '../../themes/default-theme'
 import CloseButton from './close-button'
 import Backdrop from './backdrop'
+import CSSTransition from './css-transition'
 
 interface ModalProps {
   onClose?: () => void
@@ -42,37 +43,6 @@ const Modal = ({
   )
 }
 
-interface CSSTransitionProps {
-  name: string
-  children: React.ReactElement | React.ReactElement[]
-  show?: boolean
-}
-
-const CSSTransition = ({children, name, show = false}: CSSTransitionProps) => {
-  const [phase, setPhase] = useState(show ? 'enter' : 'leave-active')
-
-  useEffect(() => {
-    if (show) {
-      setPhase('enter')
-      setTimeout(() => {
-        setPhase('enter-active')
-      }, 10)
-    } else {
-      setPhase('leave')
-      setTimeout(() => {
-        setPhase('leave-active')
-      }, 10)
-    }
-  }, [show])
-
-  return <>
-    {React.Children.map(children, (child) => 
-      React.cloneElement(child, { 
-        className: `${name}-${phase}`,
-    }))}
-  </>
-}
-
 const StyledModal = styled.div`
   background: white;
   position: fixed;
@@ -84,13 +54,13 @@ const StyledModal = styled.div`
   flex-direction: column;
 
   &.modal-enter, &.modal-leave, &.modal-leave-active {
-    transition: transform 100ms ease-in, opacity 100ms ease-in-out;
-    transform: translateY(128px) scale(1.1);
+    transition: transform 100ms ease-in-out, opacity 100ms ease-in-out;
+    transform: translateY(64px) scale(1.1);
     opacity: 0;
   }
 
   &.modal-enter-active {
-    transition: transform 100ms ease-in, opacity 100ms ease-in-out;
+    transition: transform 100ms ease-in-out, opacity 100ms ease-in-out;
     transform: translateY(0) scale(1);
     opacity: 1;
   }

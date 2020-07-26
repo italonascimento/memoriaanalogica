@@ -17,6 +17,7 @@ import Button from '../atoms/button';
 import Backdrop from '../atoms/backdrop';
 import Spacing from '../atoms/spacing';
 import useDelayUnmount from '../hooks/use-delay-unmount';
+import CSSTransition from '../atoms/css-transition';
 
 const CartPopover = () => {
   const [cart] = useGlobalState(s => s.cart)
@@ -76,11 +77,11 @@ const CartPopover = () => {
       </div>
       {md ? (
         shouldShow && (
-          <>
-            <Popover anchor={{h: 'right', v: 'top'}}>
+          <CSSTransition name='popover' show={isOpen}>
+            <StyledPopover anchor={{h: 'right', v: 'top'}}>
               {CartContent}
-            </Popover>
-          </>
+            </StyledPopover>
+          </CSSTransition>
         )
       ) : (
         shouldShow && (
@@ -102,6 +103,25 @@ const Container = styled.div`
   ${mediaQueries.md} {
     width: 340px;
     max-height: 400px;
+  }
+`
+
+const StyledPopover = styled(Popover)`
+  &.popover-enter, &.popover-leave, &.popover-leave-active {
+    transition: transform 100ms ease-in-out, opacity 100ms ease-in-out;
+    transform: translateY(-32px) scale(0.8);
+    opacity: 0;
+  }
+
+  &.popover-enter-active {
+    transition: transform 100ms ease-in-out, opacity 100ms ease-in-out;
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  &.popover-leave {
+    transform: translateY(96px) scale(1.1);
+    opacity: 0;
   }
 `
 
