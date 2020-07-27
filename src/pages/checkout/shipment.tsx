@@ -124,13 +124,14 @@ const Shipment = () => {
                 <FormField start={4} end={5}>
                   <StyledSelect
                     placeholder={t('country')} 
+                    search
                     flat
                     full
                     align='right' 
                     onSelect={(v: string) => setCountry(v)}
                   >
                     {countries.map(({ code, name }) => (
-                      <Option key={code} value={code}>
+                      <Option key={code} value={code} filterValue={name}>
                         {name}
                       </Option>
                     ))}

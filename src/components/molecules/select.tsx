@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styled, { ThemeProps, css } from "styled-components"
 import { AiFillCaretDown } from 'react-icons/ai'
-import { IoIosCheckmark } from 'react-icons/io'
+import { IoIosCheckmark, IoIosSearch } from 'react-icons/io'
 
 import { Theme } from '../../themes/default-theme'
 import useClickOutsideHandler from '../hooks/useClickOutsideHandler'
 import Button from '../atoms/button'
 import Spacing from '../atoms/spacing'
 import elevation, { ElevationLevel } from '../../styles/elevation'
+import { GrFormSearch } from 'react-icons/gr'
 
 interface ISelectProps {
   initialValue?: string | number
@@ -21,6 +22,7 @@ interface ISelectProps {
   round?: boolean
   elevation?: ElevationLevel
   placeholder?: string
+  search?: boolean
 }
 
 export const Select = ({
@@ -30,32 +32,43 @@ export const Select = ({
   children,
   className,
   placeholder,
+  search,
   onSelect,
   ...props
 }: ISelectProps) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [filter, setFilter] = useState('')
   const [selected, setSelected] = useState(initialValue)
   const ref = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useClickOutsideHandler(ref, () => {
     setIsOpen(false)
   })
 
   const onSelectHandler = (value: string | number) => {
+    setIsOpen(false)
     setSelected(value)
     onSelect(value)
   }
+
+  useEffect(() => {
+    setFilter('')
+    if (isOpen) {
+      inputRef.current?.focus()
+    }
+  }, [isOpen])
 
   return (
     <Container
       className={className}
       ref={ref} 
-      onClick={() => setIsOpen(!isOpen)} 
       align={align} 
       float={float}
     >
       <StyledButton
         {...props}
+        onClick={() => setIsOpen(!isOpen)} 
         elevation={props.flat ? 0 : (isOpen ? 1 : 0)}
       >
         {selected
@@ -66,19 +79,31 @@ export const Select = ({
       </StyledButton>
 
       {isOpen && (
-        <OptionsContainer align={align} float={float}>
-          {React.Children.map(children, (child: React.ReactElement) => (
-            <OptionWrapper 
-              key={child.props.value}
-              selected={child.props.value === selected}
-              onClick={() => onSelectHandler(child.props.value)}  
-            >
-              {child.props.value === selected && <IoIosCheckmark />}
-              <Spacing x={8} />
-              {child}
-            </OptionWrapper>
-          ))}
-        </OptionsContainer>
+        <Wrapper align={align} float={float}>
+          {search && (
+            <Search>
+              <StyledIoIosSearch size={24} />
+              <input ref={inputRef} onChange={(e) => setFilter(e.target.value)} />
+            </Search>
+          )}
+          <OptionsContainer>
+            {React.Children.toArray(children)
+              .filter((child: React.ReactElement) =>
+                !filter || new RegExp(filter, 'i').test(child.props.filterValue || child.props.value)
+              )
+              .map((child: React.ReactElement) => (
+              <OptionWrapper 
+                key={child.props.value}
+                selected={child.props.value === selected}
+                onClick={() => onSelectHandler(child.props.value)}  
+              >
+                {child.props.value === selected && <IoIosCheckmark />}
+                <Spacing x={8} />
+                {child}
+              </OptionWrapper>
+            ))}
+          </OptionsContainer>
+        </Wrapper>
       )}
     </Container>
   )
@@ -87,6 +112,7 @@ export const Select = ({
 interface IOptionProps {
   children: React.ReactNode | React.ReactNode[]
   value: string | number
+  filterValue?: string
 }
 
 export const Option = (props: IOptionProps) => (
@@ -119,31 +145,55 @@ const Placeholder = styled.span`
 const StyledButton = styled(Button)`
   padding-right: 8px;
   ${props => props.full && 'justify-content: space-between;'}
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `
 
-interface IOptionsContainerProps extends ThemeProps<Theme> {
+interface WrapperProps extends ThemeProps<Theme> {
   float?: boolean
   align: 'left' | 'right'
 }
 
-const OptionsContainer = styled.ul<IOptionsContainerProps>`
-  list-style: none;
+const Wrapper = styled.div<WrapperProps>`
   margin: 4px 0 0 0 ;
   padding: 0;
   background: white;
   ${elevation(1)}
   border-radius: 4px;
   overflow: hidden;
-  max-height: 128px;
-  overflow: auto;
-
-  ${(props: IOptionsContainerProps) => props.float && css`
+  
+  ${(props: WrapperProps) => props.float && css`
       z-index: 100;
       position: absolute;
       ${props.align}: 0;
       top: 100%;
   `}
+`
 
+const OptionsContainer = styled.ul`
+  list-style: none;
+  max-height: 96px;
+  overflow: auto;
+`
+
+const Search = styled.div`
+  padding: 8px;
+  position: relative;
+
+  & > input {
+    border-radius: 4px;
+    border: solid 1px ${(props: ThemeProps<Theme>) => props.theme.colors.greyLight1};
+    padding: 6px;
+    padding-left: 32px;
+  }
+`
+
+const StyledIoIosSearch = styled(IoIosSearch)`
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  color: ${(props: ThemeProps<Theme>) => props.theme.colors.greyDark1}
 `
 
 interface IOptionWrapperProps extends ThemeProps<Theme> {

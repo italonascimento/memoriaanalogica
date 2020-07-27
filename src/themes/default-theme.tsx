@@ -21,7 +21,7 @@ export interface Theme {
     greyDark1: string
     grey: string
     greyLight1:string
-    greyLigth2: string
+    greyLight2: string
     greyLighter: string
   }
 
@@ -59,7 +59,7 @@ export const defaultTheme: Partial<Theme> = {
     greyDark1: '#959595',
     grey: '#BFBFBF',
     greyLight1:'#D4D4D4',
-    greyLigth2: '#E8E8E8',
+    greyLight2: '#E8E8E8',
     greyLighter: '#F5F5F5',
   },
 
