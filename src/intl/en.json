@@ -35,6 +35,12 @@
       "mm_yy": "MM/YY",
       "name_in_card": "Name in card",
       "zip_code": "Zip code"
+    },
+    "confirmation": {
+      "title": "Successful purchase",
+      "thank_you": "Thank you!",
+      "follow_progress_by_email": "Follow order progress by e-mail.",
+      "back_to_home": "Go back to home"
     }
   },
 
