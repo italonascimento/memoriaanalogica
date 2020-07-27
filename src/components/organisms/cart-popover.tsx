@@ -107,21 +107,16 @@ const Container = styled.div`
 `
 
 const StyledPopover = styled(Popover)`
+  transition: transform 100ms ease-in-out, opacity 100ms ease-in-out;
+  
   &.popover-enter, &.popover-leave, &.popover-leave-active {
-    transition: transform 100ms ease-in-out, opacity 100ms ease-in-out;
-    transform: translateY(-32px) scale(0.8);
+    transform: translateY(-32px) scale(0.9);
     opacity: 0;
   }
 
   &.popover-enter-active {
-    transition: transform 100ms ease-in-out, opacity 100ms ease-in-out;
     transform: translateY(0) scale(1);
     opacity: 1;
-  }
-
-  &.popover-leave {
-    transform: translateY(96px) scale(1.1);
-    opacity: 0;
   }
 `
 

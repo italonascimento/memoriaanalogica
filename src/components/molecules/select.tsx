@@ -9,6 +9,8 @@ import Button from '../atoms/button'
 import Spacing from '../atoms/spacing'
 import elevation, { ElevationLevel } from '../../styles/elevation'
 import { GrFormSearch } from 'react-icons/gr'
+import CSSTransition from '../atoms/css-transition'
+import useDelayUnmount from '../hooks/use-delay-unmount'
 
 interface ISelectProps {
   initialValue?: string | number
@@ -42,6 +44,8 @@ export const Select = ({
   const ref = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
+  const shouldShow = useDelayUnmount(isOpen, 100)
+
   useClickOutsideHandler(ref, () => {
     setIsOpen(false)
   })
@@ -54,10 +58,10 @@ export const Select = ({
 
   useEffect(() => {
     setFilter('')
-    if (isOpen) {
+    if (shouldShow) {
       inputRef.current?.focus()
     }
-  }, [isOpen])
+  }, [shouldShow])
 
   return (
     <Container
@@ -78,32 +82,34 @@ export const Select = ({
         <AiFillCaretDown />
       </StyledButton>
 
-      {isOpen && (
-        <Wrapper align={align} float={float}>
-          {search && (
-            <Search>
-              <StyledIoIosSearch size={24} />
-              <input ref={inputRef} onChange={(e) => setFilter(e.target.value)} />
-            </Search>
-          )}
-          <OptionsContainer>
-            {React.Children.toArray(children)
-              .filter((child: React.ReactElement) =>
-                !filter || new RegExp(filter, 'i').test(child.props.filterValue || child.props.value)
-              )
-              .map((child: React.ReactElement) => (
-              <OptionWrapper 
-                key={child.props.value}
-                selected={child.props.value === selected}
-                onClick={() => onSelectHandler(child.props.value)}  
-              >
-                {child.props.value === selected && <IoIosCheckmark />}
-                <Spacing x={8} />
-                {child}
-              </OptionWrapper>
-            ))}
-          </OptionsContainer>
-        </Wrapper>
+      {shouldShow && (
+        <CSSTransition name='wrapper' show={isOpen}>
+          <Wrapper align={align} float={float}>
+            {search && (
+              <Search>
+                <StyledIoIosSearch size={24} />
+                <input ref={inputRef} onChange={(e) => setFilter(e.target.value)} />
+              </Search>
+            )}
+            <OptionsContainer>
+              {React.Children.toArray(children)
+                .filter((child: React.ReactElement) =>
+                  !filter || new RegExp(filter, 'i').test(child.props.filterValue || child.props.value)
+                )
+                .map((child: React.ReactElement) => (
+                <OptionWrapper 
+                  key={child.props.value}
+                  selected={child.props.value === selected}
+                  onClick={() => onSelectHandler(child.props.value)}  
+                >
+                  {child.props.value === selected && <IoIosCheckmark />}
+                  <Spacing x={8} />
+                  {child}
+                </OptionWrapper>
+              ))}
+            </OptionsContainer>
+          </Wrapper>
+        </CSSTransition>
       )}
     </Container>
   )
@@ -156,6 +162,18 @@ interface WrapperProps extends ThemeProps<Theme> {
 }
 
 const Wrapper = styled.div<WrapperProps>`
+  transition: transform 100ms ease-in-out, opacity 100ms ease-in-out;
+  
+  &.wrapper-enter, &.wrapper-leave, &.wrapper-leave-active {
+    transform: translateY(-32px) scale(0.9);
+    opacity: 0;
+  }
+
+  &.wrapper-enter-active {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
   margin: 4px 0 0 0 ;
   padding: 0;
   background: white;
