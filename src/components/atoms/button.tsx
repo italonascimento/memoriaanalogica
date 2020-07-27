@@ -15,6 +15,7 @@ export interface ButtonProps extends DOMAttributes<Element> {
   className?: string
   elevation?: ElevationLevel
   round?: boolean
+  flat?: boolean
 }
 
 const Button = ({
@@ -91,17 +92,17 @@ const StyledButton = styled.a<StyledButtonProps>`
     `}
   `}
   
-  ${(props: StyledButtonProps) => elevation(props.elevation)}
+  ${(props: StyledButtonProps) => !props.flat && elevation(props.elevation)}
 
   ${mouseInteractionTransition('box-shadow', 'color', 'background')}
 
   ${mediaQueries.md} {
     &:hover {
-      ${(props: StyledButtonProps) => elevation(props.elevation!! + 1 as ElevationLevel)}
+      ${(props: StyledButtonProps) => !props.flat && elevation(props.elevation!! + 1 as ElevationLevel)}
     }
     
     &:active {
-      ${(props: StyledButtonProps) => elevation(props.elevation!! + 2 as ElevationLevel)}
+      ${(props: StyledButtonProps) => !props.flat && elevation(props.elevation!! + 2 as ElevationLevel)}
     }
   }
 `

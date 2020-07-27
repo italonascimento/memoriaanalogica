@@ -52,6 +52,7 @@ const StyledModal = styled.div`
   right: 0;
   display: flex;
   flex-direction: column;
+  z-index: 210;
 
   &.modal-enter, &.modal-leave, &.modal-leave-active {
     transition: transform 100ms ease-in-out, opacity 100ms ease-in-out;

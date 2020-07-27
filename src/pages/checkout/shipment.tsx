@@ -10,11 +10,14 @@ import useGlobalState from '../../state/useGlobalState'
 import Input from '../../components/atoms/input'
 import Spacing from '../../components/atoms/spacing'
 import { MdNavigateNext } from 'react-icons/md'
-import { GiShoppingCart } from 'react-icons/gi'
-import { Theme } from '../../themes/default-theme'
 import { actions } from '../../state/global-state'
 import { Form, FormRow, FormField } from '../../components/molecules/form'
 import EmptyCartWarning from '../../components/molecules/empty-cart-warning'
+import useMedia from '../../components/hooks/use-media'
+import { mediaQueryValues } from '../../styles/media-queries'
+import { Select, Option } from '../../components/molecules/select'
+import countries from './countries'
+import { Theme } from '../../themes/default-theme'
 
 const Shipment = () => {
   const t = useTranslation('checkout.shipment')
@@ -28,6 +31,8 @@ const Shipment = () => {
   const [country, setCountry] = useState('')
   const [postalCode, setPostalCode] = useState('')
   const [email, setEmail] = useState('')
+
+  const md = useMedia(mediaQueryValues.md)
 
   const useSetter = (setter: React.Dispatch<React.SetStateAction<string>>) => 
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -77,10 +82,10 @@ const Shipment = () => {
               </Title>
 
               <FormRow>
-                <FormField start={1} end={3}>
+                <FormField start={1} end={md ? 3 : 5}>
                   <Input placeholder={t('full_name')} onChange={useSetter(setFullName)} />
                 </FormField>
-                <FormField start={3} end={5}>
+                <FormField start={md ? 3 : 1} end={5}>
                   <Input placeholder={t('email')} onChange={useSetter(setEmail)} />
                 </FormField>
               </FormRow>
@@ -102,10 +107,10 @@ const Shipment = () => {
                 </FormField>
               </FormRow>
               <FormRow>
-                <FormField start={1} end={4}>
+                <FormField start={1} end={3}>
                   <Input placeholder={t('complement')} onChange={useSetter(setComplement)} />
                 </FormField>
-                <FormField start={4} end={5}>
+                <FormField start={3} end={5}>
                   <Input placeholder={t('postal_code')} onChange={useSetter(setPostalCode)} />
                 </FormField>
               </FormRow>
@@ -117,7 +122,19 @@ const Shipment = () => {
                   <Input placeholder={t('state_province')} onChange={useSetter(setState)} />
                 </FormField>
                 <FormField start={4} end={5}>
-                  <Input placeholder={t('country')} onChange={useSetter(setCountry)} />
+                  <StyledSelect
+                    placeholder={t('country')} 
+                    flat
+                    full
+                    align='right' 
+                    onSelect={(v: string) => setCountry(v)}
+                  >
+                    {countries.map(({ code, name }) => (
+                      <Option key={code} value={code}>
+                        {name}
+                      </Option>
+                    ))}
+                  </StyledSelect>
                 </FormField>
               </FormRow>
 
@@ -137,6 +154,17 @@ const Shipment = () => {
 const Container = styled.div`
   max-width: 620px;
   margin: 0 auto;
+  padding: 0 16px;
+`
+
+const StyledSelect = styled(Select)`
+  background: ${(props: ThemeProps<Theme>) => props.theme.colors.greyLighter};
+  color: ${(props: ThemeProps<Theme>) => props.theme.colors.greyDarkest};
+  box-shadow: inset 0 -2px 8px -7px rgba(0,0,0,0.5);
+  padding: 5.5px 0;
+  & > * {
+    font-size: 16px;
+  }
 `
 
 const Title = styled.h2`

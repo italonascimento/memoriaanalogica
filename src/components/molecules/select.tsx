@@ -7,7 +7,7 @@ import { Theme } from '../../themes/default-theme'
 import useClickOutsideHandler from '../hooks/useClickOutsideHandler'
 import Button from '../atoms/button'
 import Spacing from '../atoms/spacing'
-import elevation from '../../styles/elevation'
+import elevation, { ElevationLevel } from '../../styles/elevation'
 
 interface ISelectProps {
   initialValue?: string | number
@@ -15,14 +15,23 @@ interface ISelectProps {
   children: React.ReactNode | React.ReactNode[]
   onSelect: (t: string | number) => void
   float?: boolean
+  full?: boolean
+  className?: string
+  flat?: boolean
+  round?: boolean
+  elevation?: ElevationLevel
+  placeholder?: string
 }
 
 export const Select = ({
   initialValue,
   align = 'left',
-  float = false,
+  float = true,
   children,
+  className,
+  placeholder,
   onSelect,
+  ...props
 }: ISelectProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState(initialValue)
@@ -39,13 +48,19 @@ export const Select = ({
 
   return (
     <Container
+      className={className}
       ref={ref} 
       onClick={() => setIsOpen(!isOpen)} 
       align={align} 
       float={float}
     >
-      <StyledButton elevation={isOpen ? 1 : 0}>
-        {React.Children.toArray(children).find((child: React.ReactElement) => child.props.value === selected)}
+      <StyledButton
+        {...props}
+        elevation={props.flat ? 0 : (isOpen ? 1 : 0)}
+      >
+        {selected
+          ? React.Children.toArray(children).find((child: React.ReactElement) => child.props.value === selected)
+          : <Placeholder>{placeholder}</Placeholder>}
         <Spacing x={8} />
         <AiFillCaretDown />
       </StyledButton>
@@ -97,8 +112,13 @@ const Container = styled.div<ContainerProps>`
   `}
 `
 
+const Placeholder = styled.span`
+  color: ${(props: ThemeProps<Theme>) => props.theme.colors.greyDark1};
+`
+
 const StyledButton = styled(Button)`
   padding-right: 8px;
+  ${props => props.full && 'justify-content: space-between;'}
 `
 
 interface IOptionsContainerProps extends ThemeProps<Theme> {
@@ -114,6 +134,8 @@ const OptionsContainer = styled.ul<IOptionsContainerProps>`
   ${elevation(1)}
   border-radius: 4px;
   overflow: hidden;
+  max-height: 128px;
+  overflow: auto;
 
   ${(props: IOptionsContainerProps) => props.float && css`
       z-index: 100;
