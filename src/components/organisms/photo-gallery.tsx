@@ -77,7 +77,7 @@ const Container = styled.div<ContainerProps>`
 
 const Selected = styled.div`
   flex: 1;
-  border: 1px solid ${(props: ThumbProps) => props.theme.colors.greyLigth2};
+  border: 1px solid ${(props: ThumbProps) => props.theme.colors.greyLight2};
 `
 
 const Thumbs = styled.ul`
@@ -92,7 +92,7 @@ const Thumb = styled.li<ThumbProps>`
   cursor: pointer;
   width: 100px;
   height: 100px;
-  border: 1px solid ${(props: ThumbProps) => props.theme.colors.greyLigth2};
+  border: 1px solid ${(props: ThumbProps) => props.theme.colors.greyLight2};
 
   ${(props: ThumbProps) => props.selected && css`
     padding: 2px;
