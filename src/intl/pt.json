@@ -47,7 +47,8 @@
   "cart": {
     "cart_is_empty": "O carrinho está vazio.",
     "shopping_cart": "Carrinho de compras",
-    "proceed_to_checkout": "Finalizar compra"
+    "subtotal": "Subtotal",
+    "proceed_to_checkout": "Prosseguir"
   },
 
   "products": {

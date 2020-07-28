@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { DOMAttributes, SyntheticEvent } from 'react'
 import Button from '../atoms/button'
 import styled from 'styled-components'
 
@@ -14,13 +14,18 @@ const AmountSelector = ({
   className,
 }: AmountSelectorProps) => {
 
+  const changeHandler = (value: number) => (e: SyntheticEvent) => {
+    e.stopPropagation()
+    onChange(value)
+  }
+
   return (
     <Container className={className}>
-      <StyledButton round onClick={() => onChange(value - 1)}>-</StyledButton>
+      <StyledButton round onClick={changeHandler(value - 1)}>-</StyledButton>
       <Value>
         {value}
       </Value>
-      <StyledButton round onClick={() => onChange(value + 1)}>+</StyledButton>
+      <StyledButton round onClick={changeHandler(value + 1)}>+</StyledButton>
     </Container>
   )
 }
@@ -43,7 +48,7 @@ const StyledButton = styled(Button)`
 const Value = styled.div`
   padding: 0 8px;
   flex-basis: 24px;
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
   flex-shrink: 0;
 `

@@ -47,6 +47,7 @@
   "cart": {
     "cart_is_empty": "The cart is empty.",
     "shopping_cart": "Shopping cart",
+    "subtotal": "Subtotal",
     "proceed_to_checkout": "Proceed to checkout"
   },
 

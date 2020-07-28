@@ -30,6 +30,7 @@ const BuyBox = ({
 
   const addToCartHandler = () => {
     dispatch(actions.addToCart(product))
+    dispatch(actions.setIsCartOpen(true))
   }
 
   return (

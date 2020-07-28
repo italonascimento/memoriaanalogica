@@ -11,9 +11,10 @@ interface CartButtonProps extends ButtonProps {
 
 const CartButton = ({
   quantity = 0,
+  onClick,
   elevation,
 }: CartButtonProps) => (
-  <StyledButton elevation={elevation} outline accent={quantity > 0}>
+  <StyledButton onClick={onClick} elevation={elevation} outline accent={quantity > 0}>
     <GiShoppingCart size={24} />
     {quantity > 0 && (
       <StyledBadge accent>

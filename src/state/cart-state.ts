@@ -7,22 +7,24 @@ enum ActionType {
   replaceCart = "replaceCart",
   setAmount = "setAmount",
   resetCart = "resetCart",
+  setIsCartOpen = "setIsCartOpen",
 }
 
 export interface CartItem {
   amount: number
   product: Product
-  
 }
 
 export interface State {
   items: CartItem[]
   total: number
+  isOpen: boolean
 }
 
 export const initialState: State = {
   items: [],
   total: 0,
+  isOpen: false,
 }
 
 const getTotal = (items: CartItem[]) => 
@@ -78,6 +80,11 @@ export const actions = {
 
   resetCart: () => ({
     type: ActionType.resetCart,
+  }),
+
+  setIsCartOpen: (value: boolean) => ({
+    type: ActionType.setIsCartOpen,
+    payload: value,
   })
 }
 
@@ -150,6 +157,12 @@ export const reducer: (state: State, action: Action) => State =
 
       case ActionType.resetCart:
         return initialState
+
+      case ActionType.setIsCartOpen:
+        return {
+          ...state,
+          isOpen: payload,
+        }
 
       default:
         return state

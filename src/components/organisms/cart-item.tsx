@@ -34,7 +34,10 @@ const CartItem = ({
   const url = `/p/${sku}/${details.slug}/`
 
   return (
-    <Container onClick={() => navigate(url)}>
+    <Container onClick={() => {
+      dispatch(actions.setIsCartOpen(false))
+      navigate(url)}
+    }>
       <Photo>
         <Img fluid={photos[0]} />
       </Photo>

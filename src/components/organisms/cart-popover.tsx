@@ -1,5 +1,5 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react'
-import { navigate } from 'gatsby-plugin-intl';
+import { navigate, FormattedNumber } from 'gatsby-plugin-intl';
 import styled, { ThemeProps } from 'styled-components';
 
 import useMedia from '../hooks/use-media'
@@ -18,16 +18,19 @@ import Backdrop from '../atoms/backdrop';
 import Spacing from '../atoms/spacing';
 import useDelayUnmount from '../hooks/use-delay-unmount';
 import CSSTransition from '../atoms/css-transition';
+import { actions } from '../../state/cart-state';
 
 const CartPopover = () => {
-  const [cart] = useGlobalState(s => s.cart)
-  const [isOpen, setIsOpen] = useState(false)
-  const [isFirstItem, setIsFirstItem] = useState(true)
-  const t = useTranslation('cart')
+  const [cart, dispatch] = useGlobalState(s => s.cart)
+  const t = useTranslation()
+  const k = useTranslation('cart')
   const popoverRef = useRef<HTMLDivElement>(null)
   const md = useMedia(mediaQueryValues.md)
 
-  const shouldShow = useDelayUnmount(isOpen, 100)
+  const shouldShow = useDelayUnmount(cart.isOpen, 100)
+
+  const setIsOpen = (value: boolean) =>
+    dispatch(actions.setIsCartOpen(value))
   
   useClickOutsideHandler(popoverRef, () => {
     setIsOpen(false)
@@ -53,18 +56,28 @@ const CartPopover = () => {
                 <CartItem key={item.product.sku} {...item} />
               ))}
             </StyledList>
-            <StyledButton full primary large onClick={() => navigate('/checkout/shipment/')}>
+            <Spacing y={8} />
+            <Subtotal>
+              <p>{k('subtotal')}:</p>
+              <FormattedNumber style='currency' currency={t('currency')} value={cart.total} />
+            </Subtotal>
+            <StyledButton
+              full 
+              primary 
+              large 
+              onClick={() => {
+                setIsOpen(false)
+                navigate('/checkout/shipment/')
+              }}>
               <p>
-                <Total>${cart.total}</Total>
-                <Spacing x={8} inline />
-                {t('proceed_to_checkout')}
+                {k('proceed_to_checkout')}
               </p>
             </StyledButton>
           </>
         )
         : (
           <EmptyWarning>
-            {t('cart_is_empty')}
+            {k('cart_is_empty')}
           </EmptyWarning>
         )}
     </Container>
@@ -72,12 +85,14 @@ const CartPopover = () => {
   
   return (
     <div ref={popoverRef}>
-      <div onClick={() => setIsOpen(!isOpen)}>
-        <CartButton elevation={isOpen ? 1 : 0} quantity={getTotalAmount()} />
-      </div>
+      <CartButton
+        onClick={() => setIsOpen(!cart.isOpen)}
+        elevation={cart.isOpen ? 1 : 0}
+        quantity={getTotalAmount()}
+      />
       {md ? (
         shouldShow && (
-          <CSSTransition name='popover' show={isOpen}>
+          <CSSTransition name='popover' show={cart.isOpen}>
             <StyledPopover anchor={{h: 'right', v: 'top'}}>
               {CartContent}
             </StyledPopover>
@@ -85,7 +100,7 @@ const CartPopover = () => {
         )
       ) : (
         shouldShow && (
-          <Modal show={isOpen} title={t('shopping_cart')} onClose={() => setIsOpen(false)}>
+          <Modal show={cart.isOpen} title={k('shopping_cart')} onClose={() => setIsOpen(false)}>
             {CartContent}
           </Modal>
         )
@@ -120,10 +135,11 @@ const StyledPopover = styled(Popover)`
   }
 `
 
-const Total = styled.span`
-  font-family: ${(props: ThemeProps<Theme>) => props.theme.titleFontFamily};
-  font-weight: bold;
-  font-size: 16px;
+const Subtotal = styled.div`
+  font-size: 18px;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
 `
 
 const EmptyWarning = styled.p`
