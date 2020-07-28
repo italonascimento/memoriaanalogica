@@ -57,22 +57,24 @@ const CartPopover = () => {
               ))}
             </StyledList>
             <Spacing y={8} />
-            <Subtotal>
-              <p>{k('subtotal')}:</p>
-              <FormattedNumber style='currency' currency={t('currency')} value={cart.total} />
-            </Subtotal>
-            <StyledButton
-              full 
-              primary 
-              large 
-              onClick={() => {
-                setIsOpen(false)
-                navigate('/checkout/shipment/')
-              }}>
-              <p>
-                {k('proceed_to_checkout')}
-              </p>
-            </StyledButton>
+            <div>
+              <Subtotal>
+                <p>{k('subtotal')}:</p>
+                <FormattedNumber style='currency' currency={t('currency')} value={cart.total} />
+              </Subtotal>
+              <StyledButton
+                full 
+                primary 
+                large 
+                onClick={() => {
+                  setIsOpen(false)
+                  navigate('/checkout/shipment/')
+                }}>
+                <p>
+                  {k('proceed_to_checkout')}
+                </p>
+              </StyledButton>
+            </div>
           </>
         )
         : (

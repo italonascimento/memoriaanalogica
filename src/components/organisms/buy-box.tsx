@@ -96,6 +96,7 @@ const DescriptionTitle = styled.h4`
 const Description = styled.p`
   font-size: 12px;
   text-align: left;
+  line-height: 1.5;
 `
 
 export default BuyBox

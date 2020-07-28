@@ -20,8 +20,6 @@ const Modal = ({
   children,
   show = false,
 }: ModalProps) => {
-  const [inProp, setInProp] = useState(true)
-  
   return (
     <>
       <CSSTransition
