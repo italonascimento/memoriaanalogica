@@ -24,7 +24,6 @@ const Confirmation = ({ location }: ConfirmationProps) => {
   const [_, dispatch] = useGlobalState(s => s)
   const payment = location.state?.payment
   const theme = useContext(ThemeContext)
-  console.log(theme)
 
   useEffect(() => {
     dispatch(actions.resetCart())
