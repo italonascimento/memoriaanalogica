@@ -68,9 +68,11 @@ export const Select = ({
 
   return (
     <Container
+      tabIndex={0}
       className={className}
       ref={ref} 
-      align={align} 
+      align={align}
+      onKeyPress={() => setIsOpen(true)}
     >
       <StyledButton
         {...props}
