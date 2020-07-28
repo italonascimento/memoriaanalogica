@@ -39,7 +39,7 @@ const Layout = ({ children }: IProps) => {
   `)
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <>
       <ResetStyle />
       <GlobalStyle />
       <StyledHeader siteTitle={data.site.siteMetadata.title} />
@@ -58,7 +58,7 @@ const Layout = ({ children }: IProps) => {
           </Spinner>
         </>
       )}
-    </ThemeProvider>
+    </>
   )
 }
 
