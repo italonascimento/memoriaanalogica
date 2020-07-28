@@ -6,6 +6,8 @@ import { Form, FormRow, FormField } from '../molecules/form'
 import Button from '../atoms/button'
 import useTranslation from '../hooks/useTanslation'
 import styled from 'styled-components'
+import { AiFillLock } from 'react-icons/ai'
+import Spacing from '../atoms/spacing'
 
 interface PaymentFormProps {
   orderId: string
@@ -24,7 +26,8 @@ const PaymentForm = (props: PaymentFormProps) => {
   const [masterpass, setMasterpass] = useState()
   const [error, setError] = useState(false)
 
-  const t = useTranslation('checkout.payment')
+  const t = useTranslation()
+  const k = useTranslation('checkout.payment')
 
   const requestCardNonce = () => {
     if (paymentForm) {
@@ -56,19 +59,19 @@ const PaymentForm = (props: PaymentFormProps) => {
       },
       cardNumber: {
         elementId: "sq-card-number",
-        placeholder: t('card_number'),
+        placeholder: k('card_number'),
       },
       cvv: {
         elementId: "sq-cvv",
-        placeholder: t('cvv'),
+        placeholder: k('cvv'),
       },
       expirationDate: {
         elementId: "sq-expiration-date",
-        placeholder: t('mm_yy'),
+        placeholder: k('mm_yy'),
       },
       postalCode: {
         elementId: "sq-postal-code",
-        placeholder: t('zip_code'),
+        placeholder: k('zip_code'),
       },
       callbacks: {
         methodsSupported: (methods: any) => {
@@ -209,7 +212,7 @@ const PaymentForm = (props: PaymentFormProps) => {
                 <Input
                     id="name"
                     type="text"
-                    placeholder={t('name_in_card')}
+                    placeholder={k('name_in_card')}
                   />
               </FormField>
             </FormRow>
@@ -218,7 +221,9 @@ const PaymentForm = (props: PaymentFormProps) => {
               className="button-credit-card"
               onClick={requestCardNonce}
             >
-              {t('pay')}
+              <AiFillLock />
+              <Spacing x={8} />
+              {k('pay')}
             </StyledButton>
           </Form>
         </div>
@@ -231,7 +236,7 @@ const PaymentForm = (props: PaymentFormProps) => {
 const StyledButton = styled(Button)`
   align-self: flex-end;
   margin-top: 12px;
-  padding-right: 24px;
+  padding-left: 24px;
 `
 
 export default PaymentForm

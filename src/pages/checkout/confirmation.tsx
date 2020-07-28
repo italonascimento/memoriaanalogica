@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { WindowLocation } from '@reach/router'
 
 import { PaymentResponse } from '../../types/payment-response'
@@ -7,7 +7,7 @@ import SEO from '../../components/seo'
 import useTranslation from '../../components/hooks/useTanslation'
 import useGlobalState from '../../state/useGlobalState'
 import { actions } from '../../state/cart-state'
-import styled, { ThemeProps } from 'styled-components'
+import styled, { ThemeProps, ThemeContext } from 'styled-components'
 import Spacing from '../../components/atoms/spacing'
 import Button from '../../components/atoms/button'
 import { navigate } from 'gatsby-plugin-intl'
@@ -23,6 +23,8 @@ const Confirmation = ({ location }: ConfirmationProps) => {
   const t = useTranslation('checkout.confirmation')
   const [_, dispatch] = useGlobalState(s => s)
   const payment = location.state?.payment
+  const theme = useContext(ThemeContext)
+  console.log(theme)
 
   useEffect(() => {
     dispatch(actions.resetCart())
@@ -32,7 +34,7 @@ const Confirmation = ({ location }: ConfirmationProps) => {
     <Layout>
       <SEO title={t('title')} />
       <Container>
-        <IoIosCheckboxOutline size={128} />
+        <IoIosCheckboxOutline size={128} color={theme?.colors.grey} />
         <Spacing y={32} />
         <Title>{t('thank_you')}</Title>
         <Spacing y={16} />
@@ -71,11 +73,12 @@ const Title = styled.h2`
 `
 
 const Text = styled.p`
-  font-size: 18px;
+  color: ${(props: ThemeProps<Theme>) => props.theme.colors.greyDark1};
+  font-size: 16px;
 
-${mediaQueries.md} {
-  font-size: 24px;
-}
+  ${mediaQueries.md} {
+    font-size: 18px;
+  }
 `
 
 export default Confirmation

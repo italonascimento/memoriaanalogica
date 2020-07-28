@@ -13,7 +13,7 @@
     "shipment": {
       "title": "Dados do envio",
       "personal_info": "Dados pessoais",
-      "shipment_address": "Endereço de entrega",
+      "shipment_address": "Dados da entrega",
       "full_name": "Nome completo",
       "address": "Endereço",
       "complement": "Complemento",
