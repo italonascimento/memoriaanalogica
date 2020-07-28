@@ -7,7 +7,7 @@ const Backdrop = styled.div<{zIndex?: number}>`
   left: 0;
   right: 0;
   background: white;
-  opacity: 0.3;
+  opacity: 0.5;
   z-index: ${props => props.zIndex || 200};
 `
 

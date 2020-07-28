@@ -11,13 +11,15 @@ import elevation, { ElevationLevel } from '../../styles/elevation'
 import { GrFormSearch } from 'react-icons/gr'
 import CSSTransition from '../atoms/css-transition'
 import useDelayUnmount from '../hooks/use-delay-unmount'
+import mediaQueries, { mediaQueryValues } from '../../styles/media-queries'
+import Backdrop from '../atoms/backdrop'
+import useMedia from '../hooks/use-media'
 
 interface ISelectProps {
   initialValue?: string | number
   align?: 'left' | 'right'
   children: React.ReactNode | React.ReactNode[]
   onSelect: (t: string | number) => void
-  float?: boolean
   full?: boolean
   className?: string
   flat?: boolean
@@ -25,16 +27,17 @@ interface ISelectProps {
   elevation?: ElevationLevel
   placeholder?: string
   search?: boolean
+  modal?: boolean
 }
 
 export const Select = ({
   initialValue,
   align = 'left',
-  float = true,
   children,
   className,
   placeholder,
   search,
+  modal,
   onSelect,
   ...props
 }: ISelectProps) => {
@@ -68,7 +71,6 @@ export const Select = ({
       className={className}
       ref={ref} 
       align={align} 
-      float={float}
     >
       <StyledButton
         {...props}
@@ -84,7 +86,8 @@ export const Select = ({
 
       {shouldShow && (
         <CSSTransition name='wrapper' show={isOpen}>
-          <Wrapper align={align} float={float}>
+          {modal && <StyledBackdrop zIndex={80} onClick={() => setIsOpen(false)} />}
+          <Wrapper align={align} modal={modal}>
             {search && (
               <Search>
                 <StyledIoIosSearch size={24} />
@@ -128,20 +131,11 @@ export const Option = (props: IOptionProps) => (
 )
 
 interface ContainerProps {
-  float?: boolean
   align: 'left' | 'right'
 }
 
 const Container = styled.div<ContainerProps>`
-  ${(props: ContainerProps) => props.float
-  ? css`
-    position: relative;
-  `
-  : css`
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-${props.align === 'right' ? 'end' : 'start'};
-  `}
+  position: relative;
 `
 
 const Placeholder = styled.span`
@@ -157,39 +151,71 @@ const StyledButton = styled(Button)`
 `
 
 interface WrapperProps extends ThemeProps<Theme> {
-  float?: boolean
+  modal?: boolean
   align: 'left' | 'right'
 }
 
 const Wrapper = styled.div<WrapperProps>`
   transition: transform 100ms ease-in-out, opacity 100ms ease-in-out;
-  
-  &.wrapper-enter, &.wrapper-leave, &.wrapper-leave-active {
-    transform: translateY(-32px) scale(0.9);
-    opacity: 0;
-  }
 
-  &.wrapper-enter-active {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-
-  margin: 4px 0 0 0 ;
-  padding: 0;
   background: white;
   ${elevation(1)}
   border-radius: 4px;
   overflow: hidden;
-  
-  ${(props: WrapperProps) => props.float && css`
-      z-index: 100;
+  z-index: 100;
+
+  ${props => props.modal
+    ? css`
+      position: fixed;
+      top: 50%;
+      left: 50%;
+    
+      &.wrapper-enter, &.wrapper-leave, &.wrapper-leave-active {
+        transform: translateX(-50%) translateY(-50%) scale(0.9);
+        opacity: 0;
+      }
+    
+      &.wrapper-enter-active {
+        transform: translateX(-50%) translateY(-50%) scale(1);
+        opacity: 1;
+      }
+    `
+    : css`
       position: absolute;
-      ${props.align}: 0;
+      margin-top: 4px;
+      left: auto;
+      right: auto;
+      transform: none;
+      ${(props: WrapperProps) => props.align}: 0;
       top: 100%;
-  `}
+
+      &.wrapper-enter, &.wrapper-leave, &.wrapper-leave-active {
+        transform: translateY(-32px) scale(0.9);
+        opacity: 0;
+      }
+
+      &.wrapper-enter-active {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    `
+  }
+`
+
+const StyledBackdrop = styled(Backdrop)`
+  transition: opacity 100ms ease-in-out;
+
+  &.wrapper-enter, &.wrapper-leave, &.wrapper-leave-active {
+    opacity: 0;
+  }
+
+  &.wrapper-enter-active {
+    opacity: 0.5;
+  }
 `
 
 const OptionsContainer = styled.ul`
+  padding: 0;
   list-style: none;
   max-height: 96px;
   overflow: auto;
@@ -204,6 +230,8 @@ const Search = styled.div`
     border: solid 1px ${(props: ThemeProps<Theme>) => props.theme.colors.greyLight1};
     padding: 6px;
     padding-left: 32px;
+    display: block;
+    width: 100%;
   }
 `
 

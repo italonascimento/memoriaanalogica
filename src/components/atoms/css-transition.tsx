@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, ReactElement } from "react"
 
 interface CSSTransitionProps {
   name: string
-  children: React.ReactElement | React.ReactElement[]
+  children: React.ReactNode | React.ReactNode[]
   show?: boolean
 }
 
@@ -24,8 +24,8 @@ const CSSTransition = ({children, name, show = false}: CSSTransitionProps) => {
   }, [show])
 
   return <>
-    {React.Children.map(children, (child) => 
-      React.cloneElement(child, { 
+    {React.Children.toArray(children).filter(c => !!c).map((child) => 
+      React.cloneElement(child as ReactElement, { 
         className: `${name}-${phase}`,
     }))}
   </>

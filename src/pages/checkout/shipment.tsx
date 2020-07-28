@@ -128,6 +128,7 @@ const Shipment = () => {
                     flat
                     full
                     align='right' 
+                    modal={!md}
                     onSelect={(v: string) => setCountry(v)}
                   >
                     {countries.map(({ code, name }) => (
