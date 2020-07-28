@@ -16,7 +16,7 @@ import EmptyCartWarning from '../../components/molecules/empty-cart-warning'
 import useMedia from '../../components/hooks/use-media'
 import { mediaQueryValues } from '../../styles/media-queries'
 import { Select, Option } from '../../components/molecules/select'
-import countries from './countries'
+import countries from '../../data/countries'
 import { Theme } from '../../themes/default-theme'
 
 const Shipment = () => {
