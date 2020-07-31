@@ -45,10 +45,12 @@ const Payment = ({ location }: PaymentProps) => {
       name: location.state?.name,
       email: location.state?.email,
       lang: intl.locale,
-      order: cart.items.map(item => ({
-        name: p(`${item.product.sku}.name`),
-        quantity: item.amount,
-      })),
+      order: {
+        products: cart.items.map(item => ({
+          name: p(`${item.product.sku}.name`),
+          quantity: item.amount,
+        })),
+      },
       template: 'purchase_success',
     })
     navigate('/checkout/confirmation/', { state: { payment }})
