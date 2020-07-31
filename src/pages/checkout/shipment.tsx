@@ -63,6 +63,8 @@ const Shipment = () => {
       navigate('/checkout/payment/', {
         state: {
           orderId: response.data.order.id,
+          name: recipientFullName.split(' ')[0],
+          email,
         }
       })
     })

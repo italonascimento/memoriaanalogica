@@ -59,6 +59,7 @@ exports.handler = async (event, context, callback) => {
     }
 
     const response = await payments_api.createPayment(request_body)
+
     callback(null, {
       statusCode: 200,
       headers: {

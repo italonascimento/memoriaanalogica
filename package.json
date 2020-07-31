@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@sendgrid/mail": "^7.2.2",
     "@types/react-transition-group": "^4.4.0",
     "acorn": "^6.4.1",
     "axios": "^0.19.2",
