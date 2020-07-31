@@ -43,7 +43,7 @@ exports.handler = async (event, context, callback) => {
   }
 
   try {
-    sgMail.send(msg)
+    await sgMail.send(msg)
   } catch(err) {
     console.log(err)
     callback("Something went wrong with your request. Try again later", {
