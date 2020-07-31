@@ -33,10 +33,8 @@ const Payment = ({ location }: PaymentProps) => {
   const [isReady, setIsReady] = useState(false)
   const intl = useIntl()
 
-  const { orderId, name, email } = location.state
-
   useEffect(() => {
-    if (!orderId) {
+    if (!location.state?.orderId) {
       navigate('/checkout/shipment/', { replace: true })
     }
   }, [])
@@ -44,8 +42,8 @@ const Payment = ({ location }: PaymentProps) => {
   const paymentSuccessHandler = (payment: PaymentResponse) => {
     dispatch(globalActions.setIsLoading(false))
     Axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/send-email', {
-      name,
-      email,
+      name: location.state?.name,
+      email: location.state?.email,
       lang: intl.locale,
       order: cart.items.map(item => ({
         name: p(`${item.product.sku}.name`),
