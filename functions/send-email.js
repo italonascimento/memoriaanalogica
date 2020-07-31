@@ -46,6 +46,7 @@ exports.handler = async (event, context, callback) => {
     await sgMail.send(msg)
   } catch(err) {
     console.log(err)
+    if (err.response && err.response.body) console.log(err.response.body.errors)
     callback("Something went wrong with your request. Try again later", {
       statusCode: 500,
       headers: {
