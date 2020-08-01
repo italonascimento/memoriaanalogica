@@ -39,7 +39,7 @@ exports.handler = async (event, context, callback) => {
           "dynamic_template_data": data
         }
     ],
-    "template_id": process.env[data.template.toUpperCase() + '_TEMPLATE_ID']
+    "template_id": process.env[`${data.template.toUpperCase()}_${data.lang.toUpperCase()}_TEMPLATE_ID`]
   }
 
   try {

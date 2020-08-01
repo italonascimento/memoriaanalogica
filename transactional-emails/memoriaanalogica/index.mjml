@@ -1,0 +1,91 @@
+<mjml>
+
+  <mj-head>
+    <mj-attributes>
+      <mj-text color="#444" 
+               font-size="18px"
+               line-height="1.5"/>
+      <mj-section background-color="#fff" />
+      <mj-all font-family='Helvetica, sans-serif' />
+    </mj-attributes>
+    <mj-style>
+    	th {
+      	padding: 4px 0;
+      }
+      td {
+      	padding: 4px 0;
+      }
+      td.qt {
+      	text-align: center;
+      	width: 40px;
+      }
+    </mj-style> 
+  </mj-head>
+
+  <mj-body background-color="#fff">
+    <mj-section>
+      <mj-column>
+      	<mj-text align="center" color="#000" font-size="20px">
+        	<strong>memória</strong>analógica
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text color="#111"
+                 font-weight="bold"
+                 font-size="24px">
+          Pedido Confirmado! :)
+        </mj-text>
+        <mj-spacer height="16px" />
+        <mj-text>
+        	Olá {{name}},
+        </mj-text>
+        <mj-text>
+        	<strong>Seu pedido foi confirmado</strong> e está sendo preparado para o envio.
+        </mj-text>
+        <mj-text>
+        	Obrigado!
+        </mj-text>
+        <mj-spacer height="16px" />
+      </mj-column>
+    </mj-section>
+    
+    <mj-section border="1px solid #eee"
+                background-color="#f9f9f9"
+                padding-bottom="0">
+      <mj-column>
+        <mj-text font-weight="bold"
+                 color="#333"
+                 font-size="16px">
+        	Detalhes do pedido
+        </mj-text>
+      	<mj-table>
+          <tr>
+            <th style="text-align: left;">
+              Produto
+            </th>
+            <th style="text-align: center;">
+              Qtd.
+            </th>
+          </tr>
+          <tr>
+            <td>{{this.name}}</td>
+            <td class="qt">{{this.quantity}}</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+    <mj-section padding-top="32px">
+    	<mj-column>
+      	<mj-social mode="horizontal" icon-size="20px">
+          <mj-social-element background-color="#e1306c" 
+                             name="instagram"
+                             href="https://instagram.com/memoriaanalogica">
+          	memoriaanalogica
+          </mj-social-element>
+        </mj-social> 
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
