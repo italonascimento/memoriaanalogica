@@ -39,7 +39,7 @@ const CartItem = ({
       navigate(url)}
     }>
       <Photo>
-        <Img fluid={photos[0]} />
+        <Img fluid={photos[0].fluid} />
       </Photo>
       <Content>
         <h5>

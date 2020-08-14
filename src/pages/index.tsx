@@ -8,6 +8,7 @@ import useTranslation from "../components/hooks/useTanslation"
 import VM from "../components/organisms/vm"
 import Spacing from "../components/atoms/spacing"
 import { ProductsQueryResult } from "../types/product-query-result"
+import { Photo } from "../types/product"
 
 interface IndexPageProps {
   data: ProductsQueryResult
@@ -23,7 +24,7 @@ const IndexPage = ({ data }: IndexPageProps) => {
       <Spacing y={64}/>
       <VM products={data.allProductsYaml.edges.map(item => ({
         ...item.node,
-        photos: item.node.photos.map(photo => photo.src.childImageSharp.fluid)
+        photos: item.node.photos.map(photo => ({ fluid: photo.src.childImageSharp.fluid }) as Photo)
       }))} />
     </Layout>
   )

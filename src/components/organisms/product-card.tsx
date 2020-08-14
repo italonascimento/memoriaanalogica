@@ -10,11 +10,12 @@ import { Theme } from '../../themes/default-theme'
 import elevation from '../../styles/elevation'
 import mediaQueries from '../../styles/media-queries'
 import PhotoSwing from '../molecules/photo-swing'
+import { Photo } from '../../types/product'
 
 interface ProductCardProps {
   price: number
   sku: string
-  photos: FluidObject[]
+  photos: Photo[]
   className?: string
 }
 
@@ -61,13 +62,13 @@ const StyledCard = styled(Card)<React.HTMLAttributes<HTMLElement>>`
 
   &:hover {
     ${elevation(2)}
-    background: ${(props: ThemeProps<Theme>) => props.theme.colors.greyLigth1};
+    background: ${(props: ThemeProps<Theme>) => props.theme.colors.greyLighter};
   }
 `
 
 const StyledPhotoSwing = styled(PhotoSwing)`
   width: 100%;
-  padding-top: 100%;
+  padding-top: 65%;
 `
 
 const Content = styled.div`

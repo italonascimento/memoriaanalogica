@@ -17,6 +17,7 @@ import Spacing from "../components/atoms/spacing"
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import { Photo } from "../types/product"
 
 interface ProductTemplateProps {
   data: ProductsQueryResult
@@ -27,9 +28,10 @@ const ProductTemplate = ({
   data,
 }: ProductTemplateProps) => {
   const { sku, price, variationId } = data.allProductsYaml.edges[0].node
-  const photos = data.allProductsYaml.edges[0].node.photos.map(item =>
-    item.src.childImageSharp.fluid
-  )
+  const photos = data.allProductsYaml.edges[0].node.photos.map(item => ({
+    fixed: item.src.childImageSharp.fixed,
+    fluid: item.src.childImageSharp.fluid,
+  }))
 
   const details = useProductDetails(sku)
   const isMediaMediumOrUp = useMedia(mediaQueryValues.md)
@@ -48,7 +50,7 @@ const ProductTemplate = ({
               <Slider centerMode centerPadding='10%' arrows={false}>
                 {photos.map(photo => (
                   <SlideItem>
-                    <Img fluid={photo} />
+                    <Img fluid={photo.fluid} />
                   </SlideItem>
                 ))}
               </Slider>
@@ -78,6 +80,9 @@ export const query = graphql`
               childImageSharp {
                 fluid(maxWidth: 750) {
                   ...GatsbyImageSharpFluid
+                }
+                fixed(width: 100, height: 100) {
+                  ...GatsbyImageSharpFixed
                 }
               }
             }

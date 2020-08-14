@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import Img, { FluidObject } from 'gatsby-image'
+import { FluidObject } from 'gatsby-image'
+import Img from 'gatsby-image/withIEPolyfill'
 import styled, { ThemeProps, css } from 'styled-components'
 import { Theme } from '../../themes/default-theme'
+import { Photo } from '../../types/product'
 
 interface PhotoSwingProps {
-  photos: FluidObject[]
+  photos: Photo[]
   isActive: boolean
   className?: string
 }
@@ -50,9 +52,9 @@ const PhotoSwing = ({
   return (
     <Container className={className}>
       {photos.map((photo, i) => (
-        <Photo key={i} selected={currentPhoto === i}>
-          <Img fluid={photo} />
-        </Photo>
+        <PhotoContainer key={i} selected={currentPhoto === i}>
+          <Img fluid={photo.fluid} />
+        </PhotoContainer>
       ))}
     </Container>
   )
@@ -66,7 +68,7 @@ interface PhotoProps extends ThemeProps<Theme>{
   selected: boolean
 }
 
-const Photo = styled.div<PhotoProps>`
+const PhotoContainer = styled.div<PhotoProps>`
   position: absolute;
   left: 0;
   right: 0;

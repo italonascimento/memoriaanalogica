@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
-import Img, { FluidObject } from "gatsby-image"
+import Img from "gatsby-image"
 import styled, { css, ThemeProps } from 'styled-components'
 
 import { Theme } from '../../themes/default-theme'
 import { mouseInteractionTransition } from '../../styles/transitions'
+import { Photo } from '../../types/product'
+import BgImg from '../atoms/bg-img'
 
 
 interface PhotoGalleryProps {
-  photos: FluidObject[]
+  photos: Photo[]
   className?: string
   verticalThumbs?: boolean
 }
@@ -22,7 +24,7 @@ const PhotoGallery = ({
   return (
     <Container className={className} verticalThumbs={verticalThumbs}>
       <Selected>
-        <Img fluid={photos[current]} />
+        <Img fluid={photos[current].fluid} />
       </Selected>
       <Thumbs>
         {photos.map((thumb, i) => (
@@ -31,7 +33,7 @@ const PhotoGallery = ({
             selected={i === current} 
             onClick={() => setCurrent(i)}
           >
-            <Img fluid={thumb} />
+            <BgImg src={thumb.fluid?.src} />
           </Thumb>
         ))}
       </Thumbs>
@@ -93,9 +95,16 @@ const Thumb = styled.li<ThumbProps>`
   width: 100px;
   height: 100px;
   border: 1px solid ${(props: ThumbProps) => props.theme.colors.greyLight2};
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  & > * {
+    flex: 1;
+  }
 
   ${(props: ThumbProps) => props.selected && css`
-    padding: 2px;
+    /* padding: 2px; */
     border: 4px solid ${props.theme.colors.primaryLight2};
   `}
 

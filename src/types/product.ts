@@ -1,10 +1,15 @@
 import { FluidObject, FixedObject } from "gatsby-image";
 
+export interface Photo{
+    fluid?: FluidObject,
+    fixed?: FixedObject,
+}
+
 export interface Product {
   sku: string
   variationId: string
   price: number
-  photos: FluidObject[]
+  photos: Photo[]
 }
 
 export interface ProductDetails {

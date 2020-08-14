@@ -1,12 +1,13 @@
 import React from "react"
 import styled, { ThemeProps } from "styled-components"
-import { Theme } from "../../themes/default-theme"
-import LangSelector from "./lang-selector"
-import mediaQueries from "../../styles/media-queries"
 import { Link } from "gatsby-plugin-intl"
-import Button from "../atoms/button"
-import { GiShoppingCart } from "react-icons/gi"
+import { useStaticQuery, graphql } from "gatsby"
+import Img from "gatsby-image"
+
+import { Theme } from "../../themes/default-theme"
+import mediaQueries from "../../styles/media-queries"
 import Spacing from "../atoms/spacing"
+import LangSelector from "./lang-selector"
 import CartPopover from "./cart-popover"
 
 interface IProps {
@@ -14,25 +15,39 @@ interface IProps {
   className?: string
 }
 
-const Header = ({ 
+const Header = ({
   siteTitle = '',
   className,
-}: IProps) => (
-  <Container className={className}>
-    <Title>
-      <Link to='/'>
-        {siteTitle}
-      </Link>
-    </Title>
-    {typeof window !== 'undefined' && (
-      <LangSelector />
-    )}
+}: IProps) => {
+  const data = useStaticQuery(graphql`
+    query {
+      logo: file(relativePath: { eq: "logo.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 180) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `)
 
-    <Spacing x={8} />
+  return (
+    <Container className={className}>
+      <Title>
+        <Link to='/'>
+          <Img fluid={data.logo.childImageSharp.fluid} alt={siteTitle} imgStyle={{objectFit: 'contain'}} />
+        </Link>
+      </Title>
+      {typeof window !== 'undefined' && (
+        <LangSelector />
+      )}
 
-    <CartPopover />
-  </Container>
-)
+      <Spacing x={8} />
+
+      <CartPopover />
+    </Container>
+  )
+}
 
 const Container = styled.div`
   height: 64px;
@@ -52,7 +67,10 @@ const Title = styled.h1`
   flex: 1;
   font-size: 18px;
   margin: 0;
+  margin-right: auto;
   text-transform: lowercase;
+  width: 180px;
+  max-width: 180px;
 `
 
 export default Header

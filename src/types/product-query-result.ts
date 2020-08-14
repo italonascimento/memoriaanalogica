@@ -1,4 +1,4 @@
-import { FluidObject } from "gatsby-image"
+import { FluidObject, FixedObject } from "gatsby-image"
 
 export interface ProductsQueryResult {
   allProductsYaml: {
@@ -17,6 +17,7 @@ interface ProductNode {
     src: {
       childImageSharp: {
         fluid: FluidObject
+        fixed: FixedObject
       }
     }
   }[]
