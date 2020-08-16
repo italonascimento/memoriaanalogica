@@ -3,6 +3,7 @@ import { Action } from "./global-state"
 enum ActionType {
   setShipmentInfo = "setShipmentData",
   setOrderId = "setOrderId",
+  setPaymentNonce = "setPaymentNonce",
   resetCheckout = "resetCheckout"
 }
 
@@ -21,6 +22,7 @@ export interface ShipmentInfo {
 export interface State {
   shipmentInfo: ShipmentInfo
   orderId?: string
+  paymentNonce?: string
 }
 
 export const initialState: State = {
@@ -36,6 +38,11 @@ export const actions = {
   setOrderId: (id: string) => ({
     type: ActionType.setOrderId,
     payload: id,
+  }),
+
+  setPaymentNonce: (nonce: string) => ({
+    type: ActionType.setPaymentNonce,
+    payload: nonce,
   })
 }
 
@@ -53,6 +60,12 @@ export const reducer: (state: State, action: Action) => State =
         return {
           ...state,
           orderId: payload,
+        }
+      
+      case ActionType.setPaymentNonce:
+        return {
+          ...state,
+          paymentNonce: payload,
         }
       
       case ActionType.resetCheckout:

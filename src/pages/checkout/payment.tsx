@@ -1,38 +1,34 @@
 import React, { useState, useEffect } from 'react'
+import styled, { ThemeProps } from 'styled-components'
 import { Helmet } from 'react-helmet'
-import { WindowLocation } from '@reach/router'
-import { navigate, useIntl } from 'gatsby-plugin-intl'
-import Axios from 'axios'
+import { navigate } from 'gatsby-plugin-intl'
 
 import Layout from '../../layouts/layout'
 import SEO from '../../components/seo'
 import PaymentForm from '../../components/organisms/payment-form'
 import useGlobalState from '../../state/useGlobalState'
 import useTranslation from '../../components/hooks/useTanslation'
-import { PaymentResponse } from '../../types/payment-response'
 import { actions as globalActions } from '../../state/global-state'
-import styled, { ThemeProps } from 'styled-components'
+import { actions as checkoutActions } from '../../state/checkout-state'
 import { Theme } from '../../themes/default-theme'
 import EmptyCartWarning from '../../components/molecules/empty-cart-warning'
 
 const Payment = () => {
   const k = useTranslation('checkout.payment')
-  const p = useTranslation('products')
-  const [[cart, checkout], dispatch] = useGlobalState(s => [s.cart, s.checkout])
+  const [[cart, orderId], dispatch] = useGlobalState(s => [s.cart, s.checkout.orderId])
   const total = cart.total
   const [isReady, setIsReady] = useState(false)
-  const intl = useIntl()
 
   useEffect(() => {
-    if (!checkout.orderId) {
+    if (!orderId) {
       navigate('/checkout/shipment/', { replace: true })
     }
   }, [])
 
   const nonceReceivedHandler = (nonce: string) => {
     dispatch(globalActions.setIsLoading(false))
-    
-    navigate('/checkout/confirmation/', { state: { nonce }})
+    dispatch(checkoutActions.setPaymentNonce(nonce))
+    navigate('/checkout/confirmation/')
   }
 
   // (payment: PaymentResponse) => {
@@ -82,14 +78,15 @@ const Payment = () => {
           </Description>
           {typeof window !== 'undefined'
             && (window as any).SqPaymentForm
+            && orderId
             && isReady
             && (
               <PaymentForm
                 onNonceReceived={nonceReceivedHandler}
                 onPaymentStart={() => dispatch(globalActions.setIsLoading(true))}
                 paymentForm={(window as any).SqPaymentForm}
-                amount={total} 
-                orderId={checkout.orderId}
+                amount={total}
+                orderId={orderId}
               />
             )
           }
@@ -104,6 +101,7 @@ const Payment = () => {
 const Container = styled.div`
   max-width: 420px;
   margin: 0 auto;
+  padding: 0 16px;
 `
 
 const Title = styled.h2`

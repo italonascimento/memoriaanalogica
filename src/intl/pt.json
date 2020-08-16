@@ -36,6 +36,10 @@
       "name_in_card": "Nome impresso no cartão",
       "zip_code": "Código postal"
     },
+    "confirmation": {
+      "title": "Confirmar e pagar",
+      "pay": "Pagar"
+    },
     "thank_you": {
       "title": "Compra realizada com sucesso",
       "thank_you": "Obrigado!",

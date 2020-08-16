@@ -36,6 +36,10 @@
       "name_in_card": "Name in card",
       "zip_code": "Zip code"
     },
+    "confirmation": {
+      "title": "Confirm and pay",
+      "pay": "Pay"
+    },
     "thank_you": {
       "title": "Successful purchase",
       "thank_you": "Thank you!",

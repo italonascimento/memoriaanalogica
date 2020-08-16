@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { PaymentResponse } from '../../types/payment-response'
 import Input from '../atoms/input'
 import { Form, FormRow, FormField } from '../molecules/form'
 import useTranslation from '../hooks/useTanslation'
@@ -113,18 +111,7 @@ const PaymentForm = (props: PaymentFormProps) => {
             })
             return
           }
-          onNonceReceived(nonce)
-          
-          // axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/process-payment', {
-          //   paymentAmount: props.amount*100, 
-          //   cardNounce: nonce,
-          //   orderId: props.orderId,
-          // }).then(result => {
-          //   props.onPaymentSuccess(result.data.paymentInfo.payment)
-          // }).catch(error=>{
-          //   console.log(`error in processing payment:${error}`)
-          //   setError(true)
-          // })
+          props.onNonceReceived(nonce)
         },
         unsupportedBrowserDetected: () => {},
         inputEventReceived: (inputEvent: any) => {
@@ -227,11 +214,5 @@ const PaymentForm = (props: PaymentFormProps) => {
     </div>
   )
 }
-
-// const StyledButton = styled(Button)`
-//   align-self: flex-end;
-//   margin-top: 12px;
-//   padding-left: 24px;
-// `
 
 export default PaymentForm

@@ -22,10 +22,8 @@ import { ShipmentInfo } from '../../state/checkout-state'
 
 const Shipment = () => {
   const t = useTranslation('checkout.shipment')
-  const [[cart, checkout], dispatch] =
-    useGlobalState(({ cart, checkout }) => [cart, checkout])
-  
-  const { shipmentInfo } = checkout
+  const [[cart, shipmentInfo], dispatch] =
+    useGlobalState(({ cart, checkout }) => [cart, checkout.shipmentInfo])
 
   const md = useMedia(mediaQueryValues.md)
 
@@ -50,8 +48,8 @@ const Shipment = () => {
           "quantity": item.amount.toString()
       })),
       recipient: {
-        firstName: shipmentInfo.recipientFullName.split(' ')[0],
-        lastName: shipmentInfo.recipientFullName.split(' ').slice(1).join(' '),
+        firstName: shipmentInfo.recipientFullName?.split(' ')[0],
+        lastName: shipmentInfo.recipientFullName?.split(' ').slice(1).join(' '),
         address: shipmentInfo.address,
         complement: shipmentInfo.complement,
         city: shipmentInfo.city,

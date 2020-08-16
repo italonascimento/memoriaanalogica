@@ -5,6 +5,11 @@ import {
   reducer as cartReducer,
   init as initCart,
 } from "./cart-state"
+import { 
+  initialState as checkoutInitialState, 
+  State as CheckoutState ,
+  reducer as checkoutReducer,
+} from "./checkout-state"
 
 export interface Action {
   type: any
@@ -52,7 +57,7 @@ const combinedReducer: (s: State, a: Action) => State =
   (state, action) => ({
     ...reducer(state, action),
     cart: cartReducer(state.cart, action),
-    checkout: cartReducer(state.checkout, action),
+    checkout: checkoutReducer(state.checkout, action),
   })
 
 export const GlobalStateContext = React.createContext<State>(initialState)
