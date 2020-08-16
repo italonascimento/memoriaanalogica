@@ -14,11 +14,13 @@ export interface Action {
 export interface State {
   isLoading: boolean
   cart: CartState
+  checkout: CheckoutState
 }
 
 export const initialState: State = {
   isLoading: false,
   cart: cartInitialState,
+  checkout: checkoutInitialState,
 }
 
 enum ActionTypes {
@@ -50,6 +52,7 @@ const combinedReducer: (s: State, a: Action) => State =
   (state, action) => ({
     ...reducer(state, action),
     cart: cartReducer(state.cart, action),
+    checkout: cartReducer(state.checkout, action),
   })
 
 export const GlobalStateContext = React.createContext<State>(initialState)
@@ -61,7 +64,7 @@ interface Props {
 const GlobalContextProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(combinedReducer, initialState, (state) => ({
     ...state,
-    cart: initCart(state.cart)
+    cart: initCart(state.cart),
   }))
 
   return (

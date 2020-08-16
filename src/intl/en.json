@@ -36,7 +36,7 @@
       "name_in_card": "Name in card",
       "zip_code": "Zip code"
     },
-    "confirmation": {
+    "thank_you": {
       "title": "Successful purchase",
       "thank_you": "Thank you!",
       "follow_progress_by_email": "Follow order progress by e-mail.",

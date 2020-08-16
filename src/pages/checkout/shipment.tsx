@@ -3,14 +3,13 @@ import Layout from '../../layouts/layout'
 import SEO from '../../components/seo'
 import useTranslation from '../../components/hooks/useTanslation'
 import styled, { ThemeProps } from 'styled-components'
-import Button from '../../components/atoms/button'
 import { navigate } from 'gatsby-plugin-intl'
 import Axios from 'axios'
 import useGlobalState from '../../state/useGlobalState'
 import Input from '../../components/atoms/input'
 import Spacing from '../../components/atoms/spacing'
-import { MdNavigateNext } from 'react-icons/md'
 import { actions } from '../../state/global-state'
+import { actions as checkoutActions } from '../../state/checkout-state'
 import { Form, FormRow, FormField } from '../../components/molecules/form'
 import EmptyCartWarning from '../../components/molecules/empty-cart-warning'
 import useMedia from '../../components/hooks/use-media'
@@ -19,26 +18,28 @@ import { Select, Option } from '../../components/molecules/select'
 import countries from '../../data/countries'
 import { Theme } from '../../themes/default-theme'
 import NextButton from '../../components/atoms/next-button'
+import { ShipmentInfo } from '../../state/checkout-state'
 
 const Shipment = () => {
   const t = useTranslation('checkout.shipment')
-  const [cart, dispatch] = useGlobalState(({ cart }) => cart)
-  const [fullName, setFullName] = useState('')
-  const [recipientFullName, setRecipientFullName] = useState('')
-  const [address, setAddress] = useState('')
-  const [complement, setComplement] = useState('')
-  const [city, setCity] = useState('')
-  const [state, setState] = useState('')
-  const [country, setCountry] = useState('')
-  const [postalCode, setPostalCode] = useState('')
-  const [email, setEmail] = useState('')
+  const [[cart, checkout], dispatch] =
+    useGlobalState(({ cart, checkout }) => [cart, checkout])
+  
+  const { shipmentInfo } = checkout
 
   const md = useMedia(mediaQueryValues.md)
 
-  const useSetter = (setter: React.Dispatch<React.SetStateAction<string>>) => 
+  const shipmentFieldSetter = (field: keyof ShipmentInfo) => 
     (e: ChangeEvent<HTMLInputElement>) => {
-      setter(e.target.value)
+      setShipmentField(field, e.target.value)
     }
+  
+  const setShipmentField = (field: keyof ShipmentInfo, value: string) => {
+    dispatch(checkoutActions.setShipmentInfo({
+      ...shipmentInfo,
+      [field]: value,
+    }))
+  }
 
   const createOrder = () => {
     dispatch(actions.setIsLoading(true))
@@ -49,25 +50,20 @@ const Shipment = () => {
           "quantity": item.amount.toString()
       })),
       recipient: {
-        firstName: recipientFullName.split(' ')[0],
-        lastName: recipientFullName.split(' ').slice(1).join(' '),
-        address,
-        complement,
-        city,
-        state,
-        country,
-        postalCode,
-        email,
-        displayName: fullName,
+        firstName: shipmentInfo.recipientFullName.split(' ')[0],
+        lastName: shipmentInfo.recipientFullName.split(' ').slice(1).join(' '),
+        address: shipmentInfo.address,
+        complement: shipmentInfo.complement,
+        city: shipmentInfo.city,
+        state: shipmentInfo.state,
+        country: shipmentInfo.country,
+        postalCode: shipmentInfo.postalCode,
+        email: shipmentInfo.email,
+        displayName: shipmentInfo.fullName,
       }
     }).then((response: any) => {
-      navigate('/checkout/payment/', {
-        state: {
-          orderId: response.data.order.id,
-          name: recipientFullName.split(' ')[0],
-          email,
-        }
-      })
+      dispatch(checkoutActions.setOrderId(response.data.order.id))
+      navigate('/checkout/payment/')
     })
   }
 
@@ -86,10 +82,10 @@ const Shipment = () => {
 
               <FormRow>
                 <FormField start={1} end={md ? 3 : 5}>
-                  <Input placeholder={t('full_name')} onChange={useSetter(setFullName)} />
+                  <Input placeholder={t('full_name')} onChange={shipmentFieldSetter('fullName')} />
                 </FormField>
                 <FormField start={md ? 3 : 1} end={5}>
-                  <Input placeholder={t('email')} onChange={useSetter(setEmail)} />
+                  <Input placeholder={t('email')} onChange={shipmentFieldSetter('email')} />
                 </FormField>
               </FormRow>
 
@@ -101,28 +97,28 @@ const Shipment = () => {
 
               <FormRow>
                 <FormField start={1} end={5}>
-                  <Input placeholder={t('full_name')} onChange={useSetter(setRecipientFullName)} />
+                  <Input placeholder={t('full_name')} onChange={shipmentFieldSetter('recipientFullName')} />
                 </FormField>
               </FormRow>
               <FormRow>
                 <FormField start={1} end={5}>
-                  <Input placeholder={t('address')} onChange={useSetter(setAddress)} />
+                  <Input placeholder={t('address')} onChange={shipmentFieldSetter('address')} />
                 </FormField>
               </FormRow>
               <FormRow>
                 <FormField start={1} end={3}>
-                  <Input placeholder={t('complement')} onChange={useSetter(setComplement)} />
+                  <Input placeholder={t('complement')} onChange={shipmentFieldSetter('complement')} />
                 </FormField>
                 <FormField start={3} end={5}>
-                  <Input placeholder={t('postal_code')} onChange={useSetter(setPostalCode)} />
+                  <Input placeholder={t('postal_code')} onChange={shipmentFieldSetter('postalCode')} />
                 </FormField>
               </FormRow>
               <FormRow>
                 <FormField start={1} end={3}>
-                  <Input placeholder={t('city')} onChange={useSetter(setCity)} />
+                  <Input placeholder={t('city')} onChange={shipmentFieldSetter('city')} />
                 </FormField>
                 <FormField start={3} end={4}>
-                  <Input placeholder={t('state_province')} onChange={useSetter(setState)} />
+                  <Input placeholder={t('state_province')} onChange={shipmentFieldSetter('state')} />
                 </FormField>
                 <FormField start={4} end={5}>
                   <StyledSelect
@@ -132,7 +128,7 @@ const Shipment = () => {
                     full
                     align='right' 
                     modal={!md}
-                    onSelect={(v: string) => setCountry(v)}
+                    onSelect={(v: string) => setShipmentField('country', v)}
                   >
                     {countries.map(({ code, name }) => (
                       <Option key={code} value={code} filterValue={name}>

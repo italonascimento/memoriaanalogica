@@ -1,27 +1,22 @@
-import React, { Component, CSSProperties, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { PaymentResponse } from '../../types/payment-response'
 import Input from '../atoms/input'
 import { Form, FormRow, FormField } from '../molecules/form'
-import Button from '../atoms/button'
 import useTranslation from '../hooks/useTanslation'
-import styled from 'styled-components'
-import { AiFillLock } from 'react-icons/ai'
-import Spacing from '../atoms/spacing'
 import NextButton from '../atoms/next-button'
 
 interface PaymentFormProps {
   orderId: string
   paymentForm: any
   amount: number
-  onPaymentSuccess: (payment: PaymentResponse) => void
   onPaymentStart: () => void
+  onNonceReceived: (nonce: string) => void
 }
 
 const PaymentForm = (props: PaymentFormProps) => {
   const [paymentForm, setPaymentForm] = useState<any>()
   const [cardBrand, setCardBrand] = useState<string>('')
-  const [nonce, setNonce] = useState<string>()
   const [googlePay, setGooglePay] = useState()
   const [applePay, setApplePay] = useState()
   const [masterpass, setMasterpass] = useState()
@@ -109,6 +104,7 @@ const PaymentForm = (props: PaymentFormProps) => {
           }
         },
         cardNonceResponseReceived: (errors: any, nonce: string, cardData: any) => {
+          // TODO: handle error
           if (errors) {
             // Log errors from nonce generation to the JavaScript console
             console.log("Encountered errors:")
@@ -117,18 +113,18 @@ const PaymentForm = (props: PaymentFormProps) => {
             })
             return
           }
-          setNonce(nonce)
+          onNonceReceived(nonce)
           
-          axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/process-payment', {
-            paymentAmount: props.amount*100, 
-            cardNounce: nonce,
-            orderId: props.orderId,
-          }).then(result => {
-            props.onPaymentSuccess(result.data.paymentInfo.payment)
-          }).catch(error=>{
-            console.log(`error in processing payment:${error}`)
-            setError(true)
-          })
+          // axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/process-payment', {
+          //   paymentAmount: props.amount*100, 
+          //   cardNounce: nonce,
+          //   orderId: props.orderId,
+          // }).then(result => {
+          //   props.onPaymentSuccess(result.data.paymentInfo.payment)
+          // }).catch(error=>{
+          //   console.log(`error in processing payment:${error}`)
+          //   setError(true)
+          // })
         },
         unsupportedBrowserDetected: () => {},
         inputEventReceived: (inputEvent: any) => {

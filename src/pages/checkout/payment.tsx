@@ -15,46 +15,42 @@ import styled, { ThemeProps } from 'styled-components'
 import { Theme } from '../../themes/default-theme'
 import EmptyCartWarning from '../../components/molecules/empty-cart-warning'
 
-interface LocationState {
-  name: string
-  email: string
-  orderId: string
-}
-
-interface PaymentProps {
-  location: WindowLocation<LocationState>
-}
-
-const Payment = ({ location }: PaymentProps) => {
+const Payment = () => {
   const k = useTranslation('checkout.payment')
   const p = useTranslation('products')
-  const [cart, dispatch] = useGlobalState(s => s.cart)
+  const [[cart, checkout], dispatch] = useGlobalState(s => [s.cart, s.checkout])
   const total = cart.total
   const [isReady, setIsReady] = useState(false)
   const intl = useIntl()
 
   useEffect(() => {
-    if (!location.state?.orderId) {
+    if (!checkout.orderId) {
       navigate('/checkout/shipment/', { replace: true })
     }
   }, [])
 
-  const paymentSuccessHandler = (payment: PaymentResponse) => {
+  const nonceReceivedHandler = (nonce: string) => {
     dispatch(globalActions.setIsLoading(false))
-    Axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/send-email', {
-      name: location.state?.name,
-      email: location.state?.email,
-      lang: intl.locale,
-      order: {
-        products: cart.items.map(item => ({
-          name: p(`${item.product.sku}.name`),
-          quantity: item.amount,
-        })),
-      },
-      template: 'purchase_success',
-    })
-    navigate('/checkout/confirmation/', { state: { payment }})
+    
+    navigate('/checkout/confirmation/', { state: { nonce }})
   }
+
+  // (payment: PaymentResponse) => {
+  //   dispatch(globalActions.setIsLoading(false))
+  //   Axios.post('https://memoriaanalogica.netlify.app/.netlify/functions/send-email', {
+  //     name: location.state?.name,
+  //     email: location.state?.email,
+  //     lang: intl.locale,
+  //     order: {
+  //       products: cart.items.map(item => ({
+  //         name: p(`${item.product.sku}.name`),
+  //         quantity: item.amount,
+  //       })),
+  //     },
+  //     template: 'purchase_success',
+  //   })
+  //   navigate('/checkout/thank_you/', { state: { payment }})
+  // }
 
   const handleScriptInject = ({ scriptTags }: any) => {
     if (scriptTags) {
@@ -89,11 +85,11 @@ const Payment = ({ location }: PaymentProps) => {
             && isReady
             && (
               <PaymentForm
-                onPaymentSuccess={paymentSuccessHandler}
+                onNonceReceived={nonceReceivedHandler}
                 onPaymentStart={() => dispatch(globalActions.setIsLoading(true))}
                 paymentForm={(window as any).SqPaymentForm}
                 amount={total} 
-                orderId={location.state?.orderId}
+                orderId={checkout.orderId}
               />
             )
           }
