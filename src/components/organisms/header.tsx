@@ -69,8 +69,13 @@ const Title = styled.h1`
   margin: 0;
   margin-right: auto;
   text-transform: lowercase;
-  width: 180px;
-  max-width: 180px;
+  width: 150px;
+  max-width: 150px;
+  
+  ${mediaQueries.md} {
+    width: 180px;
+    max-width: 180px;
+  }
 `
 
 export default Header
