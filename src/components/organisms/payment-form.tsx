@@ -8,6 +8,7 @@ import useTranslation from '../hooks/useTanslation'
 import styled from 'styled-components'
 import { AiFillLock } from 'react-icons/ai'
 import Spacing from '../atoms/spacing'
+import NextButton from '../atoms/next-button'
 
 interface PaymentFormProps {
   orderId: string
@@ -216,15 +217,13 @@ const PaymentForm = (props: PaymentFormProps) => {
                   />
               </FormField>
             </FormRow>
-
-            <StyledButton primary large
-              className="button-credit-card"
+            
+            <NextButton
+              primary
+              large
               onClick={requestCardNonce}
-            >
-              <AiFillLock />
-              <Spacing x={8} />
-              {k('pay')}
-            </StyledButton>
+              className="button-credit-card"
+            />
           </Form>
         </div>
       </div>
@@ -233,10 +232,10 @@ const PaymentForm = (props: PaymentFormProps) => {
   )
 }
 
-const StyledButton = styled(Button)`
-  align-self: flex-end;
-  margin-top: 12px;
-  padding-left: 24px;
-`
+// const StyledButton = styled(Button)`
+//   align-self: flex-end;
+//   margin-top: 12px;
+//   padding-left: 24px;
+// `
 
 export default PaymentForm

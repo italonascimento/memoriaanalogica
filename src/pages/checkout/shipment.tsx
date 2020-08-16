@@ -18,6 +18,7 @@ import { mediaQueryValues } from '../../styles/media-queries'
 import { Select, Option } from '../../components/molecules/select'
 import countries from '../../data/countries'
 import { Theme } from '../../themes/default-theme'
+import NextButton from '../../components/atoms/next-button'
 
 const Shipment = () => {
   const t = useTranslation('checkout.shipment')
@@ -142,10 +143,7 @@ const Shipment = () => {
                 </FormField>
               </FormRow>
 
-              <StyledButton primary large onClick={createOrder}>
-                {t('next_button')}
-                <StyledArrowRight size={18} />
-              </StyledButton>
+              <NextButton primary large onClick={createOrder} />
             </Form>
           </Container>
         ) : (
@@ -173,16 +171,6 @@ const StyledSelect = styled(Select)`
 
 const Title = styled.h2`
   margin-bottom: 32px;
-`
-
-const StyledButton = styled(Button)`
-  align-self: flex-end;
-  margin-top: 12px;
-  padding-right: 24px;
-`
-
-const StyledArrowRight = styled(MdNavigateNext)`
-  margin-left: 8px;
 `
 
 export default Shipment

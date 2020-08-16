@@ -11,6 +11,7 @@
   },
 
   "checkout": {
+    "next_button": "Next",
     "shipment": {
       "title": "Shipment details",
       "personal_info": "Personal information",
@@ -23,7 +24,6 @@
       "country": "Country",
       "postal_code": "Postal code",
       "email": "E-mail",
-      "next_button": "Next",
       "cart_is_empty": "Your shopping cart is empty."
     },
     "payment": {

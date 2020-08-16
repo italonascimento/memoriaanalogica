@@ -10,6 +10,7 @@
   },
 
   "checkout": {
+    "next_button": "Avançar",
     "shipment": {
       "title": "Dados do envio",
       "personal_info": "Dados pessoais",
@@ -22,7 +23,6 @@
       "country": "País",
       "postal_code": "CEP",
       "email": "E-mail",
-      "next_button": "Avançar",
       "cart_is_empty": "Seu carrinho de compras está vazio.",
       "back_to_home": "Voltar para a página inicial"
     },
