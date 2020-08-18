@@ -27,7 +27,7 @@ const CartPopover = () => {
   const popoverRef = useRef<HTMLDivElement>(null)
   const md = useMedia(mediaQueryValues.md)
 
-  const shouldShow = useDelayUnmount(cart.isOpen, 100)
+  const shouldShow = useDelayUnmount(cart.isOpen, 610)
 
   const setIsOpen = (value: boolean) =>
     dispatch(actions.setIsCartOpen(value))

@@ -14,12 +14,12 @@ const CSSTransition = ({children, name, show = false}: CSSTransitionProps) => {
       setPhase('enter')
       setTimeout(() => {
         setPhase('enter-active')
-      }, 100)
+      }, 10)
     } else {
       setPhase('leave')
       setTimeout(() => {
         setPhase('leave-active')
-      }, 100)
+      }, 10)
     }
   }, [show])
 

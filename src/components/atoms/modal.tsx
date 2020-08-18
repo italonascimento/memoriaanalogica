@@ -22,11 +22,11 @@ const Modal = ({
 }: ModalProps) => {
   return (
     <>
-      {/* <CSSTransition
+      <CSSTransition
         name="modal"
         show={show}
-      > */}
-        <Backdrop key='backdrop' onClick={onClose} />
+      >
+        <StyledBackdrop key='backdrop' onClick={onClose} />
         <StyledModal key='modal'>
           <Header>
             <h5>{title}</h5>
@@ -36,7 +36,7 @@ const Modal = ({
             {children}
           </Content>
         </StyledModal>
-      {/* </CSSTransition>   */}
+      </CSSTransition>  
     </>
   )
 }
@@ -53,13 +53,13 @@ const StyledModal = styled.div`
   z-index: 210;
 
   &.modal-enter, &.modal-leave, &.modal-leave-active {
-    transition: transform 100ms ease-in-out, opacity 100ms ease-in-out;
+    transition: transform 300ms ease-in, opacity 300ms ease-in;
     transform: translateY(64px) scale(1.1);
     opacity: 0;
   }
 
   &.modal-enter-active {
-    transition: transform 100ms ease-in-out, opacity 100ms ease-in-out;
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
     transform: translateY(0) scale(1);
     opacity: 1;
   }
@@ -95,6 +95,22 @@ const Header = styled.div`
 const Content = styled.div`
   flex: 1;
   padding: 8px;
+`
+
+const StyledBackdrop = styled(Backdrop)`
+  &.modal-enter, &.modal-leave, &.modal-leave-active {
+    transition: opacity 200ms ease-in;
+    opacity: 0;
+  }
+
+  &.modal-enter-active {
+    transition: opacity 300ms ease-in-out;
+    opacity: 0.5;
+  }
+
+  &.modal-leave {
+    opacity: 0;
+  }
 `
 
 export default Modal
