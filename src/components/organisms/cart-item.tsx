@@ -17,11 +17,15 @@ import BgImg from '../atoms/bg-img'
 interface CartItemProps {
   product: Product
   amount: number
+  lockEdition?: boolean
+  disableClick?: boolean
 }
 
 const CartItem = ({
   product,
   amount,
+  lockEdition,
+  disableClick,
 }: CartItemProps) => {
   const [_, dispatch] = useGlobalState(s => s)
   const t = useTranslation()
@@ -35,33 +39,47 @@ const CartItem = ({
   const url = `/p/${sku}/${details.slug}/`
 
   return (
-    <Container onClick={() => {
-      dispatch(actions.setIsCartOpen(false))
-      navigate(url)}
+    <Container disableClick={disableClick} onClick={() => {
+      if (!disableClick) {
+        dispatch(actions.setIsCartOpen(false))
+        navigate(url)}
+      }
     }>
       <Photo>
         <BgImg src={photos[0].fluid?.src} />
       </Photo>
       <Content>
         <h5>
-          <Link to={url}>
-            {details.name}
-          </Link>
+          {disableClick
+            ? (
+              <span>{details.name}</span>
+            ): (
+              <Link to={url}>
+                {details.name}
+              </Link>
+            )
+          }
         </h5>
         <Spacing y={8} />
         <p>
           <FormattedNumber value={price} style='currency' currency={t('currency')} />
         </p>
       </Content>
-      <StyledAmountSelector value={amount} onChange={amountChangeHandler} />
+      {lockEdition
+        ? (
+          <Amount>{amount}x</Amount>
+        ): (
+          <StyledAmountSelector value={amount} onChange={amountChangeHandler} />
+        )
+      }
     </Container>
   )
 }
 
-const Container = styled.div`
+const Container = styled.div<{disableClick?: boolean}>`
   display: flex;
   padding: 16px;
-  cursor: pointer;
+  cursor: ${props => !props.disableClick && 'pointer'};
   background: white;
 
   &:hover {
@@ -83,6 +101,10 @@ const Content = styled.div`
 
 const StyledAmountSelector = styled(AmountSelector)`
   flex-basis: 80px;
+`
+
+const Amount = styled.span`
+  align-self: center;
 `
 
 export default CartItem

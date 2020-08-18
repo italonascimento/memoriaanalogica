@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { AiFillLock } from 'react-icons/ai'
 import Axios from 'axios'
@@ -13,6 +13,8 @@ import Spacing from '../../components/atoms/spacing'
 import { actions as globalActions } from '../../state/global-state'
 import { PaymentResponse } from '../../types/payment-response'
 import { navigate, useIntl, FormattedNumber } from 'gatsby-plugin-intl'
+import List from '../../components/atoms/list'
+import CartItem from '../../components/organisms/cart-item'
 
 const Confirmation = () => {
   const [[cart, checkout], dispatch] = useGlobalState(({cart, checkout}) => [cart, checkout])
@@ -20,6 +22,12 @@ const Confirmation = () => {
   const k = useTranslation('checkout.confirmation')
   const intl = useIntl()
   const p = useTranslation('products')
+
+  useEffect(() => {
+    if (!checkout.paymentNonce) {
+      navigate('/checkout/payment/', { replace: true })
+    }
+  }, [])
 
   const pay = () => {
     dispatch(globalActions.setIsLoading(true))
@@ -45,7 +53,7 @@ const Confirmation = () => {
         },
         template: 'purchase_success',
       })
-      navigate('/checkout/thank_you/', { state: { payment }})
+      navigate('/checkout/thank-you/', { state: { payment }})
     }).catch(error=>{
       console.log(`Error in processing payment:${error}`)
     })
@@ -59,13 +67,30 @@ const Confirmation = () => {
         cart.items.length > 0
       ) ? (
         <Container>
+          <h2>
+            {k('title')}
+          </h2>
+          <Spacing y={32} />
+          <List>
+            {cart.items.map(item => (
+              <CartItem
+                key={item.product.sku}
+                lockEdition
+                disableClick
+                {...item}
+              />
+            ))}
+          </List>
+          <Spacing y={12} />
           <PayButton primary large
             onClick={pay}
           >
             <AiFillLock />
             <Spacing x={8} />
-            {k('pay')}
-            <FormattedNumber style='currency' currency={t('currency')} value={cart.total} />
+            {k('pay')} &nbsp;
+            <strong>
+              <FormattedNumber style='currency' currency={t('currency')} value={cart.total} />
+            </strong>  
           </PayButton>
         </Container>
       ) : (
@@ -79,6 +104,8 @@ const Container = styled.div`
   max-width: 420px;
   margin: 0 auto;
   padding: 0 16px;
+  display: flex;
+  flex-direction: column;
 `
 
 const PayButton = styled(Button)`
