@@ -12,6 +12,7 @@ import AmountSelector from '../molecules/amount-selector'
 import useGlobalState from '../../state/useGlobalState'
 import { actions } from '../../state/cart-state'
 import { Theme } from '../../themes/default-theme'
+import BgImg from '../atoms/bg-img'
 
 interface CartItemProps {
   product: Product
@@ -39,7 +40,7 @@ const CartItem = ({
       navigate(url)}
     }>
       <Photo>
-        <Img fluid={photos[0].fluid} />
+        <BgImg src={photos[0].fluid?.src} />
       </Photo>
       <Content>
         <h5>
