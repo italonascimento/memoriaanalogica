@@ -22,10 +22,10 @@ const Modal = ({
 }: ModalProps) => {
   return (
     <>
-      <CSSTransition
+      {/* <CSSTransition
         name="modal"
         show={show}
-      >
+      > */}
         <Backdrop key='backdrop' onClick={onClose} />
         <StyledModal key='modal'>
           <Header>
@@ -36,7 +36,7 @@ const Modal = ({
             {children}
           </Content>
         </StyledModal>
-      </CSSTransition>  
+      {/* </CSSTransition>   */}
     </>
   )
 }
