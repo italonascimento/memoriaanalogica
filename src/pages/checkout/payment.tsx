@@ -20,13 +20,20 @@ const Payment = () => {
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
+    dispatch(globalActions.setIsLoading(true))
+
     if (!orderId) {
       navigate('/checkout/shipment/', { replace: true })
     }
   }, [])
 
-  const nonceReceivedHandler = (nonce: string) => {
+  const nonceReceivedHandler = (nonce: string, cardData: any) => {
     dispatch(globalActions.setIsLoading(false))
+    dispatch(checkoutActions.setCardInfo({
+      brand: cardData.card_brand,
+      expiration: `${cardData.exp_month}/${cardData.exp_year}`,
+      finalDigits: cardData.last_4,
+    }))
     dispatch(checkoutActions.setPaymentNonce(nonce))
     navigate('/checkout/confirmation/')
   }

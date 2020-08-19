@@ -37,6 +37,8 @@ const ThankYou = ({ location }: ThankYouProps) => {
         <Spacing y={32} />
         <Title>{t('thank_you')}</Title>
         <Spacing y={16} />
+        <Text>{t('order_registered_successfuly')}</Text>
+        <Spacing y={8} />
         <Text>{t('follow_progress_by_email')}</Text>
         <Spacing y={32} />
         <Button large primary onClick={() => navigate('/')}>
@@ -74,6 +76,7 @@ const Title = styled.h2`
 const Text = styled.p`
   color: ${(props: ThemeProps<Theme>) => props.theme.colors.greyDark1};
   font-size: 16px;
+  text-align: center;
 
   ${mediaQueries.md} {
     font-size: 18px;

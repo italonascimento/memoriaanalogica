@@ -37,13 +37,16 @@
       "zip_code": "Zip code"
     },
     "confirmation": {
-      "title": "Confirm and pay",
-      "pay": "Pay"
+      "title": "Verify your order",
+      "pay": "Pay",
+      "shipment": "Shipment",
+      "payment": "Payment"
     },
     "thank_you": {
       "title": "Successful purchase",
       "thank_you": "Thank you!",
-      "follow_progress_by_email": "Follow order progress by e-mail.",
+      "order_registered_successfully": "Order registered successfully.",
+      "follow_progress_by_email": "Follow progress by e-mail.",
       "back_to_home": "Go back to home"
     }
   },

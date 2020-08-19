@@ -34,7 +34,6 @@ const Shipment = () => {
   
   const setShipmentField = (field: keyof ShipmentInfo, value: string) => {
     dispatch(checkoutActions.setShipmentInfo({
-      ...shipmentInfo,
       [field]: value,
     }))
   }

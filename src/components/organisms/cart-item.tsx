@@ -4,7 +4,7 @@ import { Link, navigate } from 'gatsby-plugin-intl'
 
 import { Product } from '../../types/product'
 import useProductDetails from '../hooks/useProduct'
-import styled, { ThemeProps } from 'styled-components'
+import styled, { ThemeProps, css } from 'styled-components'
 import { FormattedNumber } from 'gatsby-plugin-intl'
 import useTranslation from '../hooks/useTanslation'
 import Spacing from '../atoms/spacing'
@@ -79,12 +79,15 @@ const CartItem = ({
 const Container = styled.div<{disableClick?: boolean}>`
   display: flex;
   padding: 16px;
-  cursor: ${props => !props.disableClick && 'pointer'};
   background: white;
 
-  &:hover {
-    background: ${(props: ThemeProps<Theme>) => props.theme.colors.greyLighter};
-  }
+  ${props => !props.disableClick && css`
+    cursor: pointer;
+    
+    &:hover {
+      background: ${(props: ThemeProps<Theme>) => props.theme.colors.greyLighter};
+    }
+  `};
 `
 
 const Photo = styled.div`

@@ -9,7 +9,7 @@ interface PaymentFormProps {
   paymentForm: any
   amount: number
   onPaymentStart: () => void
-  onNonceReceived: (nonce: string) => void
+  onNonceReceived: (nonce: string, cardData: string) => void
 }
 
 const PaymentForm = (props: PaymentFormProps) => {
@@ -18,7 +18,6 @@ const PaymentForm = (props: PaymentFormProps) => {
   const [googlePay, setGooglePay] = useState()
   const [applePay, setApplePay] = useState()
   const [masterpass, setMasterpass] = useState()
-  const [error, setError] = useState(false)
 
   const t = useTranslation()
   const k = useTranslation('checkout.payment')
@@ -111,7 +110,7 @@ const PaymentForm = (props: PaymentFormProps) => {
             })
             return
           }
-          props.onNonceReceived(nonce)
+          props.onNonceReceived(nonce, cardData)
         },
         unsupportedBrowserDetected: () => {},
         inputEventReceived: (inputEvent: any) => {

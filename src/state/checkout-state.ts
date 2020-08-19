@@ -2,6 +2,7 @@ import { Action } from "./global-state"
 
 enum ActionType {
   setShipmentInfo = "setShipmentData",
+  setCardInfo = "setCardInfo",
   setOrderId = "setOrderId",
   setPaymentNonce = "setPaymentNonce",
   resetCheckout = "resetCheckout"
@@ -19,18 +20,26 @@ export interface ShipmentInfo {
   email?: string
 }
 
+export interface CreditCardInfo {
+  brand?: string
+  finalDigits?: string
+  expiration?: string
+}
+
 export interface State {
   shipmentInfo: ShipmentInfo
+  creditCardInfo: CreditCardInfo
   orderId?: string
   paymentNonce?: string
 }
 
 export const initialState: State = {
   shipmentInfo: {},
+  creditCardInfo: {},
 }
 
 export const actions = {
-  setShipmentInfo: (info: ShipmentInfo) => ({
+  setShipmentInfo: (info: Partial<ShipmentInfo>) => ({
     type: ActionType.setShipmentInfo,
     payload: info,
   }),
@@ -43,6 +52,11 @@ export const actions = {
   setPaymentNonce: (nonce: string) => ({
     type: ActionType.setPaymentNonce,
     payload: nonce,
+  }),
+
+  setCardInfo: (info: Partial<CreditCardInfo>) => ({
+    type: ActionType.setCardInfo,
+    payload: info,
   })
 }
 
@@ -53,7 +67,19 @@ export const reducer: (state: State, action: Action) => State =
       case ActionType.setShipmentInfo:
         return {
           ...state,
-          shipmentInfo: payload,
+          shipmentInfo: {
+            ...state.shipmentInfo,
+            ...payload,
+          },
+        }
+      
+      case ActionType.setCardInfo:
+        return {
+          ...state,
+          creditCardInfo: {
+            ...state.creditCardInfo,
+            ...payload,
+          },
         }
       
       case ActionType.setOrderId:

@@ -37,13 +37,16 @@
       "zip_code": "Código postal"
     },
     "confirmation": {
-      "title": "Confirmar e pagar",
-      "pay": "Pagar"
+      "title": "Verifique o seu pedido",
+      "pay": "Pagar",
+      "shipment": "Entrega",
+      "payment": "Pagamento"
     },
     "thank_you": {
       "title": "Compra realizada com sucesso",
       "thank_you": "Obrigado!",
-      "follow_progress_by_email": "Acompanhe o andamento do pedido pelo e-mail.",
+      "order_registered_successfully": "Pedido registrado com sucesso.",
+      "follow_progress_by_email": "Acompanhe o andamento por e-mail.",
       "back_to_home": "Voltar para a página inicial"
     }
   },
