@@ -3,7 +3,6 @@ import styled, { ThemeProps } from "styled-components"
 
 import useProductDetails from "../hooks/useProduct"
 import { Theme } from '../../themes/default-theme'
-import { FormattedNumber } from 'gatsby-plugin-intl'
 import useTranslation from '../hooks/useTanslation'
 import Spacing from '../atoms/spacing'
 import Button from '../atoms/button'
@@ -11,6 +10,7 @@ import mediaQueries from '../../styles/media-queries'
 import useGlobalState from '../../state/useGlobalState'
 import { actions } from '../../state/cart-state'
 import { Product } from '../../types/product'
+import Price from '../atoms/price'
 
 
 interface BuyBoxProps {
@@ -37,9 +37,9 @@ const BuyBox = ({
     <Container className={className}>
       <Title>{details.name}</Title>
       <Spacing y={16} />
-      <Price>
-        <FormattedNumber value={price} style='currency' currency={t('currency')} />
-      </Price>
+      <PriceContainer>
+        <Price value={price} />
+      </PriceContainer>
 
       <Spacing y={32} />
 
@@ -76,7 +76,7 @@ const Title = styled.h2`
   }
 `
 
-const Price = styled.p`
+const PriceContainer = styled.p`
   font-size: 32px;
   font-weight: lighter;
   color: ${(props: ThemeProps<Theme>) => props.theme.colors.accent};

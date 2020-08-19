@@ -1,5 +1,5 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react'
-import { navigate, FormattedNumber } from 'gatsby-plugin-intl';
+import { navigate } from 'gatsby-plugin-intl';
 import styled, { ThemeProps } from 'styled-components';
 
 import useMedia from '../hooks/use-media'
@@ -14,11 +14,11 @@ import { Theme } from '../../themes/default-theme';
 import Modal from '../atoms/modal';
 import mediaQueries, { mediaQueryValues } from '../../styles/media-queries';
 import Button from '../atoms/button';
-import Backdrop from '../atoms/backdrop';
 import Spacing from '../atoms/spacing';
 import useDelayUnmount from '../hooks/use-delay-unmount';
 import CSSTransition from '../atoms/css-transition';
 import { actions } from '../../state/cart-state';
+import Price from '../atoms/price';
 
 const CartPopover = () => {
   const [cart, dispatch] = useGlobalState(s => s.cart)
@@ -60,7 +60,7 @@ const CartPopover = () => {
             <div>
               <Subtotal>
                 <p>{k('subtotal')}:</p>
-                <FormattedNumber style='currency' currency={t('currency')} value={cart.total} />
+                <Price value={cart.total} />
               </Subtotal>
               <StyledButton
                 full 

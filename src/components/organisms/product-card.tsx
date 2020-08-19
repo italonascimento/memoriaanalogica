@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import styled, { ThemeProps } from 'styled-components'
-import { FormattedNumber, Link, navigate } from 'gatsby-plugin-intl'
-import { FluidObject } from "gatsby-image"
+import { FormattedNumber, Link, navigate, useIntl } from 'gatsby-plugin-intl'
+import { useStaticQuery, graphql } from 'gatsby'
 
 import Card from '../atoms/card'
 import useProductDetails from '../hooks/useProduct'
@@ -11,6 +11,7 @@ import elevation from '../../styles/elevation'
 import mediaQueries from '../../styles/media-queries'
 import PhotoSwing from '../molecules/photo-swing'
 import { Photo } from '../../types/product'
+import Price from '../atoms/price'
 
 interface ProductCardProps {
   price: number
@@ -27,6 +28,7 @@ const ProductCard = ({
 }: ProductCardProps) => {
   const [isHovered, setIsHovered] = useState(false)
   const details = useProductDetails(sku)
+  const intl = useIntl()
   const t = useTranslation()
 
   const url = `/p/${sku}/${details.slug}/`
@@ -45,9 +47,9 @@ const ProductCard = ({
               {details.name}
             </Link>
           </Title>
-          <Price>
-            <FormattedNumber value={price} style='currency' currency={t('currency')} />
-          </Price>
+          <PriceContainer>
+            <Price value={price} />
+          </PriceContainer>
         </Content>
       </StyledCard>
     </div>
@@ -86,7 +88,7 @@ const Title = styled.h3`
   }
 `
 
-const Price = styled.p`
+const PriceContainer = styled.p`
   font-size: 16px;
   font-weight: lighter;
   color: ${(props: ThemeProps<Theme>) => props.theme.colors.accent};

@@ -58,5 +58,8 @@ module.exports = {
         display: 'swap'
       }
     },
+    {
+      resolve: 'gatsby-source-exchange-rates-api',
+    },
   ],
 }

@@ -5,7 +5,6 @@ import { Link, navigate } from 'gatsby-plugin-intl'
 import { Product } from '../../types/product'
 import useProductDetails from '../hooks/useProduct'
 import styled, { ThemeProps, css } from 'styled-components'
-import { FormattedNumber } from 'gatsby-plugin-intl'
 import useTranslation from '../hooks/useTanslation'
 import Spacing from '../atoms/spacing'
 import AmountSelector from '../molecules/amount-selector'
@@ -13,6 +12,7 @@ import useGlobalState from '../../state/useGlobalState'
 import { actions } from '../../state/cart-state'
 import { Theme } from '../../themes/default-theme'
 import BgImg from '../atoms/bg-img'
+import Price from '../atoms/price'
 
 interface CartItemProps {
   product: Product
@@ -62,7 +62,7 @@ const CartItem = ({
         </h5>
         <Spacing y={8} />
         <p>
-          <FormattedNumber value={price} style='currency' currency={t('currency')} />
+          <Price value={price} />
         </p>
       </Content>
       {lockEdition

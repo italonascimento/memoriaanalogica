@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import styled, { ThemeProps } from 'styled-components'
 import { AiFillLock } from 'react-icons/ai'
 import Axios from 'axios'
-import { navigate, useIntl, FormattedNumber } from 'gatsby-plugin-intl'
+import { navigate, useIntl } from 'gatsby-plugin-intl'
 import { FaCcVisa, FaCcMastercard, FaCcDiscover, FaCcDinersClub, FaCcJcb, FaCcAmex, FaCreditCard } from 'react-icons/fa'
 
 import Layout from '../../layouts/layout'
@@ -18,6 +18,7 @@ import List from '../../components/atoms/list'
 import CartItem from '../../components/organisms/cart-item'
 import Card from '../../components/atoms/card'
 import { Theme } from '../../themes/default-theme'
+import Price from '../../components/atoms/price'
 
 const Confirmation = () => {
   const [[cart, checkout], dispatch] = useGlobalState(({ cart, checkout }) => [cart, checkout])
@@ -121,7 +122,7 @@ const Confirmation = () => {
               <Spacing x={8} />
               {k('pay')} &nbsp;
             <strong>
-                <FormattedNumber style='currency' currency={t('currency')} value={cart.total} />
+                <Price value={cart.total} />
               </strong>
             </PayButton>
           </Container>
