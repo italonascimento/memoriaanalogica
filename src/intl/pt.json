@@ -4,6 +4,7 @@
 
   "add-to-cart": "Adicionar ao carrinho",
   "description": "Descrição",
+  "back_to_home": "Voltar para a página inicial",
 
   "home": {
     "title": "Iníco"
@@ -23,8 +24,7 @@
       "country": "País",
       "postal_code": "CEP",
       "email": "E-mail",
-      "cart_is_empty": "Seu carrinho de compras está vazio.",
-      "back_to_home": "Voltar para a página inicial"
+      "cart_is_empty": "Seu carrinho de compras está vazio."
     },
     "payment": {
       "title": "Pagamento",

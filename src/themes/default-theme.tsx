@@ -51,8 +51,8 @@ export const defaultTheme: Partial<Theme> = {
     accentDark1: '#7A5252',
     accent: '#a26c6c',
     accentLight1: '#B08686',
-    accentLight2: '#E8BCBC',
-    accentLighter: '#FFEDED',
+    accentLight2: '#E1C9C9',
+    accentLighter: '#FFF4F4',
 
     greyDarkest: '#333333',
     greyDark2: '#575757',

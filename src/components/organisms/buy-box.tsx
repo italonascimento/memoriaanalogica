@@ -11,6 +11,7 @@ import useGlobalState from '../../state/useGlobalState'
 import { actions } from '../../state/cart-state'
 import { Product } from '../../types/product'
 import Price from '../atoms/price'
+import { useIntl } from 'gatsby-plugin-intl'
 
 
 interface BuyBoxProps {
@@ -26,6 +27,7 @@ const BuyBox = ({
 
   const details = useProductDetails(sku)
   const t = useTranslation()
+  const { locale } = useIntl()
   const [cart, dispatch] = useGlobalState(s => s.cart)
 
   const addToCartHandler = () => {
@@ -39,7 +41,16 @@ const BuyBox = ({
       <Spacing y={16} />
       <PriceContainer>
         <Price value={price} />
+        <Asterisk>*</Asterisk>
       </PriceContainer>
+      {locale !== 'pt' && (
+        <>
+          <Spacing y={8} />
+          <ExchangeRateWarning>
+            *{t('exchange_rate_warning')}
+          </ExchangeRateWarning>
+        </>
+      )}
 
       <Spacing y={32} />
 
@@ -77,8 +88,10 @@ const Title = styled.h2`
 `
 
 const PriceContainer = styled.p`
-  font-size: 32px;
+  position: relative;
+  font-size: 40px;
   font-weight: lighter;
+  display: inline;
   color: ${(props: ThemeProps<Theme>) => props.theme.colors.accent};
 `
 
@@ -97,6 +110,27 @@ const Description = styled.p`
   font-size: 12px;
   text-align: left;
   line-height: 1.5;
+`
+
+const Asterisk = styled.span`
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  font-size: 65%;
+`
+
+const ExchangeRateWarning = styled.p`
+  display: inline-block;
+  text-align: left;
+  font-size: 11px;
+  line-height: 1.2;
+  background: ${(props: ThemeProps<Theme>) => props.theme.colors.accentLighter};
+  color: ${(props: ThemeProps<Theme>) => props.theme.colors.accent};
+  border: 1px solid ${(props: ThemeProps<Theme>) => props.theme.colors.accentLight2};
+  padding: 4px 6px;
+  border-radius: 4px;
+  max-width: 320px;
 `
 
 export default BuyBox

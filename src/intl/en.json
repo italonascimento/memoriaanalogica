@@ -5,6 +5,7 @@
   "add-to-cart": "Add to cart",
   "description": "Description",
   "back_to_home": "Go back to home",
+  "exchange_rate_warning": "Prices shown in US dollars are converted from BRL. The actual price may vary slightly according to the exchange rates of the credit card company at the time of payment.",
 
   "home": {
     "title": "Home"
