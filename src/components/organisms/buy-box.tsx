@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react'
 import styled, { ThemeProps } from "styled-components"
+import { useIntl } from 'gatsby-plugin-intl'
+import scrollTo from 'gatsby-plugin-smoothscroll'
+import { CgChevronDoubleRight } from 'react-icons/cg'
 
 import useProductDetails from "../hooks/useProduct"
 import { Theme } from '../../themes/default-theme'
@@ -11,7 +14,7 @@ import useGlobalState from '../../state/useGlobalState'
 import { actions } from '../../state/cart-state'
 import { Product } from '../../types/product'
 import Price from '../atoms/price'
-import { useIntl } from 'gatsby-plugin-intl'
+import List, { ListItem } from '../atoms/list'
 
 
 interface BuyBoxProps {
@@ -58,18 +61,21 @@ const BuyBox = ({
         {t('add-to-cart')}
       </Button>
 
-      <Spacing y={64} />
-
-      <DescriptionTitle>{t('description')}</DescriptionTitle>
-      <Description>
-        {details.description}
-      </Description>
+      <List>
+        <ListItem>
+          <a>
+            <CgChevronDoubleRight />
+            See description
+          </a>
+        </ListItem>
+      </List>
     </Container>
   )
 }
 
 const Container = styled.div`
   padding: 32px 16px;
+  padding-top: 0;
 
   text-align: center;
 
@@ -93,24 +99,28 @@ const PriceContainer = styled.p`
   font-weight: lighter;
   display: inline;
   color: ${(props: ThemeProps<Theme>) => props.theme.colors.accent};
-`
 
-const DescriptionTitle = styled.h4`
-  margin-bottom: 20px;
-  font-size: 20px;
-
-  ${mediaQueries.md} {
-    text-align: left;
-    margin-bottom: 24px;
-    font-size: 24px;
+  ${mediaQueries.l} {
+    font-size: 48px;
   }
 `
 
-const Description = styled.p`
-  font-size: 12px;
-  text-align: left;
-  line-height: 1.5;
-`
+// const DescriptionTitle = styled.h4`
+//   margin-bottom: 20px;
+//   font-size: 20px;
+
+//   ${mediaQueries.md} {
+//     text-align: left;
+//     margin-bottom: 24px;
+//     font-size: 24px;
+//   }
+// `
+
+// const Description = styled.p`
+//   font-size: 12px;
+//   text-align: left;
+//   line-height: 1.5;
+// `
 
 const Asterisk = styled.span`
   position: absolute;

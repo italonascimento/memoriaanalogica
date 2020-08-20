@@ -19,7 +19,7 @@ import useGlobalState from "../state/useGlobalState"
 import Backdrop from "../components/atoms/backdrop"
 import elevation from "../styles/elevation"
 import { rotate } from "../styles/animations"
-import Spacing from "../components/atoms/spacing"
+import { Helmet } from "react-helmet"
 
 interface IProps {
   children: React.ReactNode
@@ -40,6 +40,9 @@ const Layout = ({ children }: IProps) => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <Helmet>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Helmet>
       <ResetStyle />
       <GlobalStyle />
       <StyledHeader siteTitle={data.site.siteMetadata.title} />
@@ -72,7 +75,6 @@ const StyledHeader = styled(Header)`
 const Main = styled.div<{blur?: boolean}>`
   padding-top: 96px;
   padding-bottom: 64px;
-  /* transition: filter 10ms ease-in-out; */
   ${props => props.blur && 'filter: blur(2px);'}
   
   ${mediaQueries.md} {

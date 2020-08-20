@@ -18,6 +18,7 @@ import Spacing from "../components/atoms/spacing"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { Photo } from "../types/product"
+import useTranslation from "../components/hooks/useTanslation"
 
 interface ProductTemplateProps {
   data: ProductsQueryResult
@@ -33,6 +34,7 @@ const ProductTemplate = ({
     fluid: item.src.childImageSharp.fluid,
   }))
 
+  const t = useTranslation()
   const details = useProductDetails(sku)
   const isMediaMediumOrUp = useMedia(mediaQueryValues.md)
   const isMediaLargeOrUp = useMedia(mediaQueryValues.l)
@@ -61,8 +63,13 @@ const ProductTemplate = ({
 
           <StyledBuyBox product={{ sku, price, photos, variationId }} />
         </MainSection>
+        <Section>
+          <DescriptionTitle><a id="description" />{t('description')}</DescriptionTitle>
+          <Description>
+            {details.description}
+          </Description>
+        </Section>
       </Container>
-
     </Layout>
   )
 }
@@ -97,15 +104,22 @@ const Container = styled.div`
   margin: 32px 0;
 `
 
+const Section = styled.div`
+  padding: 0 32px;
+  max-width: 1000px;
+  margin: 0 auto 64px;
+`
+
 const MainSection = styled.div`
+  max-width: 1400px;
+  padding: 0 16px;
+  margin: 0 auto 64px;
+
   ${mediaQueries.md} {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 0 16px;
-    max-width: 1400px;
-    margin: 0 auto;
   }
 `
 
@@ -119,6 +133,22 @@ const SlideItem = styled.div`
 
 const StyledBuyBox = styled(BuyBox)`
   flex: 1 1 35%;
+`
+
+const DescriptionTitle = styled.h4`
+  margin-bottom: 20px;
+  font-size: 24px;
+
+  ${mediaQueries.md} {
+    text-align: left;
+    margin-bottom: 24px;
+  }
+`
+
+const Description = styled.p`
+  font-size: 12px;
+  text-align: left;
+  line-height: 1.5;
 `
 
 export default ProductTemplate

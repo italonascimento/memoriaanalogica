@@ -58,8 +58,7 @@ module.exports = {
         display: 'swap'
       }
     },
-    {
-      resolve: 'gatsby-source-exchange-rates-api',
-    },
+    'gatsby-source-exchange-rates-api',
+    `gatsby-plugin-smoothscroll`,
   ],
 }
